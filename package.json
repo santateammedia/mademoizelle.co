@@ -1,0 +1,16 @@
+{
+  "name": "mademoizelle.co",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build-blog.mjs",
+    "dev": "node scripts/build-blog.mjs && npx --yes serve@latest -l 4173 .",
+    "clean": "rm -rf blog feed.xml llms.txt"
+  },
+  "devDependencies": {
+    "gray-matter": "^4.0.3",
+    "marked": "^14.1.4",
+    "reading-time": "^1.5.0"
+  }
+}

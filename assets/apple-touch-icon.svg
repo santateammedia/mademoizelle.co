@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" role="img" aria-label="Mademoiselle Apple touch icon">
+  <!-- Ivory rounded square base -->
+  <rect x="0" y="0" width="180" height="180" rx="36" ry="36" fill="#FAF7F2"/>
+
+  <!-- Lowercase italic m mark -->
+  <text
+    x="90"
+    y="128"
+    text-anchor="middle"
+    font-family="Cormorant Garamond, Cormorant, Garamond, Times New Roman, serif"
+    font-style="italic"
+    font-weight="500"
+    font-size="128"
+    fill="#0D0F14"
+    letter-spacing="-0.02em">m</text>
+
+  <!-- Coral 4-point sparkle, top-right -->
+  <g transform="translate(134 50)">
+    <path
+      d="M0 -10 C 1.4 -3 3 -1.4 10 0 C 3 1.4 1.4 3 0 10 C -1.4 3 -3 1.4 -10 0 C -3 -1.4 -1.4 -3 0 -10 Z"
+      fill="#F74F7D"/>
+  </g>
+</svg>

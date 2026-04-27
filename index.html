@@ -1,0 +1,880 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Mademoiselle &mdash; See yourself in it before you commit.</title>
+<meta name="description" content="Try any hairstyle on your selfie in seconds, then book that exact look at a real salon. A private smart closet that grows into a styling companion. Beauty, intelligence, Arabic-first.">
+<meta name="theme-color" content="#FAF7F2" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1A1712" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
+
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.svg">
+<link rel="manifest" href="manifest.webmanifest">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Mademoiselle">
+<meta property="og:title" content="Mademoiselle &mdash; See yourself in it before you commit.">
+<meta property="og:description" content="Virtual hairstyle try-on, smart closet, real salon booking. The signature press-and-hold compare. MENA-first, beautifully feminine.">
+<meta property="og:url" content="https://mademoizelle.co">
+<meta property="og:image" content="https://mademoizelle.co/assets/og.svg">
+<meta property="og:image:type" content="image/svg+xml">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en">
+<meta property="og:locale:alternate" content="ar">
+<meta property="og:locale:alternate" content="fr">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Mademoiselle &mdash; See yourself in it before you commit.">
+<meta name="twitter:description" content="Virtual hairstyle try-on, smart closet, real salon booking. The signature press-and-hold compare.">
+<meta name="twitter:image" content="https://mademoizelle.co/assets/og.svg">
+<link rel="canonical" href="https://mademoizelle.co/">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@400;500;600&display=swap&subset=latin,latin-ext" rel="stylesheet">
+
+<style>
+/* === Tokens ============================================================ */
+:root{
+  --bg:#FAF7F2; --surface:#FFFFFF; --surface-2:#F6F2EC; --chip:#F2EEE7;
+  --ink:#0D0F14; --ink-2:#2A2F3A; --ink-3:#6B7280; --ink-4:#9AA0AA;
+  --line:#E7E4DE; --line-2:#EFEDE8;
+  --coral:#F74F7D; --coral-ink:#B8123E; --coral-soft:#FDECF1;
+  --blue:#9FC0DB; --blue-soft:#F4F8FF;
+  --sage:#A8BA9B; --plum:#A28DA0;
+  --tone-warm:#E8DFD2; --tone-rose:#F2D7D5; --tone-sage:#D6DFD0;
+  --tone-cream:#EFE8DB; --tone-dusk:#C9CEDA; --tone-plum:#D9CBD6;
+  --r2:2px; --r4:4px; --r6:6px; --r8:8px; --r-pill:999px;
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:64px;
+  --page-gutter:clamp(20px, 4vw, 48px);
+  --section:clamp(64px, 10vw, 120px);
+  --ease:cubic-bezier(.2,.7,.1,1);
+  --dur-fast:160ms; --dur:240ms; --dur-slow:360ms;
+  --display:"Cormorant Garamond", "Times New Roman", serif;
+  --ui:"Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --shadow-soft:0 1px 2px rgba(13,15,20,.04), 0 12px 36px -12px rgba(13,15,20,.10);
+  --nav-bg: rgba(250,247,242,.0);
+  --nav-bg-scrolled: rgba(250,247,242,.72);
+}
+[data-theme="dark"]{
+  --bg:#1A1712; --surface:#221E18; --surface-2:#1F1B16; --chip:#2A2620;
+  --ink:#F2EDE4; --ink-2:#D6CFC2; --ink-3:#9A9387; --ink-4:#6B655B;
+  --line:#2F2C27; --line-2:#272420;
+  --coral:#FF6B94; --coral-ink:#FFB0C4; --coral-soft:#3B1C25;
+  --tone-warm:#2C261E; --tone-rose:#33231F; --tone-sage:#262C24;
+  --tone-cream:#2A251D; --tone-dusk:#22252E; --tone-plum:#2A2329;
+  --shadow-soft:0 1px 2px rgba(0,0,0,.4), 0 12px 36px -12px rgba(0,0,0,.6);
+  --nav-bg-scrolled: rgba(26,23,18,.72);
+}
+
+/* === Reset ============================================================= */
+*,*::before,*::after{ box-sizing:border-box; }
+html,body{ margin:0; padding:0; }
+html{ -webkit-text-size-adjust:100%; scroll-behavior:smooth; }
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:var(--ui); font-size:17px; line-height:1.55;
+  font-feature-settings:"ss01","cv11"; -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility; overflow-x:hidden;
+}
+img,svg{ display:block; max-width:100%; }
+a{ color:inherit; text-decoration:none; }
+button{ font:inherit; color:inherit; background:none; border:0; cursor:pointer; }
+:focus-visible{ outline:2px solid var(--coral); outline-offset:2px; border-radius:var(--r4); }
+::selection{ background:var(--coral-soft); color:var(--coral-ink); }
+
+/* === Typography ======================================================== */
+.kicker{
+  font:600 11px/1 var(--ui);
+  letter-spacing:.18em; text-transform:uppercase;
+  color:var(--ink-3);
+  display:inline-flex; align-items:center; gap:var(--s2);
+}
+.kicker .spark{ color:var(--coral); }
+.display{
+  font-family:var(--display); font-style:italic; font-weight:400;
+  letter-spacing:-.02em; line-height:1.02; color:var(--ink); margin:0;
+}
+.display em{ font-style:italic; position:relative; }
+.display em::after{
+  content:""; position:absolute; left:.04em; right:.04em; bottom:.04em;
+  height:1px; background:var(--coral); opacity:.32;
+}
+.eyebrow-spark::before{
+  content:""; display:inline-block; width:10px; height:10px;
+  background:
+    linear-gradient(currentColor,currentColor) center/2px 100% no-repeat,
+    linear-gradient(currentColor,currentColor) center/100% 2px no-repeat;
+  color:var(--coral); transform:rotate(45deg); margin-inline-end:6px;
+  clip-path:polygon(50% 0,55% 45%,100% 50%,55% 55%,50% 100%,45% 55%,0 50%,45% 45%);
+  background:var(--coral);
+}
+.lede{
+  font-size:clamp(16px, 1.6vw, 19px); line-height:1.6; color:var(--ink-2);
+  max-width:58ch;
+}
+
+/* === Layout ============================================================ */
+.wrap{ width:100%; max-width:1240px; margin-inline:auto; padding-inline:var(--page-gutter); }
+section{ padding-block:var(--section); position:relative; }
+.divider{ height:1px; background:var(--line); border:0; margin:0; }
+
+/* === Reveal ============================================================ */
+[data-reveal]{ opacity:0; transform:translateY(8px); transition:opacity var(--dur-slow) var(--ease), transform var(--dur-slow) var(--ease); }
+[data-reveal].in{ opacity:1; transform:none; }
+
+/* === Nav =============================================================== */
+.nav{
+  position:fixed; inset:0 0 auto 0; z-index:50;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:14px var(--page-gutter);
+  background:var(--nav-bg);
+  border-bottom:1px solid transparent;
+  transition:background var(--dur) var(--ease), border-color var(--dur) var(--ease), backdrop-filter var(--dur) var(--ease);
+}
+.nav.scrolled{
+  background:var(--nav-bg-scrolled);
+  backdrop-filter:saturate(140%) blur(14px);
+  -webkit-backdrop-filter:saturate(140%) blur(14px);
+  border-bottom-color:var(--line);
+}
+.brand{
+  display:inline-flex; align-items:center; gap:10px;
+  font-family:var(--display); font-style:italic; font-size:22px; letter-spacing:-.01em;
+}
+.brand .mark{ width:22px; height:22px; }
+.brand img{ height:18px; width:auto; }
+.nav-links{ display:flex; gap:28px; align-items:center; }
+.nav-links a{ font-size:14px; color:var(--ink-2); transition:color var(--dur) var(--ease); }
+.nav-links a:hover{ color:var(--ink); }
+.nav-actions{ display:flex; align-items:center; gap:14px; }
+@media (max-width: 760px){ .nav-links{ display:none; } }
+
+.theme-toggle{
+  width:36px; height:36px; border-radius:var(--r-pill);
+  display:inline-grid; place-items:center;
+  border:1px solid var(--line); color:var(--ink-2);
+  transition:transform var(--dur) var(--ease), border-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+.theme-toggle:hover{ color:var(--ink); border-color:var(--ink-4); }
+.theme-toggle svg{ width:16px; height:16px; transition:transform 220ms var(--ease), opacity 220ms var(--ease); }
+.theme-toggle .sun{ display:block; }
+.theme-toggle .moon{ display:none; }
+[data-theme="dark"] .theme-toggle .sun{ display:none; }
+[data-theme="dark"] .theme-toggle .moon{ display:block; }
+
+/* === Buttons =========================================================== */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  height:44px; padding:0 20px; border-radius:var(--r-pill);
+  font:500 14px/1 var(--ui); letter-spacing:.01em;
+  transition:transform var(--dur) var(--ease), background var(--dur) var(--ease), color var(--dur) var(--ease), border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+  white-space:nowrap;
+}
+.btn-coral{ background:var(--coral); color:#fff; box-shadow:0 8px 22px -10px rgba(247,79,125,.6); }
+.btn-coral:hover{ transform:translateY(-1px); box-shadow:0 12px 28px -10px rgba(247,79,125,.7); }
+.btn-ghost{ background:transparent; color:var(--ink); border-bottom:1px solid var(--ink); border-radius:0; height:auto; padding:6px 2px; box-shadow:none; }
+.btn-ghost:hover{ color:var(--coral-ink); border-color:var(--coral); }
+.btn-sm{ height:36px; padding:0 14px; font-size:13px; }
+
+/* === Hero ============================================================== */
+.hero{
+  padding-top:clamp(120px, 16vw, 180px);
+  padding-bottom:var(--section);
+  display:grid; gap:clamp(40px, 6vw, 80px);
+  grid-template-columns:minmax(0, 1.05fr) minmax(0, .95fr);
+  align-items:center;
+}
+@media (max-width: 900px){ .hero{ grid-template-columns:1fr; } }
+
+.hero-copy h1{
+  font-size:clamp(56px, 9vw, 128px);
+  margin-block:18px 22px;
+}
+.hero-copy h1 .l{ display:block; }
+.hero-copy .ctas{ display:flex; align-items:center; gap:24px; flex-wrap:wrap; margin-top:32px; }
+.hero-chips{ display:flex; gap:8px; flex-wrap:wrap; margin-top:28px; }
+.chip{
+  display:inline-flex; align-items:center; gap:6px;
+  height:28px; padding:0 12px; border-radius:var(--r-pill);
+  background:var(--chip); color:var(--ink-2);
+  font:500 12px/1 var(--ui); letter-spacing:.01em;
+  border:1px solid var(--line-2);
+}
+.chip .dot{ width:5px; height:5px; border-radius:50%; background:var(--coral); }
+
+/* — Phone visual — */
+.phone-stage{
+  display:grid; place-items:center; padding:20px;
+  position:relative;
+}
+.phone{
+  --split: 50%;
+  position:relative;
+  width:min(320px, 80vw); aspect-ratio: 280/580;
+  border-radius:36px; background:var(--bg);
+  border:.5px solid var(--ink-4);
+  box-shadow:var(--shadow-soft), inset 0 0 0 1px rgba(255,255,255,.4);
+  overflow:hidden;
+  user-select:none; touch-action:none;
+}
+.phone::before{ /* notch */
+  content:""; position:absolute; left:50%; top:10px; transform:translateX(-50%);
+  width:90px; height:22px; border-radius:var(--r-pill); background:var(--ink); opacity:.85; z-index:5;
+}
+.phone-screen{
+  position:absolute; inset:34px 14px 14px;
+  border-radius:24px; overflow:hidden;
+  background:linear-gradient(180deg, var(--tone-cream), var(--tone-warm));
+}
+.face-base, .face-after{
+  position:absolute; inset:0;
+}
+.face-base{
+  background:
+    radial-gradient(58% 42% at 50% 30%, rgba(13,15,20,.08), transparent 70%),
+    radial-gradient(40% 28% at 50% 36%, var(--tone-rose), transparent 72%),
+    radial-gradient(32% 22% at 50% 30%, #F6E1D5, transparent 70%),
+    linear-gradient(180deg, var(--tone-warm), var(--tone-cream));
+}
+.face-after{
+  clip-path: inset(0 calc(100% - var(--split)) 0 0);
+  background:
+    radial-gradient(70% 50% at 50% 22%, rgba(13,15,20,.12), transparent 72%),
+    radial-gradient(48% 30% at 50% 36%, var(--tone-plum), transparent 72%),
+    radial-gradient(32% 22% at 50% 30%, #F4D9D6, transparent 70%),
+    linear-gradient(180deg, var(--tone-dusk), var(--tone-rose));
+  transition:clip-path var(--dur) var(--ease);
+}
+.phone.dragging .face-after{ transition:none; }
+/* faux face silhouette */
+.face-silhouette{
+  position:absolute; left:50%; top:42%; transform:translate(-50%,-30%);
+  width:62%; aspect-ratio:1/1.2;
+  background:
+    radial-gradient(closest-side at 50% 38%, rgba(13,15,20,.18), transparent 65%),
+    radial-gradient(closest-side at 50% 30%, #2A2F3A, transparent 60%);
+  filter:blur(.4px); opacity:.55; border-radius:50% 50% 48% 48% / 60% 60% 40% 40%;
+}
+.face-after .face-silhouette{ opacity:.7; transform:translate(-50%,-30%) scale(1.02); }
+
+.split-line{
+  position:absolute; top:0; bottom:0; left:var(--split);
+  width:2px; background:rgba(255,255,255,.85);
+  box-shadow:0 0 0 1px rgba(13,15,20,.15);
+  transform:translateX(-1px);
+  z-index:4;
+}
+.split-handle{
+  position:absolute; top:50%; left:var(--split);
+  width:38px; height:38px; border-radius:50%;
+  background:#fff; border:1px solid rgba(13,15,20,.2);
+  transform:translate(-50%,-50%);
+  display:grid; place-items:center;
+  box-shadow:0 6px 18px -6px rgba(13,15,20,.35);
+  cursor:ew-resize; z-index:6;
+  transition:transform 120ms var(--ease);
+}
+.split-handle:hover{ transform:translate(-50%,-50%) scale(1.06); }
+.split-handle::before, .split-handle::after{
+  content:""; position:absolute; top:50%; transform:translateY(-50%);
+  width:0; height:0; border-block:5px solid transparent;
+}
+.split-handle::before{ left:8px; border-right:6px solid var(--ink); }
+.split-handle::after{ right:8px; border-left:6px solid var(--ink); }
+
+.corner-badge{
+  position:absolute; top:14px; z-index:5;
+  font:600 10px/1 var(--ui); letter-spacing:.16em; text-transform:uppercase;
+  padding:6px 10px; border-radius:var(--r-pill);
+}
+.corner-badge.before{ left:14px; background:var(--ink); color:#fff; }
+.corner-badge.after{ right:14px; background:var(--coral); color:#fff; }
+
+/* === Trust strip ======================================================= */
+.trust{
+  background:var(--tone-cream);
+  padding-block:clamp(40px, 6vw, 64px);
+  border-block:1px solid var(--line);
+}
+.trust .row{
+  display:flex; align-items:center; justify-content:space-between; gap:clamp(12px,3vw,40px);
+  flex-wrap:wrap; margin-top:20px;
+}
+.press-mark{
+  font-family:var(--display); font-style:italic; font-size:clamp(14px, 2vw, 20px);
+  letter-spacing:.06em; color:var(--ink-3); opacity:.8;
+  text-transform:uppercase;
+}
+
+/* === Pillars =========================================================== */
+.section-head{ display:flex; flex-direction:column; gap:14px; max-width:64ch; margin-bottom:48px; }
+.section-head h2{ font-size:clamp(36px, 5vw, 64px); margin:0; }
+
+.pillars{ display:grid; grid-template-columns:repeat(2, 1fr); gap:20px; }
+@media (max-width:760px){ .pillars{ grid-template-columns:1fr; } }
+.card{
+  border:.5px solid var(--ink); border-color:rgba(13,15,20,.12);
+  border-radius:var(--r8);
+  padding:clamp(28px, 4vw, 44px);
+  display:flex; flex-direction:column; gap:14px;
+  min-height:240px; position:relative; overflow:hidden;
+  transition:transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+.card:hover{ transform:translateY(-2px); box-shadow:var(--shadow-soft); }
+.card-warm{ background:var(--tone-warm); }
+.card-rose{ background:var(--tone-rose); }
+.card-sage{ background:var(--tone-sage); }
+.card-dusk{ background:var(--tone-dusk); }
+.card h3{ font-family:var(--display); font-style:italic; font-weight:500; font-size:clamp(26px, 3.4vw, 36px); margin:6px 0 4px; line-height:1.05; letter-spacing:-.01em; }
+.card p{ margin:0; color:var(--ink-2); font-size:16px; line-height:1.6; }
+.spark{
+  display:inline-block; width:12px; height:12px;
+  background:var(--coral);
+  clip-path:polygon(50% 0, 58% 42%, 100% 50%, 58% 58%, 50% 100%, 42% 58%, 0 50%, 42% 42%);
+  vertical-align:middle; margin-inline-end:8px;
+}
+
+/* === The Gesture ======================================================= */
+.gesture{
+  background:var(--ink); color:var(--bg);
+  padding-block:clamp(80px, 12vw, 160px);
+  text-align:center;
+}
+.gesture .kicker{ color:var(--ink-4); }
+.gesture h2{
+  font-family:var(--display); font-style:italic; font-weight:400;
+  font-size:clamp(48px, 7vw, 96px); line-height:1.02; letter-spacing:-.02em;
+  margin:18px auto 22px; max-width:18ch;
+}
+.gesture p.lede{ color:rgba(242,237,228,.78); margin:0 auto; }
+
+.gesture-stage{ display:grid; place-items:center; margin-top:64px; gap:14px; }
+.avatar{
+  --hold: 0;
+  position:relative; width:220px; height:220px; border-radius:50%;
+  background:
+    radial-gradient(closest-side at 50% 35%, #FFFFFF, transparent 70%),
+    radial-gradient(closest-side at 50% 60%, var(--tone-warm), transparent 70%),
+    linear-gradient(135deg, var(--tone-rose), var(--tone-warm));
+  display:grid; place-items:center;
+  box-shadow:0 30px 80px -30px rgba(247,79,125,.6), inset 0 0 0 1px rgba(255,255,255,.3);
+  cursor:pointer; user-select:none; touch-action:none;
+  overflow:hidden;
+}
+.avatar .original{
+  position:absolute; inset:0; border-radius:50%;
+  background:
+    radial-gradient(closest-side at 50% 30%, #2A2F3A, transparent 60%),
+    linear-gradient(135deg, var(--tone-dusk), var(--tone-plum));
+  opacity:0; transition:opacity 240ms var(--ease);
+}
+.avatar.revealed .original{ opacity:1; }
+.avatar.holding .original{ opacity:calc(var(--hold) * 1); }
+.ring{
+  position:absolute; inset:-14px;
+  width:248px; height:248px;
+  pointer-events:none;
+}
+.ring circle{
+  fill:none; stroke:var(--coral); stroke-width:2;
+  stroke-dasharray:760; stroke-dashoffset:760;
+  transform:rotate(-90deg); transform-origin:50% 50%;
+  transition:stroke-dashoffset 600ms linear, opacity var(--dur) var(--ease);
+  opacity:.0;
+}
+.avatar.holding + .ring circle{ stroke-dashoffset:0; opacity:1; }
+.gesture-caption{
+  font:500 12px/1 var(--ui); letter-spacing:.18em; text-transform:uppercase;
+  color:var(--ink-4); transition:opacity var(--dur) var(--ease);
+}
+.gesture-caption.dim{ opacity:0; }
+
+/* === Plans ============================================================= */
+.plans{ display:grid; grid-template-columns:repeat(4, 1fr); gap:16px; }
+@media (max-width:1080px){ .plans{ grid-template-columns:repeat(2, 1fr); } }
+@media (max-width:560px){ .plans{ grid-template-columns:1fr; } }
+.plan{
+  background:var(--surface); border:1px solid var(--line); border-radius:var(--r8);
+  padding:28px 24px; display:flex; flex-direction:column; gap:14px; position:relative;
+  transition:transform var(--dur) var(--ease), border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+.plan:hover{ transform:translateY(-2px); box-shadow:var(--shadow-soft); }
+.plan.featured{ border-color:var(--coral); box-shadow:0 0 0 1px var(--coral) inset; }
+.plan .tag{
+  position:absolute; top:-10px; left:24px;
+  background:var(--coral); color:#fff;
+  font:600 10px/1 var(--ui); letter-spacing:.16em; text-transform:uppercase;
+  padding:6px 10px; border-radius:var(--r-pill);
+}
+.plan h3{ font-family:var(--display); font-style:italic; font-weight:500; font-size:28px; margin:0; letter-spacing:-.01em; }
+.plan .price{ font:500 28px/1.1 var(--ui); letter-spacing:-.01em; color:var(--ink); }
+.plan .price small{ font:500 13px/1 var(--ui); color:var(--ink-3); }
+.plan ul{ list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:8px; }
+.plan li{ font-size:14px; color:var(--ink-2); display:flex; gap:8px; align-items:flex-start; }
+.plan li::before{ content:""; flex:0 0 auto; width:14px; height:14px; margin-top:3px; background:var(--coral-soft); border-radius:50%; position:relative;
+  background:radial-gradient(circle at 50% 55%, var(--coral) 0 2px, transparent 3px), var(--coral-soft);
+}
+.plan .note{ font-size:12px; color:var(--ink-3); margin-top:auto; padding-top:8px; border-top:1px solid var(--line-2); }
+
+/* === Privacy =========================================================== */
+.privacy{
+  background:var(--tone-dusk);
+  border-radius:0;
+}
+.privacy .inner{
+  display:grid; grid-template-columns:auto 1fr; gap:clamp(24px,4vw,48px); align-items:center;
+}
+@media (max-width:760px){ .privacy .inner{ grid-template-columns:1fr; } }
+.privacy .lock{
+  width:64px; height:64px; padding:14px; border-radius:50%;
+  background:rgba(255,255,255,.55); border:1px solid rgba(13,15,20,.1);
+}
+.privacy h2{ font-family:var(--display); font-style:italic; font-weight:400; font-size:clamp(28px, 4vw, 44px); margin:8px 0 12px; line-height:1.1; letter-spacing:-.01em; }
+.privacy p{ margin:0; color:var(--ink-2); max-width:62ch; }
+
+/* === Closing CTA ======================================================= */
+.closing{ text-align:center; }
+.closing h2{
+  font-family:var(--display); font-style:italic; font-weight:400;
+  font-size:clamp(56px, 9vw, 128px); line-height:1.02; letter-spacing:-.02em;
+  margin:16px auto 28px; max-width:18ch;
+}
+.closing .badges{ display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+.badge{
+  display:inline-flex; align-items:center; gap:10px;
+  background:var(--ink); color:var(--bg);
+  height:54px; padding:0 22px; border-radius:12px;
+  transition:transform var(--dur) var(--ease);
+}
+.badge:hover{ transform:translateY(-2px); }
+.badge svg{ width:22px; height:22px; }
+.badge .top{ font:400 10px/1.1 var(--ui); opacity:.85; letter-spacing:.04em; display:block; }
+.badge .bot{ font:600 16px/1.1 var(--ui); display:block; letter-spacing:.01em; }
+.closing .fine{ margin-top:18px; color:var(--ink-3); font-size:13px; }
+
+/* === Footer ============================================================ */
+footer.site{
+  background:var(--surface-2); border-top:1px solid var(--line);
+  padding:clamp(48px, 6vw, 80px) var(--page-gutter) 32px;
+}
+.foot-grid{
+  max-width:1240px; margin-inline:auto;
+  display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:48px;
+}
+@media (max-width:760px){ .foot-grid{ grid-template-columns:1fr; gap:32px; } }
+.foot-grid h4{ font:600 11px/1 var(--ui); letter-spacing:.18em; text-transform:uppercase; color:var(--ink-3); margin:0 0 16px; }
+.foot-grid ul{ list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:10px; }
+.foot-grid a{ font-size:14px; color:var(--ink-2); transition:color var(--dur) var(--ease); }
+.foot-grid a:hover{ color:var(--coral-ink); }
+.foot-brand{ font-family:var(--display); font-style:italic; font-size:28px; letter-spacing:-.01em; }
+.foot-tag{ color:var(--ink-3); font-size:14px; margin-top:6px; max-width:32ch; }
+.foot-bottom{
+  max-width:1240px; margin:48px auto 0; padding-top:24px; border-top:1px solid var(--line);
+  display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;
+  font-size:12px; color:var(--ink-3);
+}
+.lang-toggle{ display:inline-flex; gap:0; border:1px solid var(--line); border-radius:var(--r-pill); overflow:hidden; }
+.lang-toggle button{ font:500 11px/1 var(--ui); letter-spacing:.12em; color:var(--ink-3); padding:7px 12px; border-right:1px solid var(--line); }
+.lang-toggle button:last-child{ border-right:0; }
+.lang-toggle button[aria-pressed="true"]{ background:var(--ink); color:var(--bg); }
+
+/* === Reduced motion ==================================================== */
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{ animation:none !important; transition:none !important; }
+  [data-reveal]{ opacity:1; transform:none; }
+  html{ scroll-behavior:auto; }
+}
+</style>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+  {"@type":"Organization","name":"Mademoiselle","url":"https://mademoizelle.co","logo":"https://mademoizelle.co/assets/logo-mark.svg","sameAs":[]},
+  {"@type":"WebSite","url":"https://mademoizelle.co","name":"Mademoiselle","inLanguage":["en","ar","fr"]},
+  {"@type":"MobileApplication","name":"Mademoiselle","operatingSystem":"iOS, Android","applicationCategory":"LifestyleApplication","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Try any hairstyle on your selfie in seconds, then book that exact look at a real salon. A private smart closet that grows into a styling companion."}
+]}
+</script>
+</head>
+<body>
+
+<!-- ============== NAV ============== -->
+<header class="nav" id="nav" role="banner">
+  <a class="brand" href="#top" aria-label="Mademoiselle home">
+    <img src="assets/logo-wordmark.svg" alt="Mademoiselle" width="156" height="20" onerror="this.replaceWith(Object.assign(document.createElement('span'),{textContent:'Mademoiselle',className:'brand-fallback'}))">
+  </a>
+  <nav class="nav-links" aria-label="Primary">
+    <a href="#studio">Studio</a>
+    <a href="#closet">Closet</a>
+    <a href="#salons">Salons</a>
+    <a href="/blog/">Journal</a>
+    <a href="#plans">Plans</a>
+  </nav>
+  <div class="nav-actions">
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode" aria-pressed="false">
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    </button>
+    <a class="btn btn-coral btn-sm" href="#download">Get the App</a>
+  </div>
+</header>
+
+<a id="top"></a>
+
+<!-- ============== HERO ============== -->
+<section class="wrap hero">
+  <div class="hero-copy">
+    <span class="kicker" data-reveal>Beauty &middot; Intelligence &middot; Arabic First</span>
+    <h1 class="display" data-reveal>
+      <span class="l">See</span>
+      <span class="l"><em>yourself</em> in it</span>
+      <span class="l">before you commit.</span>
+    </h1>
+    <p class="lede" data-reveal>A virtual hairstyle try-on you actually believe. A private smart closet that learns what you wear. And a real chair waiting at a real salon &mdash; in three taps. Beauty for women who decide with their own eyes.</p>
+    <div class="ctas" data-reveal>
+      <a class="btn btn-coral" href="#download">Try the Studio</a>
+      <a class="btn btn-ghost" href="#gesture">Watch the gesture</a>
+    </div>
+    <div class="hero-chips" data-reveal>
+      <span class="chip"><span class="dot"></span>10 free tries / day</span>
+      <span class="chip"><span class="dot"></span>20+ salons connected</span>
+      <span class="chip"><span class="dot"></span>AR &middot; EN &middot; FR</span>
+    </div>
+  </div>
+
+  <div class="phone-stage" data-reveal>
+    <div class="phone" id="phone" aria-label="Before and after hairstyle compare. Drag the divider.">
+      <span class="corner-badge before">Before</span>
+      <span class="corner-badge after">After</span>
+      <div class="phone-screen">
+        <div class="face-base"><div class="face-silhouette"></div></div>
+        <div class="face-after"><div class="face-silhouette"></div></div>
+        <div class="split-line" aria-hidden="true"></div>
+        <button class="split-handle" id="splitHandle" type="button" aria-label="Drag to compare before and after"></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== TRUST ============== -->
+<section class="trust" aria-label="Press">
+  <div class="wrap">
+    <span class="kicker">As seen in</span>
+    <div class="row">
+      <span class="press-mark">Vogue Arabia</span>
+      <span class="press-mark">Harper&rsquo;s Bazaar</span>
+      <span class="press-mark">MENA Style</span>
+      <span class="press-mark">Elle</span>
+      <span class="press-mark">Grazia</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============== PILLARS ============== -->
+<section class="wrap" id="studio">
+  <div class="section-head">
+    <span class="kicker" data-reveal>The four pillars</span>
+    <h2 class="display" data-reveal>An <em>intelligence layer</em> for how you look.</h2>
+    <p class="lede" data-reveal>Four products, one feeling: confidence before commitment. Each one quietly reinforces the others.</p>
+  </div>
+  <div class="pillars">
+    <article class="card card-warm" data-reveal>
+      <span class="kicker"><span class="spark"></span>Hair Studio</span>
+      <h3>Long-press to reveal the original.</h3>
+      <p>The signature AI moment &mdash; press and hold any try-on to see your photo underneath. Release to return. Compare without leaving the moment.</p>
+    </article>
+    <article class="card card-rose" data-reveal id="closet">
+      <span class="kicker"><span class="spark"></span>Smart Closet</span>
+      <h3>A private wardrobe that <em>learns</em>.</h3>
+      <p>Drag pieces in, mark what&rsquo;s in laundry, ask &ldquo;what should I wear today?&rdquo; The closet answers in your own clothes.</p>
+    </article>
+    <article class="card card-sage" data-reveal>
+      <span class="kicker"><span class="spark"></span>AI Recommendations</span>
+      <h3>Two looks rendered on <em>your</em> photo.</h3>
+      <p>Every morning, two real outfits styled on you &mdash; not a sidebar, not a feed. The intelligence layer of your day.</p>
+    </article>
+    <article class="card card-dusk" data-reveal id="salons">
+      <span class="kicker"><span class="spark"></span>Real Booking</span>
+      <h3>From try-on to chair, in three taps.</h3>
+      <p>Real salons. Real availability. Real time. Send the look you tried to the stylist before you arrive.</p>
+    </article>
+  </div>
+</section>
+
+<!-- ============== THE GESTURE ============== -->
+<section class="gesture" id="gesture">
+  <div class="wrap">
+    <span class="kicker" data-reveal>The signature moment</span>
+    <h2 data-reveal>Press. <em>Hold.</em> Become.</h2>
+    <p class="lede" data-reveal>One gesture defines us. Press and hold any AI render to peel it back to your real photo. The compare card no app has done as honestly.</p>
+
+    <div class="gesture-stage" data-reveal>
+      <div class="avatar" id="avatar" role="button" tabindex="0" aria-label="Press and hold to reveal the original photo">
+        <div class="original" aria-hidden="true"></div>
+      </div>
+      <svg class="ring" viewBox="0 0 248 248" aria-hidden="true"><circle cx="124" cy="124" r="121"/></svg>
+      <div class="gesture-caption" id="gestureCaption">Hold to see original</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== PLANS ============== -->
+<section class="wrap" id="plans">
+  <div class="section-head">
+    <span class="kicker" data-reveal>Plans</span>
+    <h2 class="display" data-reveal>Beauty without the <em>mental meter</em>.</h2>
+    <p class="lede" data-reveal>Start free, upgrade when the closet starts answering you back.</p>
+  </div>
+  <div class="plans">
+    <article class="plan" data-reveal>
+      <h3>Free</h3>
+      <div class="price">&mdash; <small>forever</small></div>
+      <ul>
+        <li>10 / 5 / 3 / 2 tries per day, tapering</li>
+        <li>Closet up to 20, then 40</li>
+        <li>+10 credits per successful invite</li>
+      </ul>
+      <p class="note">Habit-building. Beauty as a daily ritual.</p>
+    </article>
+    <article class="plan" data-reveal>
+      <h3>Muse</h3>
+      <div class="price">$5.99 <small>/ month</small></div>
+      <ul>
+        <li>40 credits / month</li>
+        <li>Closet of 120 pieces</li>
+        <li>14 day style history</li>
+      </ul>
+      <p class="note">Entry premium. The first real upgrade.</p>
+    </article>
+    <article class="plan featured" data-reveal>
+      <span class="tag">Most loved</span>
+      <h3>Muse Pro</h3>
+      <div class="price">$10.99 <small>/ month</small></div>
+      <ul>
+        <li>120 credits / month</li>
+        <li>Closet of 240 pieces</li>
+        <li>30 day style history</li>
+      </ul>
+      <p class="note">For the routine beauty user. Recommended.</p>
+    </article>
+    <article class="plan" data-reveal>
+      <h3>Icon</h3>
+      <div class="price">$20.99 <small>/ month</small></div>
+      <ul>
+        <li>Unlimited credits</li>
+        <li>Unlimited closet &amp; history</li>
+        <li>No mental meter watching</li>
+      </ul>
+      <p class="note">For the woman who wants no ceiling.</p>
+    </article>
+  </div>
+</section>
+
+<!-- ============== PRIVACY ============== -->
+<section class="privacy">
+  <div class="wrap inner">
+    <svg class="lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <rect x="4.5" y="10.5" width="15" height="10" rx="2"/>
+      <path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/>
+      <circle cx="12" cy="15.5" r="1.2" fill="currentColor"/>
+    </svg>
+    <div>
+      <span class="kicker" data-reveal>Private by design</span>
+      <h2 data-reveal><em>Your selfies stay yours.</em> Your closet is yours alone. Deletion actually deletes.</h2>
+      <p data-reveal>No training on your face. No feed. No leaderboards. Your photos are encrypted in transit and at rest, processed for the render you asked for, and discarded on your timeline &mdash; not ours. The only person who sees your closet is you.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============== CLOSING CTA ============== -->
+<section class="wrap closing" id="download">
+  <span class="kicker" data-reveal>The studio is open</span>
+  <h2 data-reveal><em>You,</em> in any hair, by Friday.</h2>
+  <div class="badges" data-reveal>
+    <a class="badge" href="#" aria-label="Download on the App Store">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 12.7c0-2.4 2-3.5 2-3.6-1.1-1.6-2.8-1.8-3.4-1.9-1.4-.1-2.8.9-3.5.9-.7 0-1.9-.9-3.1-.8-1.6 0-3 .9-3.8 2.4-1.6 2.8-.4 6.9 1.2 9.2.8 1.1 1.7 2.3 3 2.3 1.2 0 1.6-.8 3.1-.8s1.9.8 3.1.7c1.3 0 2.1-1.1 2.9-2.2.9-1.3 1.3-2.5 1.3-2.6-.1 0-2.6-1-2.8-3.6zM14 5.4c.7-.8 1.1-2 1-3.1-1 .1-2.1.7-2.8 1.5-.6.7-1.2 1.9-1 3 1.1.1 2.2-.6 2.8-1.4z"/></svg>
+      <span><span class="top">Download on the</span><span class="bot">App Store</span></span>
+    </a>
+    <a class="badge" href="#" aria-label="Get it on Google Play">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.6 2.4c-.4.3-.6.7-.6 1.3v16.6c0 .5.2 1 .6 1.3l9.5-9.6-9.5-9.6zM14.6 13.5l2.5 2.5-9.5 5.4 7-7.9zM14.6 10.5l-7-7.9 9.5 5.4-2.5 2.5zM20.6 10.7l-2.5-1.4-2.7 2.7 2.7 2.7 2.5-1.4c1-.6 1-2 0-2.6z"/></svg>
+      <span><span class="top">Get it on</span><span class="bot">Google Play</span></span>
+    </a>
+  </div>
+  <p class="fine">Free to start. No card required.</p>
+</section>
+
+<!-- ============== FOOTER ============== -->
+<footer class="site">
+  <div class="foot-grid">
+    <div>
+      <div class="foot-brand">Mademoiselle</div>
+      <p class="foot-tag">Beauty intelligence for women who decide with their own eyes. Made in MENA, for the world.</p>
+      <p class="foot-tag"><a href="mailto:hello@mademoizelle.co">hello@mademoizelle.co</a></p>
+    </div>
+    <div>
+      <h4>Product</h4>
+      <ul>
+        <li><a href="#studio">Hair Studio</a></li>
+        <li><a href="#closet">Smart Closet</a></li>
+        <li><a href="#salons">Salons</a></li>
+        <li><a href="#plans">Plans</a></li>
+        <li><a href="#">Press</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Privacy</a></li>
+        <li><a href="#">Terms</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>&copy; <span id="yr">2026</span> Mademoiselle. Made with care in MENA.</span>
+    <div class="lang-toggle" role="group" aria-label="Language">
+      <button type="button" aria-pressed="true">EN</button>
+      <button type="button" aria-pressed="false">AR</button>
+      <button type="button" aria-pressed="false">FR</button>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  'use strict';
+  var doc = document.documentElement;
+
+  // Theme: respect storage > system
+  try {
+    var saved = localStorage.getItem('mdm-theme');
+    if (saved === 'dark' || saved === 'light') {
+      if (saved === 'dark') doc.setAttribute('data-theme','dark');
+    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      doc.setAttribute('data-theme','dark');
+    }
+  } catch(e){}
+
+  var tt = document.getElementById('themeToggle');
+  function syncToggle(){
+    var dark = doc.getAttribute('data-theme') === 'dark';
+    tt.setAttribute('aria-pressed', dark ? 'true' : 'false');
+  }
+  syncToggle();
+  tt.addEventListener('click', function(){
+    var dark = doc.getAttribute('data-theme') === 'dark';
+    if (dark) doc.removeAttribute('data-theme'); else doc.setAttribute('data-theme','dark');
+    try { localStorage.setItem('mdm-theme', dark ? 'light' : 'dark'); } catch(e){}
+    syncToggle();
+  });
+
+  // Sticky nav
+  var nav = document.getElementById('nav');
+  function onScroll(){ if (window.scrollY > 8) nav.classList.add('scrolled'); else nav.classList.remove('scrolled'); }
+  document.addEventListener('scroll', onScroll, { passive:true }); onScroll();
+
+  // Year
+  var yr = document.getElementById('yr'); if (yr) yr.textContent = new Date().getFullYear();
+
+  // Hero compare drag
+  var phone = document.getElementById('phone');
+  var handle = document.getElementById('splitHandle');
+  if (phone && handle){
+    var dragging = false;
+    function setSplit(clientX){
+      var rect = phone.getBoundingClientRect();
+      var pct = ((clientX - rect.left) / rect.width) * 100;
+      pct = Math.max(8, Math.min(92, pct));
+      phone.style.setProperty('--split', pct + '%');
+    }
+    function down(e){
+      dragging = true; phone.classList.add('dragging');
+      handle.setPointerCapture && e.pointerId !== undefined && handle.setPointerCapture(e.pointerId);
+      var x = e.clientX !== undefined ? e.clientX : (e.touches && e.touches[0].clientX);
+      if (x !== undefined) setSplit(x);
+      e.preventDefault();
+    }
+    function move(e){
+      if (!dragging) return;
+      var x = e.clientX !== undefined ? e.clientX : (e.touches && e.touches[0].clientX);
+      if (x !== undefined) setSplit(x);
+    }
+    function up(){ dragging = false; phone.classList.remove('dragging'); }
+
+    handle.addEventListener('pointerdown', down);
+    document.addEventListener('pointermove', move);
+    document.addEventListener('pointerup', up);
+    document.addEventListener('pointercancel', up);
+
+    // Keyboard support
+    handle.addEventListener('keydown', function(e){
+      var cur = parseFloat(getComputedStyle(phone).getPropertyValue('--split')) || 50;
+      if (e.key === 'ArrowLeft'){ phone.style.setProperty('--split', Math.max(8, cur - 4) + '%'); e.preventDefault(); }
+      if (e.key === 'ArrowRight'){ phone.style.setProperty('--split', Math.min(92, cur + 4) + '%'); e.preventDefault(); }
+    });
+
+    // Click anywhere on phone to jump split
+    phone.addEventListener('pointerdown', function(e){
+      if (e.target === handle) return;
+      setSplit(e.clientX);
+    });
+  }
+
+  // Hold-to-reveal avatar
+  var avatar = document.getElementById('avatar');
+  var caption = document.getElementById('gestureCaption');
+  if (avatar){
+    var holdTimer = null, releaseTimer = null, captionFaded = false;
+    function start(){
+      avatar.classList.add('holding');
+      avatar.classList.remove('revealed');
+      clearTimeout(holdTimer); clearTimeout(releaseTimer);
+      holdTimer = setTimeout(function(){
+        avatar.classList.add('revealed');
+        avatar.classList.remove('holding');
+        if (!captionFaded){ caption.classList.add('dim'); captionFaded = true; }
+        releaseTimer = setTimeout(function(){
+          avatar.classList.remove('revealed');
+        }, 1600);
+      }, 600);
+    }
+    function cancel(){
+      avatar.classList.remove('holding');
+      clearTimeout(holdTimer);
+    }
+    avatar.addEventListener('pointerdown', function(e){ start(); e.preventDefault(); });
+    avatar.addEventListener('pointerup', cancel);
+    avatar.addEventListener('pointerleave', cancel);
+    avatar.addEventListener('pointercancel', cancel);
+    avatar.addEventListener('keydown', function(e){
+      if (e.key === ' ' || e.key === 'Enter'){ start(); e.preventDefault(); }
+    });
+    avatar.addEventListener('keyup', cancel);
+  }
+
+  // Scroll reveal
+  if ('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, { rootMargin:'0px 0px -8% 0px', threshold:.01 });
+    document.querySelectorAll('[data-reveal]').forEach(function(el){ io.observe(el); });
+  } else {
+    document.querySelectorAll('[data-reveal]').forEach(function(el){ el.classList.add('in'); });
+  }
+
+  // Lang toggle (decorative)
+  document.querySelectorAll('.lang-toggle button').forEach(function(b){
+    b.addEventListener('click', function(){
+      document.querySelectorAll('.lang-toggle button').forEach(function(x){ x.setAttribute('aria-pressed','false'); });
+      b.setAttribute('aria-pressed','true');
+    });
+  });
+})();
+</script>
+</body>
+</html>

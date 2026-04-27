@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="Mademoiselle — see yourself in it before you commit.">
+  <defs>
+    <style type="text/css"><![CDATA[
+      @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400;1,500;1,600&amp;family=Inter:wght@400;500;600&amp;display=swap');
+
+      .display {
+        font-family: 'Cormorant Garamond', 'Cormorant', Garamond, 'Times New Roman', serif;
+        font-style: italic;
+        font-weight: 500;
+        fill: #0D0F14;
+        letter-spacing: -0.025em;
+      }
+      .wordmark {
+        font-family: 'Cormorant Garamond', 'Cormorant', Garamond, 'Times New Roman', serif;
+        font-style: italic;
+        font-weight: 500;
+        fill: #0D0F14;
+        letter-spacing: -0.01em;
+      }
+      .eyebrow {
+        font-family: 'Inter', system-ui, sans-serif;
+        font-weight: 600;
+        font-size: 13px;
+        fill: #6B7280;
+        letter-spacing: 0.18em;
+      }
+      .caption {
+        font-family: 'Inter', system-ui, sans-serif;
+        font-weight: 500;
+        font-size: 14px;
+        fill: #6B7280;
+        letter-spacing: 0.02em;
+      }
+    ]]></style>
+
+    <!-- Subtle warm-cream radial wash from top-left -->
+    <radialGradient id="tone" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse"
+                    gradientTransform="translate(120 90) rotate(28) scale(1100 720)">
+      <stop offset="0%" stop-color="#EFE8DB" stop-opacity="1"/>
+      <stop offset="55%" stop-color="#FAF7F2" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#FAF7F2" stop-opacity="1"/>
+    </radialGradient>
+
+    <!-- Very soft offset blur for the headline (readability) -->
+    <filter id="soft" x="-2%" y="-2%" width="104%" height="104%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="0.6"/>
+      <feOffset dx="0" dy="0.5" result="o"/>
+      <feMerge>
+        <feMergeNode in="o"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="1200" height="630" fill="#FAF7F2"/>
+  <rect x="0" y="0" width="1200" height="630" fill="url(#tone)"/>
+
+  <!-- Top-left wordmark -->
+  <text x="64" y="74" class="wordmark" font-size="32">mademoiselle</text>
+
+  <!-- Top-right eyebrow -->
+  <text x="1136" y="70" class="eyebrow" text-anchor="end">BEAUTY &#183; INTELLIGENCE</text>
+
+  <!-- Hairline divider just below wordmark/eyebrow (very subtle) -->
+  <line x1="64" y1="100" x2="1136" y2="100" stroke="#0D0F14" stroke-opacity="0.06" stroke-width="0.5"/>
+
+  <!-- Headline (centered vertically in the middle 60%) -->
+  <g filter="url(#soft)">
+    <text x="64" y="240" class="display" font-size="138">See yourself</text>
+    <text x="64" y="370" class="display" font-size="138">in it before</text>
+    <text x="64" y="500" class="display" font-size="138">you commit.</text>
+  </g>
+
+  <!-- Coral underline beneath the word "yourself" on line 1.
+       Line 1 baseline is y=240, font-size 138.
+       "See " precedes "yourself"; underline spans the word width.
+       Underline drawn 4px below baseline => y=244. -->
+  <line x1="246" y1="248" x2="772" y2="248"
+        stroke="#F74F7D" stroke-opacity="0.35" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- Bottom-left decorative dot row -->
+  <g transform="translate(64 560)">
+    <circle cx="0"  cy="0" r="3.5" fill="#0D0F14"/>
+    <circle cx="16" cy="0" r="3.5" fill="#F74F7D"/>
+    <circle cx="32" cy="0" r="3.5" fill="#9FC0DB"/>
+  </g>
+
+  <!-- Bottom-right caption + sparkle -->
+  <g transform="translate(1136 562)">
+    <text x="0" y="0" class="caption" text-anchor="end">mademoizelle.co</text>
+    <!-- 4-point coral sparkle, ~16px, sitting just left of the caption text -->
+    <g transform="translate(-150 -5)">
+      <path
+        d="M0 -8 C 1.15 -2.4 2.4 -1.15 8 0 C 2.4 1.15 1.15 2.4 0 8 C -1.15 2.4 -2.4 1.15 -8 0 C -2.4 -1.15 -1.15 -2.4 0 -8 Z"
+        fill="#F74F7D"/>
+    </g>
+  </g>
+</svg>

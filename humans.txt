@@ -1,0 +1,15 @@
+/* TEAM */
+
+Mademoiselle is built in MENA and shipped to the world.
+We care about the small things.
+
+Brand & product:  Santa Media
+Engineering:      The Mademoiselle team
+Site:             https://mademoizelle.co
+
+/* SITE */
+
+Last update: 2026-04-28
+Standards:   HTML5, CSS Custom Properties, ES2022
+Components:  Hand-built. No framework.
+Made with:   Care.

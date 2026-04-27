@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Allow: /blog/
+Disallow: /api/
+Disallow: /_*
+
+Sitemap: https://mademoizelle.co/sitemap.xml
+Sitemap: https://www.mademoizelle.co/sitemap.xml

@@ -1,0 +1,36 @@
+og.png — export instructions
+============================
+
+The canonical Open Graph card lives at `assets/og.svg` (1200x630).
+
+Most OG crawlers (Facebook, Twitter/X, LinkedIn, iMessage, Slack)
+do NOT render SVG and ignore external font CSS even when they do.
+Ship a rasterized PNG at `assets/og.png` for production previews.
+
+One-line export (Node, no install footprint beyond npx cache):
+
+    npx svgexport assets/og.svg assets/og.png 1200:630
+
+Alternatives:
+
+    # rsvg-convert (librsvg)
+    rsvg-convert -w 1200 -h 630 -o assets/og.png assets/og.svg
+
+    # Inkscape CLI
+    inkscape assets/og.svg --export-type=png \
+             --export-filename=assets/og.png \
+             -w 1200 -h 630
+
+    # ImageMagick (rasterizes via librsvg/MSVG; fonts must be installed)
+    magick -density 200 -background "#FAF7F2" \
+           assets/og.svg -resize 1200x630 assets/og.png
+
+Notes
+-----
+* The SVG @import's Cormorant Garamond + Inter from Google Fonts.
+  When rasterizing offline, install both font families locally
+  (or pass `--font` flags) so the headline renders in the correct face.
+* Target file size: under ~300 KB. Run `oxipng -o4 assets/og.png`
+  or `pngquant --quality=80-92 assets/og.png` after export.
+* Until the PNG is generated, point the `og:image` meta tag at
+  `assets/og.svg` as a graceful fallback for browser-based previews.
