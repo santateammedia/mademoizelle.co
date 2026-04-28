@@ -1,0 +1,43 @@
+# Keep this in sync with .gitignore — but tighter.
+# Files matching these patterns are NOT uploaded to Vercel during deploy.
+# (Build still runs on the server; build-time-only files like content/,
+# templates/, and scripts/ are KEPT because `npm run build` reads them.)
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.swp
+
+# Local dev
+node_modules/
+.vercel/
+.env
+.env.local
+.env.*.local
+*.log
+
+# Lockfiles — we let Vercel resolve fresh from package.json
+package-lock.json
+
+# Build output — Vercel runs `npm run build` itself, so don't ship a stale copy
+/blog/
+/feed.xml
+/llms.txt
+
+# Source-control + meta the deploy doesn't need
+.git/
+.github/
+.gitignore
+.gitattributes
+
+# Notes / scratch
+*.md.bak
+assets/og.png.txt
+
+# Coordination files (only present in monorepo siblings, defensive)
+.ops/
+audit/
+
+# Tests / fixtures (not used here, but defensive)
+test/
+__tests__/
