@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "build": "node scripts/build-blog.mjs",
-    "dev": "node scripts/build-blog.mjs && npx --yes serve@latest -l 4173 .",
-    "clean": "rm -rf blog feed.xml llms.txt"
+    "dev": "node scripts/build-blog.mjs && npx --yes serve@latest -l 4173 dist",
+    "clean": "rm -rf dist"
   },
   "devDependencies": {
     "gray-matter": "^4.0.3",

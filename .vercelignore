@@ -20,9 +20,7 @@ node_modules/
 package-lock.json
 
 # Build output — Vercel runs `npm run build` itself, so don't ship a stale copy
-/blog/
-/feed.xml
-/llms.txt
+/dist/
 
 # Source-control + meta the deploy doesn't need
 .git/

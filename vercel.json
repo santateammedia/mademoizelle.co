@@ -3,6 +3,7 @@
   "trailingSlash": false,
   "buildCommand": "npm run build",
   "installCommand": "npm install",
+  "outputDirectory": "dist",
   "redirects": [
     { "source": "/home", "destination": "/", "permanent": true },
     { "source": "/index", "destination": "/", "permanent": true },

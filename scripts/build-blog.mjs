@@ -15,7 +15,11 @@ const __dirname = path.dirname(__filename);
 const ROOT = path.resolve(__dirname, '..').replace(/\\/g, '/');
 const CONTENT_DIR = `${ROOT}/content/blog`;
 const TEMPLATE_DIR = `${ROOT}/templates`;
-const OUT_DIR = `${ROOT}/blog`;
+const DIST = `${ROOT}/dist`;
+const OUT_DIR = `${DIST}/blog`;
+// Static files / dirs at repo root that should land in dist/ verbatim.
+const STATIC_FILES = ['index.html', 'manifest.webmanifest', 'robots.txt', 'humans.txt', '_headers'];
+const STATIC_DIRS = ['assets'];
 const SITE_URL = 'https://mademoizelle.co';
 const SITE_NAME = 'Mademoiselle';
 const SITE_TAGLINE = 'Editorial voice notes from the team building Mademoiselle, an AI beauty companion.';
@@ -613,6 +617,22 @@ ${body}
 
 function main() {
   console.log(`Mademoiselle blog build — ${new Date().toISOString()}`);
+
+  // Reset dist/
+  fs.rmSync(DIST, { recursive: true, force: true });
+  fs.mkdirSync(DIST, { recursive: true });
+
+  // Copy static files + dirs from repo root into dist/
+  for (const f of STATIC_FILES) {
+    const src = `${ROOT}/${f}`;
+    if (fs.existsSync(src)) fs.copyFileSync(src, `${DIST}/${f}`);
+  }
+  for (const d of STATIC_DIRS) {
+    const src = `${ROOT}/${d}`;
+    if (fs.existsSync(src)) fs.cpSync(src, `${DIST}/${d}`, { recursive: true });
+  }
+  console.log(`  copied static files -> dist/`);
+
   const posts = readAllPosts();
   if (!posts.length) {
     console.error('! no posts found in content/blog/');
@@ -641,9 +661,9 @@ function main() {
     console.warn('! skipped blog index generation (no blog-index.html template).');
   }
 
-  writeFile(`${ROOT}/feed.xml`, generateFeed(posts));
-  writeFile(`${ROOT}/llms.txt`, generateLlmsTxt(posts));
-  writeFile(`${ROOT}/sitemap.xml`, generateSitemap(posts));
+  writeFile(`${DIST}/feed.xml`, generateFeed(posts));
+  writeFile(`${DIST}/llms.txt`, generateLlmsTxt(posts));
+  writeFile(`${DIST}/sitemap.xml`, generateSitemap(posts));
 
   const elapsed = Date.now() - startedAt;
   console.log(`Built ${postsBuilt} posts in ${elapsed}ms`);
