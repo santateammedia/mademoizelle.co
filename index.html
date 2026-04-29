@@ -411,6 +411,62 @@ hr.line{ border:0; height:1px; background:var(--line); margin:0; }
 .tryit-figure[data-revealing="true"] .tryit-hint{ opacity:0; }
 .tryit-figure.touched .tryit-hint{ opacity:0; }
 
+/* Gesture teacher — animated finger icon on the photo */
+.tryit-gesture{
+  position:absolute; z-index:4;
+  left:50%; bottom:68px;
+  transform:translateX(-50%);
+  display:flex; flex-direction:column; align-items:center; gap:10px;
+  pointer-events:none;
+  transition:opacity 320ms var(--ease);
+}
+.tryit-figure.touched .tryit-gesture,
+.tryit-figure[data-revealing="true"] .tryit-gesture{ opacity:0; }
+/* ripple ring */
+.gesture-ripple{
+  position:absolute; left:50%; top:50%;
+  transform:translate(-50%,-50%);
+  width:56px; height:56px; border-radius:50%;
+  border:1.5px solid rgba(247,79,125,.6);
+  animation:rippleOut 1.8s var(--ease) infinite;
+}
+.gesture-ripple:nth-child(2){
+  animation-delay:.6s;
+  border-color:rgba(247,79,125,.35);
+}
+@keyframes rippleOut{
+  0%{ transform:translate(-50%,-50%) scale(.55); opacity:1; }
+  100%{ transform:translate(-50%,-50%) scale(1.5); opacity:0; }
+}
+/* finger icon wrapper */
+.gesture-icon{
+  position:relative;
+  width:44px; height:44px;
+  display:flex; align-items:center; justify-content:center;
+}
+.gesture-icon svg{
+  width:32px; height:32px;
+  filter:drop-shadow(0 2px 8px rgba(0,0,0,.4));
+  animation:fingerPress 2.2s var(--ease) infinite;
+  transform-origin:bottom center;
+}
+@keyframes fingerPress{
+  0%,30%,100%{ transform:translateY(0) scale(1); }
+  12%{ transform:translateY(5px) scale(.93); }
+  22%{ transform:translateY(5px) scale(.93); }
+  26%{ transform:translateY(0) scale(1); }
+}
+.gesture-label{
+  font-size:10px; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--ivory); white-space:nowrap;
+  background:rgba(15,15,16,.55); backdrop-filter:blur(8px);
+  padding:5px 11px; border-radius:var(--r-pill);
+}
+@media (prefers-reduced-motion: reduce){
+  .gesture-ripple{ animation:none; opacity:.4; }
+  .gesture-icon svg{ animation:none; }
+}
+
 /* --- Section: What it does --- */
 .what{ background:var(--bg); }
 .what-head{ display:flex; flex-direction:column; gap:14px; margin-block-end:48px; max-width:64ch; }
@@ -700,6 +756,18 @@ footer{
       <span class="tryit-tag tag-before">Before</span>
       <span class="tryit-tag tag-after" id="tryitTagAfter">After &middot; Pixie</span>
       <span class="tryit-hint">Hold to see original</span>
+      <!-- Gesture teacher: animated finger + ripple rings -->
+      <div class="tryit-gesture" aria-hidden="true">
+        <div class="gesture-icon">
+          <div class="gesture-ripple"></div>
+          <div class="gesture-ripple"></div>
+          <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Finger / hand press icon -->
+            <path d="M16 6C14.9 6 14 6.9 14 8v8.5l-1.3-1.3a1.5 1.5 0 0 0-2.1 2.1l4.6 4.6A5 5 0 0 0 21 26h1a4 4 0 0 0 4-4v-5a1.5 1.5 0 0 0-3 0v-1.5a1.5 1.5 0 0 0-3 0V14a1.5 1.5 0 0 0-3 0V8c0-1.1-.9-2-1-2z" fill="#ffffff" fill-opacity=".95"/>
+          </svg>
+        </div>
+        <span class="gesture-label">Hold to reveal</span>
+      </div>
     </figure>
   </div>
 </section>
