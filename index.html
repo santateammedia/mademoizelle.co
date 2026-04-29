@@ -294,6 +294,123 @@ hr.line{ border:0; height:1px; background:var(--line); margin:0; }
   .marquee-track{ animation:none; }
 }
 
+/* --- Section: Try it (real product demo) --- */
+.tryit{
+  background:var(--noir);
+  color:var(--ivory);
+  padding-block:var(--section);
+  position:relative;
+  overflow:hidden;
+}
+.tryit-grid{
+  display:grid; grid-template-columns:1fr; gap:36px;
+  align-items:center;
+}
+@media (min-width: 880px){
+  .tryit-grid{ grid-template-columns:1fr 1fr; gap:64px; }
+}
+.tryit-copy{ max-width:38ch; }
+.tryit h2{ color:var(--ivory); margin-block:14px 18px; }
+.tryit h2 em{ font-style:normal; color:var(--coral); }
+.tryit p.lede{ color:var(--ivory-2); margin-block-end:24px; }
+.tryit-help{
+  display:inline-flex; align-items:center; gap:10px;
+  font-size:11px; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--ivory-3);
+  margin-block-end:18px;
+}
+.tryit-help::before{
+  content:""; width:14px; height:14px; border-radius:50%;
+  background:var(--coral); display:inline-block;
+  animation:pulse 2.4s var(--ease) infinite;
+}
+@keyframes pulse{
+  0%,100%{ transform:scale(1); opacity:1; }
+  50%{ transform:scale(1.18); opacity:.6; }
+}
+@media (prefers-reduced-motion: reduce){ .tryit-help::before{ animation:none; } }
+.tryit-chips{
+  display:flex; flex-wrap:wrap; gap:8px;
+  margin-block-end:20px;
+}
+.style-chip{
+  display:inline-flex; align-items:center; gap:8px;
+  height:38px; padding-inline:16px; border-radius:var(--r-pill);
+  border:1px solid rgba(242,237,228,.22);
+  font-size:13px; color:var(--ivory-2);
+  transition:border-color var(--d) var(--ease), background var(--d) var(--ease), color var(--d) var(--ease);
+}
+.style-chip:hover{ border-color:rgba(242,237,228,.5); color:var(--ivory); }
+.style-chip[data-active="true"]{
+  background:var(--coral); border-color:var(--coral); color:#fff;
+}
+.style-chip .swatch{
+  width:14px; height:14px; border-radius:50%; flex-shrink:0;
+  border:1px solid rgba(255,255,255,.4);
+}
+.style-chip[data-style="short"] .swatch{ background:#1A1612; }
+.style-chip[data-style="gold"] .swatch{ background:#D9B26B; }
+
+.tryit-figure{
+  position:relative;
+  width:100%;
+  max-width:480px;
+  margin-inline:auto;
+  aspect-ratio: 4 / 5;
+  border-radius:24px;
+  overflow:hidden;
+  background:var(--noir-3);
+  box-shadow:0 30px 80px -30px rgba(0,0,0,.6), 0 0 0 1px rgba(242,237,228,.05);
+  cursor:grab;
+  user-select:none;
+  touch-action:none;
+  -webkit-touch-callout:none;
+  -webkit-user-select:none;
+}
+.tryit-figure:active{ cursor:grabbing; }
+.tryit-figure img{
+  position:absolute; inset:0;
+  width:100%; height:100%; object-fit:cover; object-position:center 18%;
+  pointer-events:none;
+  display:block;
+}
+.tryit-before{ z-index:1; }
+.tryit-after{
+  z-index:2;
+  opacity:1;
+  transition:opacity 360ms var(--ease);
+}
+.tryit-figure[data-revealing="true"] .tryit-after{ opacity:0; }
+.tryit-tag{
+  position:absolute; z-index:3;
+  top:14px;
+  height:28px; padding-inline:12px;
+  display:inline-flex; align-items:center;
+  font-size:10px; letter-spacing:.22em; text-transform:uppercase;
+  border-radius:var(--r-pill);
+  background:rgba(15,15,16,.78);
+  color:var(--ivory);
+  backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+  pointer-events:none;
+  transition:opacity var(--d) var(--ease), background var(--d) var(--ease), color var(--d) var(--ease);
+}
+.tryit-tag.tag-before{ left:14px; opacity:0; }
+.tryit-tag.tag-after{ right:14px; background:var(--coral); }
+.tryit-figure[data-revealing="true"] .tag-before{ opacity:1; }
+.tryit-figure[data-revealing="true"] .tag-after{ opacity:0; }
+.tryit-hint{
+  position:absolute; z-index:3; left:50%; bottom:18px;
+  transform:translateX(-50%);
+  font-size:11px; letter-spacing:.22em; text-transform:uppercase;
+  padding:8px 14px; border-radius:var(--r-pill);
+  background:rgba(15,15,16,.7); color:var(--ivory);
+  backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+  pointer-events:none;
+  transition:opacity var(--d) var(--ease);
+}
+.tryit-figure[data-revealing="true"] .tryit-hint{ opacity:0; }
+.tryit-figure.touched .tryit-hint{ opacity:0; }
+
 /* --- Section: What it does --- */
 .what{ background:var(--bg); }
 .what-head{ display:flex; flex-direction:column; gap:14px; margin-block-end:48px; max-width:64ch; }
@@ -555,6 +672,38 @@ footer{
   </div>
 </div>
 
+<!-- ========== Try it (real product demo) ========== -->
+<section class="tryit" id="tryit" aria-labelledby="tryit-h">
+  <div class="wrap tryit-grid">
+    <div class="tryit-copy" data-reveal>
+      <span class="eyebrow on-dark"><span class="dot"></span> The signature gesture</span>
+      <h2 id="tryit-h">Try it on a <em>real</em> selfie.</h2>
+      <p class="lede on-dark">
+        Pick a hairstyle. Press and hold the result to peek at the original. This is the core moment of Mademoiselle &mdash; you see yourself in the look before you ever sit in a chair.
+      </p>
+      <span class="tryit-help" aria-hidden="true">Press &amp; hold the photo</span>
+      <div class="tryit-chips" role="tablist" aria-label="Choose a hairstyle">
+        <button type="button" class="style-chip" data-style="short" data-active="true" role="tab" aria-selected="true">
+          <span class="swatch" aria-hidden="true"></span>
+          <span>Pixie cut</span>
+        </button>
+        <button type="button" class="style-chip" data-style="gold" data-active="false" role="tab" aria-selected="false">
+          <span class="swatch" aria-hidden="true"></span>
+          <span>Blonde balayage</span>
+        </button>
+      </div>
+    </div>
+
+    <figure class="tryit-figure" id="tryitFigure" tabindex="0" role="img" aria-label="Hairstyle try-on demo. Press and hold to reveal the original photo.">
+      <img class="tryit-before" src="assets/tryon-original.webp" alt="Original selfie before AI hairstyle try-on" width="800" height="1000">
+      <img class="tryit-after" id="tryitAfter" src="assets/tryon-short.webp" alt="AI try-on result with a pixie cut" width="800" height="1000">
+      <span class="tryit-tag tag-before">Before</span>
+      <span class="tryit-tag tag-after" id="tryitTagAfter">After &middot; Pixie</span>
+      <span class="tryit-hint">Hold to see original</span>
+    </figure>
+  </div>
+</section>
+
 <!-- ========== What it does ========== -->
 <section class="what" id="what">
   <div class="wrap">
@@ -775,6 +924,42 @@ footer{
   // --- Year ---
   var yr = document.getElementById('yr');
   if (yr) yr.textContent = String(new Date().getFullYear());
+
+  // --- Try-on demo: chip switch + press-and-hold reveal ---
+  var fig = document.getElementById('tryitFigure');
+  var afterImg = document.getElementById('tryitAfter');
+  var afterTag = document.getElementById('tryitTagAfter');
+  var STYLES = {
+    short: { src: 'assets/tryon-short.webp', label: 'Pixie',  alt: 'AI try-on result with a pixie cut' },
+    gold:  { src: 'assets/tryon-gold.webp',  label: 'Blonde', alt: 'AI try-on result with a blonde balayage' }
+  };
+  if (fig && afterImg){
+    // chip switching
+    document.querySelectorAll('.style-chip').forEach(function(chip){
+      chip.addEventListener('click', function(){
+        var key = chip.getAttribute('data-style');
+        var s = STYLES[key];
+        if (!s) return;
+        document.querySelectorAll('.style-chip').forEach(function(c){
+          var active = c === chip;
+          c.setAttribute('data-active', String(active));
+          c.setAttribute('aria-selected', String(active));
+        });
+        afterImg.src = s.src;
+        afterImg.alt = s.alt;
+        if (afterTag) afterTag.textContent = 'After · ' + s.label;
+      });
+    });
+    // press + hold to reveal
+    function reveal(on){ fig.setAttribute('data-revealing', on ? 'true' : 'false'); if (on) fig.classList.add('touched'); }
+    fig.addEventListener('pointerdown', function(e){ e.preventDefault(); fig.setPointerCapture && fig.setPointerCapture(e.pointerId); reveal(true); });
+    fig.addEventListener('pointerup',   function(){ reveal(false); });
+    fig.addEventListener('pointerleave',function(){ reveal(false); });
+    fig.addEventListener('pointercancel',function(){ reveal(false); });
+    // keyboard: space/enter holds
+    fig.addEventListener('keydown', function(e){ if (e.key === ' ' || e.key === 'Enter'){ e.preventDefault(); reveal(true); } });
+    fig.addEventListener('keyup',   function(e){ if (e.key === ' ' || e.key === 'Enter'){ reveal(false); } });
+  }
 
   // --- Waitlist (no backend yet — local accept) ---
   var form = document.getElementById('waitlistForm');
