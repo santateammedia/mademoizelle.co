@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Mademoiselle &mdash; See yourself in it before you commit.</title>
 <meta name="description" content="An AI beauty companion. Try any hairstyle on your selfie. Keep a private smart closet. Book the look at real salons. MENA-first, coming 2026.">
-<meta name="theme-color" content="#FAF7F2" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0F0F10" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
 <meta name="color-scheme" content="light dark">
 
 <link rel="icon" href="assets/logo-pink.png" type="image/png">
@@ -30,7 +30,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Alyamama&family=Momo+Trust+Sans&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500&family=Tajawal:wght@400;500&display=swap" rel="stylesheet">
 
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[
@@ -49,28 +49,36 @@
 
 /* --- Tokens --- */
 :root{
-  --bg:#FAF7F2;
-  --surface:#FFFFFF;
-  --surface-2:#F2EEE7;
-  --ink:#0D0F14;
-  --ink-2:#3A3D45;
-  --ink-3:#6B7280;
-  --ink-4:#A8ACB3;
-  --line:#E7E4DE;
-  --line-2:#EFEDE8;
+  --bg:#FFFFFF;
+  --surface:#FAFAFA;
+  --surface-2:#F2F2F2;
+  --ink:#0A0A0A;
+  --ink-2:#3A3A3A;
+  --ink-3:#6B6B6B;
+  --ink-4:#A8A8A8;
+  --line:#E8E8E8;
+  --line-2:#F0F0F0;
   --coral:#F74F7D;
   --coral-2:#E0376A;
   --coral-soft:#FDECF1;
-  --noir:#0F0F10;
-  --noir-2:#1A1A1B;
-  --noir-3:#2A2A2C;
-  --ivory:#F2EDE4;
-  --ivory-2:#D6CFC2;
-  --ivory-3:#9A9387;
+  --noir:#000000;
+  --noir-2:#0A0A0A;
+  --noir-3:#141414;
+  --ivory:#FFFFFF;
+  --ivory-2:#E8E8E8;
+  --ivory-3:#A8A8A8;
 
-  --display:"Momo Trust Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-  --ui:"Momo Trust Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-  --ar:"Alyamama", "Tahoma", system-ui, sans-serif;
+  /* Semantic tokens for editorial sections — flip with theme */
+  --section-dark:#FFFFFF;
+  --section-dark-2:#FAFAFA;
+  --section-dark-3:#F2F2F2;
+  --section-ink:#0A0A0A;
+  --section-ink-2:#3A3A3A;
+  --section-ink-3:#6B6B6B;
+
+  --display:"Outfit", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --ui:"Outfit", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --ar:"Tajawal", "Tahoma", system-ui, sans-serif;
 
   --r-2:2px; --r-4:4px; --r-8:8px; --r-12:12px; --r-20:20px; --r-pill:999px;
   --gutter:20px;
@@ -86,17 +94,36 @@
 }
 
 [data-theme="dark"]{
-  --bg:#0F0F10;
-  --surface:#1A1A1B;
-  --surface-2:#222224;
-  --ink:#F2EDE4;
-  --ink-2:#C9C4BC;
-  --ink-3:#8B857C;
-  --ink-4:#5D5852;
-  --line:#28282A;
-  --line-2:#1F1F21;
+  --bg:#000000;
+  --surface:#0A0A0A;
+  --surface-2:#141414;
+  --ink:#FFFFFF;
+  --ink-2:#C9C9C9;
+  --ink-3:#8B8B8B;
+  --ink-4:#5D5D5D;
+  --line:#1F1F1F;
+  --line-2:#0F0F0F;
   --coral-soft:#3B1C25;
+
+  /* All editorial sections share the pure-black body in dark mode */
+  --section-dark:#000000;
+  --section-dark-2:#0A0A0A;
+  --section-dark-3:#141414;
+  --section-ink:#FFFFFF;
+  --section-ink-2:#C9C9C9;
+  --section-ink-3:#8B8B8B;
 }
+
+/* --- Skip link --- */
+.skip-link{
+  position:absolute; top:8px; left:8px; z-index:100;
+  padding:10px 16px; border-radius:var(--r-pill);
+  background:var(--ink); color:var(--bg);
+  font-size:13px;
+  transform:translateY(-200%);
+  transition:transform var(--d) var(--ease);
+}
+.skip-link:focus{ transform:translateY(0); outline:2px solid var(--coral); outline-offset:2px; }
 
 /* --- Reset --- */
 *,*::before,*::after{ box-sizing:border-box; }
@@ -121,7 +148,7 @@ input,textarea{ font:inherit; color:inherit; }
   font-size:11px; letter-spacing:.22em; text-transform:uppercase;
   color:var(--ink-3); display:inline-flex; align-items:center; gap:8px;
 }
-.eyebrow.on-dark{ color:var(--ivory-2); }
+.eyebrow.on-dark{ color:var(--section-ink-2); }
 .eyebrow .dot{ width:5px; height:5px; border-radius:50%; background:var(--coral); display:inline-block; }
 h1,h2,h3{ font-family:var(--display); font-weight:400; margin:0; letter-spacing:-.02em; line-height:1.04; }
 h1{ font-size:clamp(40px, 11vw, 96px); }
@@ -129,7 +156,7 @@ h2{ font-size:clamp(30px, 6vw, 56px); letter-spacing:-.018em; }
 h3{ font-size:clamp(20px, 3vw, 26px); letter-spacing:-.01em; line-height:1.2; }
 p{ margin:0; }
 .lede{ font-size:clamp(16px, 2.4vw, 19px); line-height:1.55; color:var(--ink-2); max-width:60ch; }
-.lede.on-dark{ color:var(--ivory-2); }
+.lede.on-dark{ color:var(--section-ink-2); }
 
 /* --- Layout --- */
 .wrap{ width:100%; max-width:1240px; margin-inline:auto; padding-inline:var(--gutter); }
@@ -149,8 +176,8 @@ hr.line{ border:0; height:1px; background:var(--line); margin:0; }
 .btn--coral:hover{ background:var(--coral-2); box-shadow:0 14px 32px -10px rgba(247,79,125,.7); }
 .btn--ghost{ background:transparent; color:var(--ink); border:1px solid var(--line); }
 .btn--ghost:hover{ background:var(--surface-2); }
-.btn--ghost-light{ background:transparent; color:var(--ivory); border:1px solid rgba(242,237,228,.22); }
-.btn--ghost-light:hover{ background:rgba(242,237,228,.06); border-color:rgba(242,237,228,.4); }
+.btn--ghost-light{ background:transparent; color:var(--section-ink); border:1px solid color-mix(in srgb, var(--section-ink) 22%, transparent); }
+.btn--ghost-light:hover{ background:color-mix(in srgb, var(--section-ink) 6%, transparent); border-color:color-mix(in srgb, var(--section-ink) 40%, transparent); }
 .btn--sm{ height:38px; padding-inline:16px; font-size:13px; }
 .btn--full{ width:100%; }
 
@@ -168,13 +195,13 @@ hr.line{ border:0; height:1px; background:var(--line); margin:0; }
   -webkit-backdrop-filter:saturate(140%) blur(14px);
   border-bottom:1px solid var(--line);
 }
-/* When the hero (dark) is in view, nav stays transparent + ivory text */
+/* When the hero is in view, nav adopts the section's ink for contrast */
 .nav.over-dark:not(.scrolled){
-  color:var(--ivory);
+  color:var(--section-ink);
 }
-.nav.over-dark:not(.scrolled) .nav-links a{ color:var(--ivory-2); }
-.nav.over-dark:not(.scrolled) .nav-links a:hover{ color:var(--ivory); }
-.nav.over-dark:not(.scrolled) .theme-toggle{ color:var(--ivory); }
+.nav.over-dark:not(.scrolled) .nav-links a{ color:var(--section-ink-2); }
+.nav.over-dark:not(.scrolled) .nav-links a:hover{ color:var(--section-ink); }
+.nav.over-dark:not(.scrolled) .theme-toggle{ color:var(--section-ink); }
 .nav.over-dark:not(.scrolled) .nav-mark img{ filter:none; }
 
 .nav-mark{
@@ -182,7 +209,7 @@ hr.line{ border:0; height:1px; background:var(--line); margin:0; }
   font-size:18px; letter-spacing:-.01em;
 }
 .nav-mark img{
-  height:28px; width:auto; display:block;
+  height:28px; width:auto;
 }
 .nav-mark .wordmark{ display:none; }
 @media (min-width: 540px){ .nav-mark .wordmark{ display:inline; } }
@@ -202,6 +229,58 @@ hr.line{ border:0; height:1px; background:var(--line); margin:0; }
 .nav-links a:hover::after{ transform:scaleX(1); }
 @media (min-width: 880px){ .nav-links{ display:flex; } }
 
+/* Mobile hamburger button */
+.nav-burger{
+  width:40px; height:40px; border-radius:50%;
+  display:inline-flex; align-items:center; justify-content:center;
+  color:var(--ink); cursor:pointer;
+  transition:background var(--d) var(--ease);
+}
+.nav-burger:hover{ background:var(--surface-2); }
+.nav.over-dark:not(.scrolled) .nav-burger{ color:var(--section-ink); }
+.nav-burger svg{ width:22px; height:22px; }
+.nav-burger .icon-close{ display:none; }
+.nav-burger[aria-expanded="true"] .icon-open{ display:none; }
+.nav-burger[aria-expanded="true"] .icon-close{ display:block; }
+@media (min-width: 880px){ .nav-burger{ display:none; } }
+
+/* Mobile drawer */
+.mobile-drawer{
+  position:fixed; inset:0; z-index:60;
+  background:rgba(15,15,16,.55);
+  backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+  opacity:0; pointer-events:none;
+  transition:opacity var(--d) var(--ease);
+}
+.mobile-drawer[data-open="true"]{ opacity:1; pointer-events:auto; }
+.mobile-drawer-panel{
+  position:absolute; inset:0 0 0 auto;
+  width:min(82%, 360px);
+  background:var(--bg); color:var(--ink);
+  padding:84px var(--gutter) 40px;
+  display:flex; flex-direction:column; gap:8px;
+  transform:translateX(100%);
+  transition:transform var(--d-slow) var(--ease);
+  box-shadow:-12px 0 40px rgba(0,0,0,.18);
+}
+.mobile-drawer[data-open="true"] .mobile-drawer-panel{ transform:translateX(0); }
+.mobile-drawer-panel a{
+  font-size:24px; padding:14px 4px;
+  color:var(--ink); border-bottom:1px solid var(--line);
+  transition:color var(--d) var(--ease);
+}
+.mobile-drawer-panel a:hover{ color:var(--coral); }
+.mobile-drawer-panel .drawer-cta{
+  margin-block-start:24px;
+  border-bottom:none; padding:0;
+}
+.mobile-drawer-panel .drawer-foot{
+  margin-block-start:auto;
+  font-size:11px; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--ink-3); padding-block-start:24px; border:none;
+}
+@media (min-width: 880px){ .mobile-drawer{ display:none; } }
+
 .nav-actions{ display:flex; align-items:center; gap:10px; }
 .theme-toggle{
   width:36px; height:36px; border-radius:50%;
@@ -214,10 +293,56 @@ hr.line{ border:0; height:1px; background:var(--line); margin:0; }
 [data-theme="dark"] .theme-toggle .sun{ display:none; }
 [data-theme="dark"] .theme-toggle .moon{ display:block; }
 
+/* Language switcher */
+.lang-switch{
+  display:none; align-items:center; gap:2px;
+  padding:3px; border-radius:var(--r-pill);
+  border:1px solid var(--line);
+  background:var(--surface);
+}
+@media (min-width: 720px){ .lang-switch{ display:inline-flex; } }
+.nav.over-dark:not(.scrolled) .lang-switch{
+  border-color:color-mix(in srgb, var(--section-ink) 20%, transparent);
+  background:color-mix(in srgb, var(--section-ink) 5%, transparent);
+}
+.lang-btn{
+  padding:5px 10px; border-radius:var(--r-pill);
+  font-size:11px; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--ink-3);
+  transition:background var(--d) var(--ease), color var(--d) var(--ease);
+}
+.lang-btn:hover{ color:var(--ink); }
+.nav.over-dark:not(.scrolled) .lang-btn{ color:var(--section-ink-3); }
+.nav.over-dark:not(.scrolled) .lang-btn:hover{ color:var(--section-ink); }
+.lang-btn[aria-pressed="true"]{
+  background:var(--coral); color:#fff;
+}
+.nav.over-dark:not(.scrolled) .lang-btn[aria-pressed="true"]{
+  background:var(--coral); color:#fff;
+}
+
+/* Mobile lang switcher (in drawer) */
+.drawer-lang{
+  display:flex; gap:6px; margin-block-start:20px;
+  padding-block-start:20px; border-top:1px solid var(--line);
+}
+.drawer-lang .lang-btn{
+  border:1px solid var(--line); color:var(--ink-2);
+  padding:8px 14px; font-size:12px;
+}
+.drawer-lang .lang-btn[aria-pressed="true"]{ background:var(--coral); color:#fff; border-color:var(--coral); }
+
+/* RTL adjustments */
+[dir="rtl"] .nav-links a::after{ transform-origin:right; }
+[dir="rtl"] .mobile-drawer-panel{ inset:0 auto 0 0; transform:translateX(-100%); }
+[dir="rtl"] .mobile-drawer[data-open="true"] .mobile-drawer-panel{ transform:translateX(0); }
+[dir="rtl"] .hero-pulse{ right:auto; left:18px; }
+[dir="rtl"] body{ font-family:var(--ar); }
+
 /* --- Hero --- */
 .hero{
-  background:var(--noir);
-  color:var(--ivory);
+  background:var(--section-dark);
+  color:var(--section-ink);
   padding-block-start:calc(72px + 32px);
   padding-block-end:48px;
   overflow:hidden;
@@ -236,7 +361,7 @@ hr.line{ border:0; height:1px; background:var(--line); margin:0; }
   .hero-grid{ grid-template-columns:1.3fr 1fr; gap:48px; }
 }
 .hero-copy{ position:relative; z-index:2; max-width:36ch; }
-.hero h1{ color:var(--ivory); margin-block:18px 18px; }
+.hero h1{ color:var(--section-ink); margin-block:18px 18px; }
 .hero h1 em{ font-style:normal; color:var(--coral); }
 .hero p.lede{ margin-block-end:28px; }
 .hero-ctas{ display:flex; gap:12px; flex-wrap:wrap; }
@@ -244,38 +369,150 @@ hr.line{ border:0; height:1px; background:var(--line); margin:0; }
   margin-block-start:36px;
   display:flex; flex-wrap:wrap; gap:18px;
   font-size:12px; letter-spacing:.18em; text-transform:uppercase;
-  color:var(--ivory-3);
+  color:var(--section-ink-3);
 }
 .hero-meta span{ display:inline-flex; align-items:center; gap:8px; }
 .hero-meta span::before{ content:""; width:4px; height:4px; border-radius:50%; background:var(--coral); display:inline-block; }
 
-/* The character — the visual centerpiece */
+.hero-trust{ margin-block-start:24px; }
+.trust-pill{
+  display:inline-flex; align-items:center; gap:10px;
+  padding:10px 16px;
+  border:1px solid rgba(247,79,125,.35);
+  border-radius:var(--r-pill);
+  background:rgba(247,79,125,.08);
+  font-size:13px; color:var(--section-ink-2);
+}
+.trust-dot{
+  width:6px; height:6px; border-radius:50%; background:var(--coral);
+  box-shadow:0 0 0 0 rgba(247,79,125,.5);
+  animation:dotPulse 2.4s var(--ease) infinite;
+}
+
+/* The visual centerpiece — editorial lens composition */
 .hero-figure{
   position:relative;
   align-self:end;
   width:100%; max-width:520px; margin-inline:auto;
+  aspect-ratio:4/5;
+  display:flex; align-items:center; justify-content:center;
 }
 @media (min-width: 880px){
   .hero-figure{ margin-inline:0; margin-inline-start:auto; max-width:none; }
 }
-.hero-figure img{
-  width:100%; height:auto; display:block;
-  border-radius:var(--r-20);
+
+/* Background orbs — depth + atmosphere */
+.hero-orb{
+  position:absolute; border-radius:50%;
+  filter:blur(60px); z-index:0; pointer-events:none;
 }
-/* Subtle coral glow behind */
-.hero-figure::before{
-  content:""; position:absolute; inset:auto 8% 6% 8%;
-  height:60%;
-  background:radial-gradient(ellipse at center, rgba(247,79,125,.32) 0%, transparent 65%);
-  filter:blur(48px);
-  z-index:0;
+.hero-orb-1{
+  width:65%; aspect-ratio:1;
+  background:radial-gradient(circle, rgba(247,79,125,.45) 0%, rgba(247,79,125,0) 70%);
+  top:-5%; right:-8%;
+  animation:orbDrift 14s var(--ease) infinite;
 }
-.hero-figure img{ position:relative; z-index:1; }
+.hero-orb-2{
+  width:55%; aspect-ratio:1;
+  background:radial-gradient(circle, color-mix(in srgb, var(--section-ink) 10%, transparent) 0%, transparent 70%);
+  bottom:-2%; left:-10%;
+  animation:orbDrift 18s var(--ease) infinite reverse;
+}
+@keyframes orbDrift{
+  0%,100%{ transform:translate(0,0) scale(1); }
+  50%{ transform:translate(24px,-28px) scale(1.08); }
+}
+
+/* The card — vanity-mirror frame */
+.hero-card{
+  position:relative; z-index:2;
+  width:86%; aspect-ratio:4/5;
+  border-radius:28px;
+  background:
+    radial-gradient(ellipse at 30% 18%, rgba(247,79,125,.16) 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 95%, rgba(247,79,125,.08) 0%, transparent 60%),
+    linear-gradient(160deg, var(--surface) 0%, var(--coral-soft) 50%, var(--surface) 100%);
+  box-shadow:
+    0 40px 90px -20px rgba(247,79,125,.28),
+    0 0 0 1px color-mix(in srgb, var(--section-ink) 8%, transparent) inset;
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:space-between;
+  padding:10% 8%;
+  overflow:hidden;
+}
+.hero-card::after{
+  content:""; position:absolute; inset:0;
+  background-image:
+    repeating-linear-gradient(0deg, color-mix(in srgb, var(--section-ink) 2%, transparent) 0 1px, transparent 1px 3px);
+  pointer-events:none;
+}
+
+.hero-card-label{
+  font-size:10px; letter-spacing:.36em; text-transform:uppercase;
+  color:var(--section-ink-3);
+  position:relative; z-index:2;
+}
+
+/* The lens — animated AI eye */
+.hero-lens{
+  position:relative; width:62%; aspect-ratio:1;
+  border-radius:50%;
+  background:
+    radial-gradient(circle at 36% 28%, #FFE2EC 0%, #F74F7D 45%, #C42955 100%);
+  box-shadow:
+    0 30px 70px -10px rgba(247,79,125,.55),
+    inset 0 -40px 70px rgba(13,15,20,.22),
+    inset 0 24px 50px rgba(255,255,255,.35),
+    inset 0 0 0 8px rgba(255,255,255,.08);
+  z-index:2;
+}
+.hero-lens::before{
+  content:""; position:absolute; inset:18%;
+  border-radius:50%;
+  background:radial-gradient(circle at 38% 32%, rgba(13,15,20,.55) 0%, rgba(13,15,20,.85) 70%);
+  box-shadow:inset 0 0 30px rgba(0,0,0,.5);
+}
+.hero-lens::after{
+  content:""; position:absolute; top:18%; left:24%;
+  width:22%; height:22%; border-radius:50%;
+  background:radial-gradient(circle, rgba(255,255,255,.95) 0%, rgba(255,255,255,0) 70%);
+  filter:blur(2px);
+  animation:lensShine 3.6s var(--ease) infinite;
+}
+@keyframes lensShine{
+  0%,100%{ opacity:.6; transform:scale(1); }
+  50%{ opacity:1; transform:scale(1.15); }
+}
+
+.hero-card-meta{
+  font-size:14px; letter-spacing:.02em;
+  color:var(--section-ink-2); text-align:center;
+  position:relative; z-index:2;
+}
+.hero-card-meta .accent{ color:var(--coral); }
+
+/* Pulse dot — top-right corner */
+.hero-pulse{
+  position:absolute; top:18px; right:18px;
+  width:10px; height:10px; border-radius:50%;
+  background:var(--coral);
+  box-shadow:0 0 0 0 rgba(247,79,125,.6);
+  animation:dotPulse 2.4s var(--ease) infinite;
+  z-index:3;
+}
+@keyframes dotPulse{
+  0%,100%{ box-shadow:0 0 0 0 rgba(247,79,125,.55); }
+  50%{ box-shadow:0 0 0 12px rgba(247,79,125,0); }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .hero-orb, .hero-lens::after, .hero-pulse{ animation:none; }
+}
 
 /* Marquee strip below hero */
 .marquee{
-  background:var(--noir-2); color:var(--ivory-3);
-  border-block-start:1px solid rgba(242,237,228,.06);
+  background:var(--section-dark-2); color:var(--section-ink-3);
+  border-block-start:1px solid color-mix(in srgb, var(--section-ink) 6%, transparent);
   overflow:hidden;
   padding-block:16px;
 }
@@ -296,8 +533,8 @@ hr.line{ border:0; height:1px; background:var(--line); margin:0; }
 
 /* --- Section: Try it (real product demo) --- */
 .tryit{
-  background:var(--noir);
-  color:var(--ivory);
+  background:var(--section-dark);
+  color:var(--section-ink);
   padding-block:var(--section);
   position:relative;
   overflow:hidden;
@@ -310,13 +547,13 @@ hr.line{ border:0; height:1px; background:var(--line); margin:0; }
   .tryit-grid{ grid-template-columns:1fr 1fr; gap:64px; }
 }
 .tryit-copy{ max-width:38ch; }
-.tryit h2{ color:var(--ivory); margin-block:14px 18px; }
+.tryit h2{ color:var(--section-ink); margin-block:14px 18px; }
 .tryit h2 em{ font-style:normal; color:var(--coral); }
-.tryit p.lede{ color:var(--ivory-2); margin-block-end:24px; }
+.tryit p.lede{ color:var(--section-ink-2); margin-block-end:24px; }
 .tryit-help{
   display:inline-flex; align-items:center; gap:10px;
   font-size:11px; letter-spacing:.22em; text-transform:uppercase;
-  color:var(--ivory-3);
+  color:var(--section-ink-3);
   margin-block-end:18px;
 }
 .tryit-help::before{
@@ -336,11 +573,11 @@ hr.line{ border:0; height:1px; background:var(--line); margin:0; }
 .style-chip{
   display:inline-flex; align-items:center; gap:8px;
   height:38px; padding-inline:16px; border-radius:var(--r-pill);
-  border:1px solid rgba(242,237,228,.22);
-  font-size:13px; color:var(--ivory-2);
+  border:1px solid color-mix(in srgb, var(--section-ink) 22%, transparent);
+  font-size:13px; color:var(--section-ink-2);
   transition:border-color var(--d) var(--ease), background var(--d) var(--ease), color var(--d) var(--ease);
 }
-.style-chip:hover{ border-color:rgba(242,237,228,.5); color:var(--ivory); }
+.style-chip:hover{ border-color:color-mix(in srgb, var(--section-ink) 50%, transparent); color:var(--section-ink); }
 .style-chip[data-active="true"]{
   background:var(--coral); border-color:var(--coral); color:#fff;
 }
@@ -359,8 +596,8 @@ hr.line{ border:0; height:1px; background:var(--line); margin:0; }
   aspect-ratio: 4 / 5;
   border-radius:24px;
   overflow:hidden;
-  background:var(--noir-3);
-  box-shadow:0 30px 80px -30px rgba(0,0,0,.6), 0 0 0 1px rgba(242,237,228,.05);
+  background:var(--section-dark-3);
+  box-shadow:0 30px 80px -30px rgba(0,0,0,.6), 0 0 0 1px color-mix(in srgb, var(--section-ink) 5%, transparent);
   cursor:grab;
   user-select:none;
   touch-action:none;
@@ -388,8 +625,8 @@ hr.line{ border:0; height:1px; background:var(--line); margin:0; }
   display:inline-flex; align-items:center;
   font-size:10px; letter-spacing:.22em; text-transform:uppercase;
   border-radius:var(--r-pill);
-  background:rgba(15,15,16,.78);
-  color:var(--ivory);
+  background:color-mix(in srgb, var(--section-dark) 78%, transparent);
+  color:var(--section-ink);
   backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
   pointer-events:none;
   transition:opacity var(--d) var(--ease), background var(--d) var(--ease), color var(--d) var(--ease);
@@ -403,7 +640,7 @@ hr.line{ border:0; height:1px; background:var(--line); margin:0; }
   transform:translateX(-50%);
   font-size:11px; letter-spacing:.22em; text-transform:uppercase;
   padding:8px 14px; border-radius:var(--r-pill);
-  background:rgba(15,15,16,.7); color:var(--ivory);
+  background:color-mix(in srgb, var(--section-dark) 70%, transparent); color:var(--section-ink);
   backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
   pointer-events:none;
   transition:opacity var(--d) var(--ease);
@@ -458,8 +695,8 @@ hr.line{ border:0; height:1px; background:var(--line); margin:0; }
 }
 .gesture-label{
   font-size:10px; letter-spacing:.2em; text-transform:uppercase;
-  color:var(--ivory); white-space:nowrap;
-  background:rgba(15,15,16,.55); backdrop-filter:blur(8px);
+  color:var(--section-ink); white-space:nowrap;
+  background:color-mix(in srgb, var(--section-dark) 55%, transparent); backdrop-filter:blur(8px);
   padding:5px 11px; border-radius:var(--r-pill);
 }
 @media (prefers-reduced-motion: reduce){
@@ -497,14 +734,18 @@ hr.line{ border:0; height:1px; background:var(--line); margin:0; }
 
 /* --- Pull quote / promise --- */
 .promise{
-  background:var(--surface-2);
+  background:var(--bg);
+  color:var(--ink);
   text-align:start;
+  border-block-start:1px solid var(--line);
+  border-block-end:1px solid var(--line);
 }
-.promise-inner{ max-width:24ch; }
+.promise-inner{ max-width:22ch; }
+@media (min-width: 720px){ .promise-inner{ max-width:32ch; } }
 .promise h2{
-  font-size:clamp(36px, 7vw, 76px);
+  font-size:clamp(34px, 5.4vw, 64px);
   letter-spacing:-.025em;
-  line-height:1.04;
+  line-height:1.06;
 }
 .promise h2 em{ font-style:normal; color:var(--coral); }
 .promise small{
@@ -557,25 +798,25 @@ hr.line{ border:0; height:1px; background:var(--line); margin:0; }
 
 /* --- Privacy --- */
 .privacy{
-  background:var(--noir);
-  color:var(--ivory);
+  background:var(--section-dark);
+  color:var(--section-ink);
 }
-.privacy h2{ color:var(--ivory); margin-block-end:32px; max-width:18ch; }
+.privacy h2{ color:var(--section-ink); margin-block-end:32px; max-width:18ch; }
 .privacy h2 em{ font-style:normal; color:var(--coral); }
 .privacy-list{
   display:grid; grid-template-columns:1fr; gap:24px;
 }
 @media (min-width: 720px){ .privacy-list{ grid-template-columns:repeat(3, 1fr); gap:32px; } }
 .priv-item{
-  border-block-start:1px solid rgba(242,237,228,.16);
+  border-block-start:1px solid color-mix(in srgb, var(--section-ink) 16%, transparent);
   padding-block-start:20px;
   display:flex; flex-direction:column; gap:8px;
 }
 .priv-item .num{
   font-size:11px; letter-spacing:.22em; text-transform:uppercase; color:var(--coral);
 }
-.priv-item h3{ color:var(--ivory); font-size:18px; letter-spacing:-.005em; line-height:1.3; }
-.priv-item p{ color:var(--ivory-2); font-size:14.5px; line-height:1.55; }
+.priv-item h3{ color:var(--section-ink); font-size:18px; letter-spacing:-.005em; line-height:1.3; }
+.priv-item p{ color:var(--section-ink-2); font-size:14.5px; line-height:1.55; }
 
 /* --- Waitlist --- */
 .waitlist{
@@ -594,21 +835,31 @@ hr.line{ border:0; height:1px; background:var(--line); margin:0; }
   display:flex; flex-direction:column; gap:10px;
   max-width:440px; margin-inline:auto;
 }
-@media (min-width: 540px){ .waitlist-form{ flex-direction:row; } }
 .waitlist-form input{
-  flex:1; height:52px; padding-inline:18px;
+  width:100%; height:52px; padding-inline:18px;
   border:1px solid var(--line); background:var(--surface);
   border-radius:var(--r-pill); color:var(--ink);
   font-size:15px;
+  box-sizing:border-box;
   transition:border-color var(--d) var(--ease), background var(--d) var(--ease);
 }
 .waitlist-form input::placeholder{ color:var(--ink-3); }
 .waitlist-form input:focus{ outline:none; border-color:var(--coral); }
-.waitlist-form button{ height:52px; }
+.waitlist-form button{ height:52px; flex-shrink:0; }
+@media (min-width: 540px){
+  .waitlist-form{ flex-direction:row; }
+  .waitlist-form input{ flex:1; width:auto; }
+}
 .waitlist-fine{
   display:block; margin-block-start:14px;
   font-size:12px; letter-spacing:.05em; color:var(--ink-3);
 }
+.waitlist-error{
+  display:block; min-height:18px;
+  margin-block-start:10px;
+  font-size:13px; color:var(--coral);
+}
+.waitlist-error:empty{ display:none; }
 .waitlist.thanks .waitlist-form{ display:none; }
 .waitlist .thanks-msg{ display:none; }
 .waitlist.thanks .thanks-msg{
@@ -639,15 +890,11 @@ footer{
 }
 
 /* --- Logo color modes --- */
-/* Default: pink logo on light theme */
+/* Pink logo in light theme, white logo in dark theme */
 .logo-light{ display:block; }
 .logo-dark{ display:none; }
 [data-theme="dark"] .logo-light{ display:none; }
 [data-theme="dark"] .logo-dark{ display:block; }
-
-/* When nav is over the dark hero (and not scrolled), show white logo */
-.nav.over-dark:not(.scrolled) .logo-light{ display:none; }
-.nav.over-dark:not(.scrolled) .logo-dark{ display:block; }
 
 /* --- Reveal --- */
 [data-reveal]{ opacity:0; transform:translateY(8px); transition:opacity var(--d-slow) var(--ease), transform var(--d-slow) var(--ease); }
@@ -667,6 +914,8 @@ footer{
 
 <body>
 
+<a class="skip-link" href="#hero">Skip to content</a>
+
 <!-- ========== Nav ========== -->
 <header class="nav over-dark" id="nav">
   <a class="nav-mark" href="/" aria-label="Mademoiselle home">
@@ -675,13 +924,17 @@ footer{
     <span class="wordmark">mademoiselle</span>
   </a>
   <nav class="nav-links" aria-label="Primary">
-    <a href="#what">Studio</a>
-    <a href="#what">Closet</a>
-    <a href="#what">Salons</a>
-    <a href="#plans">Plans</a>
-    <a href="/blog/">Journal</a>
+    <a href="#what" data-i18n="nav.studio">Studio</a>
+    <a href="#what" data-i18n="nav.closet">Closet</a>
+    <a href="#what" data-i18n="nav.salons">Salons</a>
+    <a href="#plans" data-i18n="nav.plans">Plans</a>
+    <a href="/blog/" data-i18n="nav.journal">Journal</a>
   </nav>
   <div class="nav-actions">
+    <div class="lang-switch" role="group" aria-label="Language">
+      <button class="lang-btn" type="button" data-lang="en" aria-pressed="true">EN</button>
+      <button class="lang-btn" type="button" data-lang="ar" aria-pressed="false">عربي</button>
+    </div>
     <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode" aria-pressed="false">
       <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
         <circle cx="12" cy="12" r="4"/>
@@ -691,31 +944,66 @@ footer{
         <path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/>
       </svg>
     </button>
-    <a class="btn btn--coral btn--sm" href="#waitlist">Get early access</a>
+    <a class="btn btn--coral btn--sm" href="#waitlist" data-i18n="nav.cta">Get early access</a>
+    <button class="nav-burger" id="navBurger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileDrawer">
+      <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+        <path d="M4 7h16M4 12h16M4 17h16"/>
+      </svg>
+      <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+        <path d="M6 6l12 12M18 6L6 18"/>
+      </svg>
+    </button>
   </div>
 </header>
+
+<!-- ========== Mobile drawer ========== -->
+<div class="mobile-drawer" id="mobileDrawer" data-open="false" role="dialog" aria-modal="true" aria-label="Mobile navigation">
+  <div class="mobile-drawer-panel">
+    <a href="#what" data-drawer-link>Studio</a>
+    <a href="#what" data-drawer-link>Closet</a>
+    <a href="#what" data-drawer-link>Salons</a>
+    <a href="#plans" data-drawer-link>Plans</a>
+    <a href="/blog/" data-drawer-link>Journal</a>
+    <a class="btn btn--coral drawer-cta" href="#waitlist" data-drawer-link data-i18n="nav.cta">Get early access</a>
+    <div class="drawer-lang" role="group" aria-label="Language">
+      <button class="lang-btn" type="button" data-lang="en" aria-pressed="true">EN</button>
+      <button class="lang-btn" type="button" data-lang="ar" aria-pressed="false">عربي</button>
+    </div>
+    <span class="drawer-foot">&copy; 2026 Mademoiselle &middot; MENA</span>
+  </div>
+</div>
 
 <!-- ========== Hero ========== -->
 <section class="hero" id="hero">
   <div class="wrap hero-grid">
     <div class="hero-copy">
-      <span class="eyebrow on-dark"><span class="dot"></span> Beauty &middot; Intelligence &middot; MENA-first</span>
-      <h1>See <em>yourself</em> in it before you commit.</h1>
-      <p class="lede on-dark">
+      <span class="eyebrow on-dark"><span class="dot"></span> <span data-i18n="hero.eyebrow">Beauty &middot; Intelligence &middot; MENA-first</span></span>
+      <h1 data-i18n-html="hero.title">See <em>yourself</em> in it before you commit.</h1>
+      <p class="lede on-dark" data-i18n="hero.lede">
         Mademoiselle is your AI beauty companion. Try any hairstyle on your selfie in seconds, keep a private smart closet that learns what you wear, and book the look at real salons. Coming 2026.
       </p>
       <div class="hero-ctas">
-        <a class="btn btn--coral" href="#waitlist">Get early access</a>
-        <a class="btn btn--ghost-light" href="#what">See what it does</a>
+        <a class="btn btn--coral" href="#waitlist" data-i18n="hero.ctaPrimary">Get early access</a>
+        <a class="btn btn--ghost-light" href="#what" data-i18n="hero.ctaSecondary">See what it does</a>
       </div>
       <div class="hero-meta">
-        <span>10 free tries / day</span>
-        <span>Real salons</span>
-        <span>AR &middot; EN &middot; FR</span>
+        <span data-i18n="hero.metaTries">10 free tries / day</span>
+        <span data-i18n="hero.metaSalons">Real salons</span>
+        <span data-i18n="hero.metaLangs">AR &middot; EN</span>
+      </div>
+      <div class="hero-trust">
+        <span class="trust-pill"><span class="trust-dot"></span> <span data-i18n="hero.trust">Founding members get extra credits &amp; lifetime perks</span></span>
       </div>
     </div>
-    <figure class="hero-figure" data-reveal>
-      <img src="assets/character.png" alt="Mademoiselle character — feminine silhouette with white hair on a charcoal background" width="900" height="900" fetchpriority="high">
+    <figure class="hero-figure" data-reveal aria-hidden="true">
+      <span class="hero-orb hero-orb-1"></span>
+      <span class="hero-orb hero-orb-2"></span>
+      <div class="hero-card">
+        <span class="hero-pulse"></span>
+        <span class="hero-card-label">Studio &middot; Est. 2026</span>
+        <div class="hero-lens"></div>
+        <span class="hero-card-meta">the mirror, <span class="accent">intelligent</span>.</span>
+      </div>
     </figure>
   </div>
 </section>
@@ -732,12 +1020,12 @@ footer{
 <section class="tryit" id="tryit" aria-labelledby="tryit-h">
   <div class="wrap tryit-grid">
     <div class="tryit-copy" data-reveal>
-      <span class="eyebrow on-dark"><span class="dot"></span> The signature gesture</span>
-      <h2 id="tryit-h">Try it on a <em>real</em> selfie.</h2>
-      <p class="lede on-dark">
+      <span class="eyebrow on-dark"><span class="dot"></span> <span data-i18n="tryit.eyebrow">The signature gesture</span></span>
+      <h2 id="tryit-h" data-i18n-html="tryit.title">Try it on a <em>real</em> selfie.</h2>
+      <p class="lede on-dark" data-i18n="tryit.lede">
         Pick a hairstyle. Press and hold the result to peek at the original. This is the core moment of Mademoiselle &mdash; you see yourself in the look before you ever sit in a chair.
       </p>
-      <span class="tryit-help" aria-hidden="true">Press &amp; hold the photo</span>
+      <span class="tryit-help" aria-hidden="true" data-i18n="tryit.help">Press &amp; hold the photo</span>
       <div class="tryit-chips" role="tablist" aria-label="Choose a hairstyle">
         <button type="button" class="style-chip" data-style="short" data-active="true" role="tab" aria-selected="true">
           <span class="swatch" aria-hidden="true"></span>
@@ -751,8 +1039,8 @@ footer{
     </div>
 
     <figure class="tryit-figure" id="tryitFigure" tabindex="0" role="img" aria-label="Hairstyle try-on demo. Press and hold to reveal the original photo.">
-      <img class="tryit-before" src="assets/tryon-original.webp" alt="Original selfie before AI hairstyle try-on" width="800" height="1000">
-      <img class="tryit-after" id="tryitAfter" src="assets/tryon-short.webp" alt="AI try-on result with a pixie cut" width="800" height="1000">
+      <img class="tryit-before" src="assets/tryon-original.webp" alt="Original selfie before AI hairstyle try-on" width="800" height="1000" loading="lazy" decoding="async">
+      <img class="tryit-after" id="tryitAfter" src="assets/tryon-short.webp" alt="AI try-on result with a pixie cut" width="800" height="1000" loading="lazy" decoding="async">
       <span class="tryit-tag tag-before">Before</span>
       <span class="tryit-tag tag-after" id="tryitTagAfter">After &middot; Pixie</span>
       <span class="tryit-hint">Hold to see original</span>
@@ -776,31 +1064,31 @@ footer{
 <section class="what" id="what">
   <div class="wrap">
     <header class="what-head" data-reveal>
-      <span class="eyebrow"><span class="dot"></span> What you'll be able to do</span>
-      <h2>Three things, done <em>properly</em>.</h2>
-      <p class="lede">No demos pretending to be screenshots. Just the three capabilities Mademoiselle is being built around &mdash; the rest follows from these.</p>
+      <span class="eyebrow"><span class="dot"></span> <span data-i18n="what.eyebrow">What you'll be able to do</span></span>
+      <h2 data-i18n-html="what.title">Three things, done <em>properly</em>.</h2>
+      <p class="lede" data-i18n="what.lede">No demos pretending to be screenshots. Just the three capabilities Mademoiselle is being built around &mdash; the rest follows from these.</p>
     </header>
 
     <div class="what-grid">
       <article class="cap" data-reveal>
-        <span class="cap-num">01 / Hair Studio</span>
-        <h3>Try any hairstyle on your selfie.</h3>
-        <p>Upload a centred head selfie. Pick a look. Press and hold the result to peek at the original. The signature interaction of the app.</p>
-        <span class="cap-tag">Coming 2026</span>
+        <span class="cap-num" data-i18n="what.c1Num">01 / Hair Studio</span>
+        <h3 data-i18n="what.c1Title">Try any hairstyle on your selfie.</h3>
+        <p data-i18n="what.c1Body">Upload a centred head selfie. Pick a look. Press and hold the result to peek at the original. The signature interaction of the app.</p>
+        <span class="cap-tag" data-i18n="common.coming">Coming 2026</span>
       </article>
 
       <article class="cap" data-reveal>
-        <span class="cap-num">02 / Smart Closet</span>
-        <h3>Your closet, private and intelligent.</h3>
-        <p>Add pieces. Tag them once. Let the AI suggest today&rsquo;s outfit, flag what&rsquo;s missing, and remind you of what you already own before you buy it again.</p>
-        <span class="cap-tag">Coming 2026</span>
+        <span class="cap-num" data-i18n="what.c2Num">02 / Smart Closet</span>
+        <h3 data-i18n="what.c2Title">Your closet, private and intelligent.</h3>
+        <p data-i18n="what.c2Body">Add pieces. Tag them once. Let the AI suggest today&rsquo;s outfit, flag what&rsquo;s missing, and remind you of what you already own before you buy it again.</p>
+        <span class="cap-tag" data-i18n="common.coming">Coming 2026</span>
       </article>
 
       <article class="cap" data-reveal>
-        <span class="cap-num">03 / Real Booking</span>
-        <h3>Book the look at a real salon.</h3>
-        <p>From try-on to chair, in three taps. Real salons. Real availability. Real prices. We don&rsquo;t guess at hours; we read live calendars.</p>
-        <span class="cap-tag">Coming 2026</span>
+        <span class="cap-num" data-i18n="what.c3Num">03 / Real Booking</span>
+        <h3 data-i18n="what.c3Title">Book the look at a real salon.</h3>
+        <p data-i18n="what.c3Body">From try-on to chair, in three taps. Real salons. Real availability. Real prices. We don&rsquo;t guess at hours; we read live calendars.</p>
+        <span class="cap-tag" data-i18n="common.coming">Coming 2026</span>
       </article>
     </div>
   </div>
@@ -812,9 +1100,9 @@ footer{
 <section class="promise">
   <div class="wrap">
     <div class="promise-inner" data-reveal>
-      <span class="eyebrow"><span class="dot"></span> The promise</span>
-      <h2 style="margin-block-start:18px;">We don&rsquo;t sell beauty. We help you decide what beauty looks like on <em>you</em>.</h2>
-      <small>A studio for the way you actually decide.</small>
+      <span class="eyebrow"><span class="dot"></span> <span data-i18n="promise.eyebrow">The promise</span></span>
+      <h2 style="margin-block-start:18px;" data-i18n-html="promise.title">We don&rsquo;t sell beauty. We help you decide what beauty looks like on <em>you</em>.</h2>
+      <small data-i18n="promise.small">A studio for the way you actually decide.</small>
     </div>
   </div>
 </section>
@@ -823,9 +1111,9 @@ footer{
 <section class="plans" id="plans">
   <div class="wrap">
     <header class="plans-head" data-reveal>
-      <span class="eyebrow"><span class="dot"></span> Plans</span>
-      <h2>Start <em>free</em>. Upgrade only when it makes sense.</h2>
-      <p class="lede">The daily clock starts on your first AI beauty action, not on signup. We want you to actually try it before any limit kicks in.</p>
+      <span class="eyebrow"><span class="dot"></span> <span data-i18n="plans.eyebrow">Plans</span></span>
+      <h2 data-i18n-html="plans.title">Start <em>free</em>. Upgrade only when it makes sense.</h2>
+      <p class="lede" data-i18n="plans.lede">The daily clock starts on your first AI beauty action, not on signup. We want you to actually try it before any limit kicks in.</p>
     </header>
 
     <div class="plans-grid">
@@ -879,23 +1167,23 @@ footer{
 <!-- ========== Privacy ========== -->
 <section class="privacy">
   <div class="wrap">
-    <span class="eyebrow on-dark"><span class="dot"></span> Private by design</span>
-    <h2 style="margin-block-start:14px;">Your selfies stay <em>yours</em>.</h2>
+    <span class="eyebrow on-dark"><span class="dot"></span> <span data-i18n="privacy.eyebrow">Private by design</span></span>
+    <h2 style="margin-block-start:14px;" data-i18n-html="privacy.title">Your selfies stay <em>yours</em>.</h2>
     <div class="privacy-list">
       <div class="priv-item" data-reveal>
         <span class="num">01</span>
-        <h3>No training on your photos.</h3>
-        <p>We never use your selfies or closet images to train models. The output is for you, not for a dataset.</p>
+        <h3 data-i18n="privacy.p1Title">No training on your photos.</h3>
+        <p data-i18n="privacy.p1Body">We never use your selfies or closet images to train models. The output is for you, not for a dataset.</p>
       </div>
       <div class="priv-item" data-reveal>
         <span class="num">02</span>
-        <h3>Encrypted, end-to-end where it counts.</h3>
-        <p>Your closet and selfies are encrypted at rest. We see what we need to render the moment, and nothing more.</p>
+        <h3 data-i18n="privacy.p2Title">Encrypted, end-to-end where it counts.</h3>
+        <p data-i18n="privacy.p2Body">Your closet and selfies are encrypted at rest. We see what we need to render the moment, and nothing more.</p>
       </div>
       <div class="priv-item" data-reveal>
         <span class="num">03</span>
-        <h3>Deletion actually deletes.</h3>
-        <p>One tap. Real cascade. No ghost copies in a backup we &ldquo;forgot&rdquo; about. The day you leave is the day we forget you.</p>
+        <h3 data-i18n="privacy.p3Title">Deletion actually deletes.</h3>
+        <p data-i18n="privacy.p3Body">One tap. Real cascade. No ghost copies in a backup we &ldquo;forgot&rdquo; about. The day you leave is the day we forget you.</p>
       </div>
     </div>
   </div>
@@ -905,15 +1193,22 @@ footer{
 <section class="waitlist" id="waitlist">
   <div class="wrap">
     <div class="waitlist-inner" data-reveal>
-      <span class="eyebrow"><span class="dot"></span> Get early access</span>
-      <h2 style="margin-block-start:14px;">The studio opens <em>soon</em>.</h2>
-      <p class="lede">Drop your email. We&rsquo;ll send one note when the doors open and one note only. No marketing spam, no &ldquo;newsletter,&rdquo; no resold lists.</p>
-      <form class="waitlist-form" id="waitlistForm" novalidate>
-        <input id="waitlistEmail" type="email" required placeholder="you@beautiful.com" autocomplete="email" aria-label="Email address">
-        <button class="btn btn--coral" type="submit">Join the waitlist</button>
+      <span class="eyebrow"><span class="dot"></span> <span data-i18n="waitlist.eyebrow">Get early access</span></span>
+      <h2 style="margin-block-start:14px;" data-i18n-html="waitlist.title">The studio opens <em>soon</em>.</h2>
+      <p class="lede" data-i18n="waitlist.lede">Drop your email. We&rsquo;ll send one note when the doors open and one note only. No marketing spam, no &ldquo;newsletter,&rdquo; no resold lists.</p>
+      <!-- TODO: Replace data-endpoint with a real form service URL.
+           Examples that work without code change:
+             - Formspree:  https://formspree.io/f/YOUR_ID
+             - Buttondown: https://buttondown.email/api/emails/embed-subscribe/YOUR_LIST
+             - Web3Forms:  https://api.web3forms.com/submit  (and add hidden input access_key)
+           If left empty, the form falls back to localStorage only (dev mode). -->
+      <form class="waitlist-form" id="waitlistForm" data-endpoint="" novalidate>
+        <input id="waitlistEmail" type="email" name="email" required placeholder="you@beautiful.com" autocomplete="email" aria-label="Email address" aria-describedby="waitlistError" data-i18n-attr="placeholder:waitlist.placeholder">
+        <button class="btn btn--coral" type="submit" id="waitlistSubmit" data-i18n="waitlist.submit">Join the waitlist</button>
       </form>
-      <span class="waitlist-fine">No card, no spam, one email when we launch.</span>
-      <p class="thanks-msg">Thank you. You&rsquo;re on the list &mdash; we&rsquo;ll write when there&rsquo;s something worth showing.</p>
+      <span class="waitlist-error" id="waitlistError" role="alert" aria-live="assertive"></span>
+      <span class="waitlist-fine" data-i18n="waitlist.fine">No card, no spam, one email when we launch. Founding members get extra credits.</span>
+      <p class="thanks-msg" role="status" aria-live="polite" data-i18n="waitlist.thanks">Thank you. You&rsquo;re on the list &mdash; we&rsquo;ll write when there&rsquo;s something worth showing.</p>
     </div>
   </div>
 </section>
@@ -924,15 +1219,15 @@ footer{
     <a class="foot-mark" href="/">
       <img class="logo-light" src="assets/logo-pink.png" alt="" width="48" height="48">
       <img class="logo-dark"  src="assets/logo-white.png" alt="" width="48" height="48">
-      <span>Mademoiselle &mdash; the AI beauty companion.</span>
+      <span data-i18n="footer.tagline">Mademoiselle &mdash; the AI beauty companion.</span>
     </a>
     <div class="foot-links">
-      <a href="#what">Studio</a>
-      <a href="#plans">Plans</a>
-      <a href="/blog/">Journal</a>
-      <a href="#waitlist">Early access</a>
+      <a href="#what" data-i18n="nav.studio">Studio</a>
+      <a href="#plans" data-i18n="nav.plans">Plans</a>
+      <a href="/blog/" data-i18n="nav.journal">Journal</a>
+      <a href="#waitlist" data-i18n="footer.early">Early access</a>
     </div>
-    <span class="foot-mini">&copy; <span id="yr">2026</span> Mademoiselle &middot; Made in MENA</span>
+    <span class="foot-mini">&copy; <span id="yr">2026</span> <span data-i18n="footer.made">Mademoiselle &middot; Made in MENA</span></span>
   </div>
 </footer>
 
@@ -976,6 +1271,140 @@ footer{
   }
   document.addEventListener('scroll', navState, { passive: true });
   navState();
+
+  // --- i18n ---
+  var I18N = {
+    en: {
+      'nav.studio':'Studio','nav.closet':'Closet','nav.salons':'Salons','nav.plans':'Plans','nav.journal':'Journal','nav.cta':'Get early access',
+      'hero.eyebrow':'Beauty · Intelligence · MENA-first',
+      'hero.title':'See <em>yourself</em> in it before you commit.',
+      'hero.lede':'Mademoiselle is your AI beauty companion. Try any hairstyle on your selfie in seconds, keep a private smart closet that learns what you wear, and book the look at real salons. Coming 2026.',
+      'hero.ctaPrimary':'Get early access','hero.ctaSecondary':'See what it does',
+      'hero.metaTries':'10 free tries / day','hero.metaSalons':'Real salons','hero.metaLangs':'AR · EN',
+      'hero.trust':'Founding members get extra credits & lifetime perks',
+      'tryit.eyebrow':'The signature gesture',
+      'tryit.title':'Try it on a <em>real</em> selfie.',
+      'tryit.lede':'Pick a hairstyle. Press and hold the result to peek at the original. This is the core moment of Mademoiselle — you see yourself in the look before you ever sit in a chair.',
+      'tryit.help':'Press & hold the photo',
+      'what.eyebrow':"What you'll be able to do",
+      'what.title':'Three things, done <em>properly</em>.',
+      'what.lede':'No demos pretending to be screenshots. Just the three capabilities Mademoiselle is being built around — the rest follows from these.',
+      'what.c1Num':'01 / Hair Studio','what.c1Title':'Try any hairstyle on your selfie.','what.c1Body':'Upload a centred head selfie. Pick a look. Press and hold the result to peek at the original. The signature interaction of the app.',
+      'what.c2Num':'02 / Smart Closet','what.c2Title':'Your closet, private and intelligent.','what.c2Body':'Add pieces. Tag them once. Let the AI suggest today\u2019s outfit, flag what\u2019s missing, and remind you of what you already own before you buy it again.',
+      'what.c3Num':'03 / Real Booking','what.c3Title':'Book the look at a real salon.','what.c3Body':'From try-on to chair, in three taps. Real salons. Real availability. Real prices. We don\u2019t guess at hours; we read live calendars.',
+      'common.coming':'Coming 2026',
+      'promise.eyebrow':'The promise',
+      'promise.title':'We don\u2019t sell beauty. We help you decide what beauty looks like on <em>you</em>.',
+      'promise.small':'A studio for the way you actually decide.',
+      'plans.eyebrow':'Plans',
+      'plans.title':'Start <em>free</em>. Upgrade only when it makes sense.',
+      'plans.lede':'The daily clock starts on your first AI beauty action, not on signup. We want you to actually try it before any limit kicks in.',
+      'privacy.eyebrow':'Private by design',
+      'privacy.title':'Your selfies stay <em>yours</em>.',
+      'privacy.p1Title':'No training on your photos.','privacy.p1Body':'We never use your selfies or closet images to train models. The output is for you, not for a dataset.',
+      'privacy.p2Title':'Encrypted, end-to-end where it counts.','privacy.p2Body':'Your closet and selfies are encrypted at rest. We see what we need to render the moment, and nothing more.',
+      'privacy.p3Title':'Deletion actually deletes.','privacy.p3Body':'One tap. Real cascade. No ghost copies in a backup we "forgot" about. The day you leave is the day we forget you.',
+      'waitlist.eyebrow':'Get early access',
+      'waitlist.title':'The studio opens <em>soon</em>.',
+      'waitlist.lede':'Drop your email. We\u2019ll send one note when the doors open and one note only. No marketing spam, no "newsletter," no resold lists.',
+      'waitlist.placeholder':'you@beautiful.com','waitlist.submit':'Join the waitlist',
+      'waitlist.fine':'No card, no spam, one email when we launch. Founding members get extra credits.',
+      'waitlist.thanks':'Thank you. You\u2019re on the list — we\u2019ll write when there\u2019s something worth showing.',
+      'waitlist.errEmpty':'Please enter your email.','waitlist.errInvalid':'That email looks off — please check and try again.','waitlist.errFail':'Something went wrong. Please try again.','waitlist.sending':'Sending...',
+      'footer.tagline':'Mademoiselle — the AI beauty companion.','footer.early':'Early access','footer.made':'Mademoiselle · Made in MENA'
+    },
+    ar: {
+      'nav.studio':'الاستوديو','nav.closet':'الخزانة','nav.salons':'الصالونات','nav.plans':'الباقات','nav.journal':'المجلة','nav.cta':'الوصول المبكّر',
+      'hero.eyebrow':'جمال · ذكاء · صُنع للمنطقة',
+      'hero.title':'شوفي <em>نفسك</em> فيها قبل ما تقرّري.',
+      'hero.lede':'مادموزيل هي رفيقتك الذكية للجمال. جرّبي أي تسريحة على سيلفيك بثوانٍ، احتفظي بخزانة خاصة وذكية تتعلّم ذوقك، واحجزي الإطلالة في صالون حقيقي. قريباً 2026.',
+      'hero.ctaPrimary':'احصلي على الوصول المبكّر','hero.ctaSecondary':'شوفي ماذا تفعل',
+      'hero.metaTries':'10 محاولات مجانية يومياً','hero.metaSalons':'صالونات حقيقية','hero.metaLangs':'عربي · إنجليزي',
+      'hero.trust':'الأعضاء المؤسّسون يحصلون على رصيد إضافي ومزايا مدى الحياة',
+      'tryit.eyebrow':'اللمسة المميّزة',
+      'tryit.title':'جرّبيها على سيلفي <em>حقيقي</em>.',
+      'tryit.lede':'اختاري تسريحة. اضغطي مطوّلاً على النتيجة لرؤية الصورة الأصلية. هذه اللحظة الجوهرية في مادموزيل — ترين نفسك بالإطلالة قبل أن تجلسي على الكرسي.',
+      'tryit.help':'اضغطي مطوّلاً على الصورة',
+      'what.eyebrow':'ما الذي ستستطيعين فعله',
+      'what.title':'ثلاثة أشياء، مُنفّذة <em>بإتقان</em>.',
+      'what.lede':'لا نماذج تتظاهر بأنها لقطات شاشة. فقط القدرات الثلاث التي تُبنى مادموزيل حولها — والباقي يتبع.',
+      'what.c1Num':'01 / استوديو الشعر','what.c1Title':'جرّبي أي تسريحة على سيلفيك.','what.c1Body':'ارفعي سيلفي للوجه. اختاري إطلالة. اضغطي مطوّلاً على النتيجة لرؤية الأصل. التفاعل المميّز للتطبيق.',
+      'what.c2Num':'02 / خزانة ذكية','what.c2Title':'خزانتك، خاصة وذكية.','what.c2Body':'أضيفي القطع. صنّفيها مرّة. دعي الذكاء الاصطناعي يقترح إطلالة اليوم، يُنبّهك للمفقود، ويذكّرك بما تملكين قبل أن تشتري مثله مجدداً.',
+      'what.c3Num':'03 / حجز حقيقي','what.c3Title':'احجزي الإطلالة في صالون حقيقي.','what.c3Body':'من التجربة إلى الكرسي بثلاث نقرات. صالونات حقيقية. توفّر حقيقي. أسعار حقيقية. لا نخمّن المواعيد، نقرأ التقاويم مباشرة.',
+      'common.coming':'قريباً 2026',
+      'promise.eyebrow':'الوعد',
+      'promise.title':'نحن لا نبيع الجمال. نساعدك على تقرير شكل الجمال <em>عليكِ أنتِ</em>.',
+      'promise.small':'استوديو يفهم طريقتك الحقيقية في الاختيار.',
+      'plans.eyebrow':'الباقات',
+      'plans.title':'ابدئي <em>مجاناً</em>. ترقّي فقط عندما يكون له معنى.',
+      'plans.lede':'العدّاد اليومي يبدأ مع أول استخدام للذكاء الاصطناعي، لا عند التسجيل. نريدك أن تجرّبي فعلاً قبل أن يحدّ شيء.',
+      'privacy.eyebrow':'الخصوصية بالتصميم',
+      'privacy.title':'سيلفياتك تبقى <em>لكِ</em>.',
+      'privacy.p1Title':'لا تدريب على صورك.','privacy.p1Body':'نحن لا نستخدم سيلفياتك أو صور خزانتك لتدريب النماذج. النتيجة لكِ، لا لقاعدة بيانات.',
+      'privacy.p2Title':'تشفير شامل حيث يجب.','privacy.p2Body':'خزانتك وسيلفياتك مشفّرة في التخزين. نرى فقط ما يلزم لإنتاج اللحظة، لا أكثر.',
+      'privacy.p3Title':'الحذف يعني الحذف فعلاً.','privacy.p3Body':'لمسة واحدة. حذف متسلسل حقيقي. لا نسخ شبحية في نسخ احتياطية «نسيناها». يوم رحيلك هو يوم نسياننا لكِ.',
+      'waitlist.eyebrow':'الوصول المبكّر',
+      'waitlist.title':'الاستوديو يفتح <em>قريباً</em>.',
+      'waitlist.lede':'اتركي بريدك. سنرسل رسالة واحدة عند فتح الأبواب — رسالة واحدة فقط. لا سبام، لا «نشرة»، ولا قوائم تُباع.',
+      'waitlist.placeholder':'you@beautiful.com','waitlist.submit':'انضمّي لقائمة الانتظار',
+      'waitlist.fine':'لا بطاقة، لا سبام، رسالة واحدة عند الإطلاق. الأعضاء المؤسّسون يحصلون على رصيد إضافي.',
+      'waitlist.thanks':'شكراً لكِ. أنتِ على القائمة — سنكتب عندما يكون هناك ما يستحقّ المشاركة.',
+      'waitlist.errEmpty':'الرجاء إدخال البريد الإلكتروني.','waitlist.errInvalid':'البريد يبدو غير صحيح — تحقّقي وأعيدي المحاولة.','waitlist.errFail':'حدث خطأ. الرجاء المحاولة مجدداً.','waitlist.sending':'جارٍ الإرسال...',
+      'footer.tagline':'مادموزيل — رفيقة الجمال الذكية.','footer.early':'الوصول المبكّر','footer.made':'مادموزيل · صُنعت في المنطقة العربية'
+    }
+  };
+  function t(key, lang){ return (I18N[lang] && I18N[lang][key]) || I18N.en[key] || key; }
+  function applyLang(lang){
+    if (!I18N[lang]) lang = 'en';
+    document.documentElement.lang = lang;
+    document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+    document.querySelectorAll('[data-i18n]').forEach(function(el){
+      el.textContent = t(el.getAttribute('data-i18n'), lang);
+    });
+    document.querySelectorAll('[data-i18n-html]').forEach(function(el){
+      el.innerHTML = t(el.getAttribute('data-i18n-html'), lang);
+    });
+    document.querySelectorAll('[data-i18n-attr]').forEach(function(el){
+      el.getAttribute('data-i18n-attr').split(',').forEach(function(pair){
+        var parts = pair.split(':'); if (parts.length === 2) el.setAttribute(parts[0].trim(), t(parts[1].trim(), lang));
+      });
+    });
+    document.querySelectorAll('.lang-btn').forEach(function(b){
+      b.setAttribute('aria-pressed', String(b.getAttribute('data-lang') === lang));
+    });
+    try{ localStorage.setItem('mdm-lang', lang); }catch(e){}
+    window.__mdmLang = lang;
+  }
+  var savedLang = (function(){ try{ return localStorage.getItem('mdm-lang'); }catch(e){ return null; } })()
+    || (navigator.language || 'en').slice(0,2).toLowerCase();
+  applyLang(I18N[savedLang] ? savedLang : 'en');
+  document.querySelectorAll('.lang-btn').forEach(function(b){
+    b.addEventListener('click', function(){ applyLang(b.getAttribute('data-lang')); });
+  });
+
+  // --- Mobile drawer ---
+  var burger = document.getElementById('navBurger');
+  var drawer = document.getElementById('mobileDrawer');
+  if (burger && drawer){
+    function setDrawer(open){
+      drawer.setAttribute('data-open', open ? 'true' : 'false');
+      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+      burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      document.body.style.overflow = open ? 'hidden' : '';
+    }
+    burger.addEventListener('click', function(){
+      setDrawer(drawer.getAttribute('data-open') !== 'true');
+    });
+    drawer.addEventListener('click', function(e){
+      if (e.target === drawer) setDrawer(false);
+    });
+    document.querySelectorAll('[data-drawer-link]').forEach(function(a){
+      a.addEventListener('click', function(){ setDrawer(false); });
+    });
+    document.addEventListener('keydown', function(e){
+      if (e.key === 'Escape' && drawer.getAttribute('data-open') === 'true') setDrawer(false);
+    });
+  }
 
   // --- Reveal on scroll ---
   if ('IntersectionObserver' in window){
@@ -1029,24 +1458,53 @@ footer{
     fig.addEventListener('keyup',   function(e){ if (e.key === ' ' || e.key === 'Enter'){ reveal(false); } });
   }
 
-  // --- Waitlist (no backend yet — local accept) ---
+  // --- Waitlist (POSTs to data-endpoint when present; localStorage fallback) ---
   var form = document.getElementById('waitlistForm');
   if (form){
+    var input = document.getElementById('waitlistEmail');
+    var submit = document.getElementById('waitlistSubmit');
+    var errEl = document.getElementById('waitlistError');
+    var sec = document.getElementById('waitlist');
+
+    function showError(msg){
+      if (errEl) errEl.textContent = msg || '';
+      if (input && msg){ input.style.borderColor = 'var(--coral)'; input.focus(); }
+    }
+    function clearError(){ showError(''); if (input) input.style.borderColor = ''; }
+
+    input && input.addEventListener('input', clearError);
+
     form.addEventListener('submit', function(e){
       e.preventDefault();
-      var email = (document.getElementById('waitlistEmail') || {}).value || '';
-      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
-        var input = document.getElementById('waitlistEmail');
-        if (input){ input.style.borderColor = 'var(--coral)'; input.focus(); }
-        return;
+      clearError();
+      var lang = window.__mdmLang || 'en';
+      var email = (input || {}).value || '';
+      if (!email){ return showError(t('waitlist.errEmpty', lang)); }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+        return showError(t('waitlist.errInvalid', lang));
       }
-      try{
-        var list = JSON.parse(localStorage.getItem('mdm-waitlist') || '[]');
-        list.push({ email: email, at: new Date().toISOString() });
-        localStorage.setItem('mdm-waitlist', JSON.stringify(list));
-      }catch(e){}
-      var sec = document.getElementById('waitlist');
-      if (sec) sec.classList.add('thanks');
+      var endpoint = form.getAttribute('data-endpoint') || '';
+      function accept(){
+        try{
+          var list = JSON.parse(localStorage.getItem('mdm-waitlist') || '[]');
+          list.push({ email: email, at: new Date().toISOString() });
+          localStorage.setItem('mdm-waitlist', JSON.stringify(list));
+        }catch(e){}
+        if (sec) sec.classList.add('thanks');
+      }
+      if (!endpoint){ accept(); return; }
+      submit && (submit.disabled = true);
+      submit && (submit.textContent = t('waitlist.sending', lang));
+      var data = new FormData(form);
+      fetch(endpoint, { method:'POST', body:data, headers:{ 'Accept':'application/json' } })
+        .then(function(r){
+          if (!r.ok) throw new Error('bad status');
+          accept();
+        })
+        .catch(function(){ showError(t('waitlist.errFail', lang)); })
+        .finally(function(){
+          if (submit){ submit.disabled = false; submit.textContent = t('waitlist.submit', lang); }
+        });
     });
   }
 })();
