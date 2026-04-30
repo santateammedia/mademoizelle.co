@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Mademoiselle &mdash; See yourself in it before you commit.</title>
-<meta name="description" content="An AI beauty companion. Try any hairstyle on your selfie. Keep a private smart closet. Book the look at real salons. MENA-first, coming 2026.">
+<meta name="description" content="An AI beauty companion. Try any hairstyle on your selfie. Photograph your closet and try full outfits on virtually before you wear them. Book the look at real salons. MENA-first, coming 2026.">
 <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
 <meta name="color-scheme" content="light dark">
@@ -17,7 +17,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Mademoiselle">
 <meta property="og:title" content="Mademoiselle &mdash; See yourself in it before you commit.">
-<meta property="og:description" content="AI beauty companion. Try any hairstyle on your selfie, keep a private smart closet, book the look at real salons.">
+<meta property="og:description" content="AI beauty companion. Try any hairstyle on your selfie, photograph your closet to try outfits on virtually, book the look at real salons.">
 <meta property="og:url" content="https://mademoizelle.co">
 <meta property="og:image" content="https://mademoizelle.co/assets/og.svg">
 <meta property="og:image:type" content="image/svg+xml">
@@ -25,7 +25,7 @@
 <meta property="og:locale:alternate" content="ar">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Mademoiselle &mdash; See yourself in it before you commit.">
-<meta name="twitter:description" content="AI beauty companion. Try any hairstyle on your selfie, keep a private smart closet, book the look at real salons.">
+<meta name="twitter:description" content="AI beauty companion. Try any hairstyle on your selfie, photograph your closet to try outfits on virtually, book the look at real salons.">
 <meta name="twitter:image" content="https://mademoizelle.co/assets/og.svg">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -360,8 +360,8 @@ hr.line{ border:0; height:1px; background:var(--line); margin:0; }
 @media (min-width: 880px){
   .hero-grid{ grid-template-columns:1.3fr 1fr; gap:48px; }
 }
-.hero-copy{ position:relative; z-index:2; max-width:36ch; }
-.hero h1{ color:var(--section-ink); margin-block:18px 18px; }
+.hero-copy{ position:relative; z-index:2; max-width:46ch; }
+.hero h1{ color:var(--section-ink); margin-block:18px 18px; font-size:clamp(36px, 6.4vw, 68px); line-height:1.05; }
 .hero h1 em{ font-style:normal; color:var(--coral); }
 .hero p.lede{ margin-block-end:28px; }
 .hero-ctas{ display:flex; gap:12px; flex-wrap:wrap; }
@@ -626,6 +626,74 @@ hr.line{ border:0; height:1px; background:var(--line); margin:0; }
 }
 
 /* --- Section: What it does --- */
+/* Dress Room — Smart Closet showcase */
+.dressroom{
+  background:var(--section-dark);
+  color:var(--section-ink);
+  padding-block:var(--section);
+  position:relative; overflow:hidden;
+}
+.dressroom-grid{
+  display:grid; grid-template-columns:1fr; gap:40px;
+  align-items:center;
+}
+@media (min-width: 880px){
+  .dressroom-grid{ grid-template-columns:1fr 1fr; gap:64px; }
+}
+.dressroom-copy{ max-width:46ch; }
+.dressroom h2{ color:var(--section-ink); margin-block:14px 18px; font-size:clamp(30px, 4.6vw, 54px); line-height:1.08; }
+.dressroom h2 em{ font-style:normal; color:var(--coral); }
+.dressroom p.lede{ color:var(--section-ink-2); margin-block-end:24px; }
+.dressroom-list{
+  list-style:none; padding:0; margin:0 0 28px 0;
+  display:flex; flex-direction:column; gap:14px;
+}
+.dressroom-list li{
+  position:relative; padding-inline-start:22px;
+  font-size:15px; line-height:1.55; color:var(--section-ink-2);
+}
+.dressroom-list li::before{
+  content:""; position:absolute; inset-inline-start:0; top:.65em;
+  width:6px; height:6px; border-radius:50%; background:var(--coral);
+}
+[dir="rtl"] .dressroom-list li{ padding-inline-start:0; padding-inline-end:22px; }
+.dressroom-list strong{ color:var(--section-ink); font-weight:500; }
+.dressroom-ctas{ display:flex; gap:14px; align-items:center; flex-wrap:wrap; }
+
+.dressroom-figure{
+  position:relative; margin:0;
+  width:100%; max-width:560px; margin-inline:auto;
+  aspect-ratio: 4 / 5;
+  border-radius:24px; overflow:hidden;
+  background:var(--section-dark-3);
+  box-shadow:0 30px 70px -20px rgba(0,0,0,.5), 0 0 0 1px color-mix(in srgb, var(--section-ink) 8%, transparent) inset;
+}
+.dressroom-figure img{
+  position:absolute; inset:0;
+  width:100%; height:100%; object-fit:cover; display:block;
+}
+.dressroom-tag{
+  position:absolute; z-index:3; top:14px; inset-inline-start:14px;
+  height:28px; padding-inline:14px;
+  display:inline-flex; align-items:center;
+  font-size:10px; letter-spacing:.28em; text-transform:uppercase;
+  border-radius:var(--r-pill);
+  background:var(--coral); color:#fff;
+}
+.dressroom-fallback{
+  position:absolute; inset:0; z-index:1;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:10px; text-align:center; padding:24px;
+  background:linear-gradient(160deg, color-mix(in srgb, var(--coral) 18%, var(--section-dark-3)) 0%, var(--section-dark-3) 70%);
+  color:var(--section-ink-3);
+}
+.dressroom-figure:not(.placeholder) .dressroom-fallback{ display:none; }
+.placeholder-label{
+  font-family:var(--ui); font-size:13px; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--section-ink-2);
+}
+.placeholder-hint{ font-size:12px; max-width:28ch; line-height:1.5; }
+
 .what{ background:var(--bg); }
 .what-head{ display:flex; flex-direction:column; gap:14px; margin-block-end:48px; max-width:64ch; }
 .what-head h2 em{ font-style:normal; color:var(--coral); }
@@ -660,9 +728,16 @@ hr.line{ border:0; height:1px; background:var(--line); margin:0; }
   text-align:start;
   border-block-start:1px solid var(--line);
   border-block-end:1px solid var(--line);
+  overflow:hidden;
 }
-.promise-inner{ max-width:22ch; }
-@media (min-width: 720px){ .promise-inner{ max-width:32ch; } }
+.promise-grid{
+  display:grid; grid-template-columns:1fr; gap:40px;
+  align-items:center;
+}
+@media (min-width: 880px){
+  .promise-grid{ grid-template-columns:1.05fr .95fr; gap:64px; }
+}
+.promise-inner{ max-width:32ch; }
 .promise h2{
   font-size:clamp(34px, 5.4vw, 64px);
   letter-spacing:-.025em;
@@ -673,6 +748,21 @@ hr.line{ border:0; height:1px; background:var(--line); margin:0; }
   display:block; margin-block-start:24px;
   font-size:11px; letter-spacing:.22em; text-transform:uppercase; color:var(--ink-3);
 }
+.promise-figure{
+  position:relative;
+  margin:0;
+  border-radius:var(--r-16);
+  overflow:hidden;
+  background:linear-gradient(180deg, #fff5f1 0%, #ffe8df 100%);
+  aspect-ratio: 4 / 5;
+  box-shadow:0 30px 60px -30px rgba(213,90,68,.35), 0 0 0 1px var(--line);
+}
+.promise-figure img{
+  width:100%; height:100%;
+  object-fit:cover; object-position:center;
+  display:block;
+}
+[dir="rtl"] .promise-grid{ direction:rtl; }
 
 /* --- Plans --- */
 .plans h2 em{ font-style:normal; color:var(--coral); }
@@ -901,7 +991,7 @@ footer{
       <span class="eyebrow on-dark"><span class="dot"></span> <span data-i18n="hero.eyebrow">Beauty &middot; Intelligence &middot; MENA-first</span></span>
       <h1 data-i18n-html="hero.title">See <em>yourself</em> in it before you commit.</h1>
       <p class="lede on-dark" data-i18n="hero.lede">
-        Mademoiselle is your AI beauty companion. Try any hairstyle on your selfie in seconds, keep a private smart closet that learns what you wear, and book the look at real salons. Coming 2026.
+        Mademoiselle is your AI beauty companion. Try any hairstyle on your selfie in seconds, photograph your closet to mix and try full outfits on virtually before you wear them, and book the look at real salons. Coming 2026.
       </p>
       <div class="hero-ctas">
         <a class="btn btn--coral" href="#waitlist" data-i18n="hero.ctaPrimary">Get early access</a>
@@ -939,11 +1029,11 @@ footer{
       <div class="tryit-chips" role="tablist" aria-label="Choose a hairstyle">
         <button type="button" class="style-chip" data-style="short" data-active="true" role="tab" aria-selected="true">
           <span class="swatch" aria-hidden="true"></span>
-          <span data-i18n="tryit.chipPixie">Pixie cut</span>
+          <span>Pixie cut</span>
         </button>
         <button type="button" class="style-chip" data-style="gold" data-active="false" role="tab" aria-selected="false">
           <span class="swatch" aria-hidden="true"></span>
-          <span data-i18n="tryit.chipBlonde">Blonde balayage</span>
+          <span>Blonde balayage</span>
         </button>
       </div>
     </div>
@@ -957,6 +1047,36 @@ footer{
     <span>AI hairstyle try-on</span><span>private smart closet</span><span>real salon booking</span><span>built for MENA</span><span>arabic-first</span><span>your selfies stay yours</span>
   </div>
 </div>
+
+<!-- ========== Dress Room (Smart Closet showcase) ========== -->
+<section class="dressroom" id="closet" aria-labelledby="dressroom-h">
+  <div class="wrap dressroom-grid">
+    <div class="dressroom-copy" data-reveal>
+      <span class="eyebrow on-dark"><span class="dot"></span> <span data-i18n="closet.eyebrow">The Dress Room</span></span>
+      <h2 id="dressroom-h" data-i18n-html="closet.title">Your closet, <em>tried on</em> before you wear it.</h2>
+      <p class="lede on-dark" data-i18n="closet.lede">
+        Photograph the pieces you already own &mdash; once. Mademoiselle turns each one into a digital piece you can mix, match, and try on virtually. See the full outfit on you before you put a single thing on your body.
+      </p>
+      <ul class="dressroom-list">
+        <li data-i18n-html="closet.l1"><strong>Snap once, wear forever.</strong> Take a quick photo of every piece in your closet. We tag, categorize, and digitize them automatically.</li>
+        <li data-i18n-html="closet.l2"><strong>Mix &amp; match virtually.</strong> Try combinations on a styled silhouette before you ever pull anything off the hanger.</li>
+        <li data-i18n-html="closet.l3"><strong>Built for the moment.</strong> Casual, work, evening, wedding, travel &mdash; pick the occasion and let the AI suggest looks from what you actually own.</li>
+        <li data-i18n-html="closet.l4"><strong>Fill the gap, on your terms.</strong> Missing a piece? See it pulled from real rentals or shops, mixed straight into your outfit &mdash; no shopping rabbit hole.</li>
+      </ul>
+      <div class="dressroom-ctas">
+        <a class="btn btn--coral" href="#waitlist" data-i18n="closet.cta">Get early access</a>
+        <span class="cap-tag on-dark" data-i18n="common.coming">Coming 2026</span>
+      </div>
+    </div>
+
+    <figure class="dressroom-figure" data-reveal>
+      <img src="assets/ChatGPT Image Apr 30, 2026, 10_58_04 AM.png" alt="Mademoiselle Dress Room — photograph your clothes, mix and match, try the outfit on virtually before you wear it" width="1200" height="1500" loading="lazy" decoding="async">
+      <span class="dressroom-tag">Dress Room</span>
+    </figure>
+  </div>
+</section>
+
+<hr class="line">
 
 <!-- ========== What it does ========== -->
 <section class="what" id="what">
@@ -977,8 +1097,8 @@ footer{
 
       <article class="cap" data-reveal>
         <span class="cap-num" data-i18n="what.c2Num">02 / Smart Closet</span>
-        <h3 data-i18n="what.c2Title">Your closet, private and intelligent.</h3>
-        <p data-i18n="what.c2Body">Add pieces. Tag them once. Let the AI suggest today&rsquo;s outfit, flag what&rsquo;s missing, and remind you of what you already own before you buy it again.</p>
+        <h3 data-i18n="what.c2Title">Photograph it. Try it on. Then wear it.</h3>
+        <p data-i18n="what.c2Body">Snap each piece you own &mdash; once. Mademoiselle digitizes them so you can mix, match, and try the full outfit on virtually before a single hanger moves. Style for the day before the day starts.</p>
         <span class="cap-tag" data-i18n="common.coming">Coming 2026</span>
       </article>
 
@@ -996,12 +1116,18 @@ footer{
 
 <!-- ========== Promise ========== -->
 <section class="promise">
-  <div class="wrap">
+  <div class="wrap promise-grid">
     <div class="promise-inner" data-reveal>
       <span class="eyebrow"><span class="dot"></span> <span data-i18n="promise.eyebrow">The promise</span></span>
       <h2 style="margin-block-start:18px;" data-i18n-html="promise.title">We don&rsquo;t sell beauty. We help you decide what beauty looks like on <em>you</em>.</h2>
       <small data-i18n="promise.small">A studio for the way you actually decide.</small>
     </div>
+    <figure class="promise-figure" data-reveal>
+      <img src="assets/ChatGPT Image Apr 30, 2026, 11_08_21 AM.png"
+           alt="Mademoiselle character — pink stylized woman, the face of the brand"
+           width="1200" height="1500"
+           loading="lazy" decoding="async">
+    </figure>
   </div>
 </section>
 
@@ -1176,7 +1302,7 @@ footer{
       'nav.studio':'Studio','nav.closet':'Closet','nav.salons':'Salons','nav.plans':'Plans','nav.journal':'Journal','nav.cta':'Get early access',
       'hero.eyebrow':'Beauty · Intelligence · MENA-first',
       'hero.title':'See <em>yourself</em> in it before you commit.',
-      'hero.lede':'Mademoiselle is your AI beauty companion. Try any hairstyle on your selfie in seconds, keep a private smart closet that learns what you wear, and book the look at real salons. Coming 2026.',
+      'hero.lede':'Mademoiselle is your AI beauty companion. Try any hairstyle on your selfie in seconds, photograph your closet to mix and try full outfits on virtually before you wear them, and book the look at real salons. Coming 2026.',
       'hero.ctaPrimary':'Get early access','hero.ctaSecondary':'See what it does',
       'hero.metaTries':'10 free tries / day','hero.metaSalons':'Real salons','hero.metaLangs':'AR · EN',
       'hero.trust':'Founding members get extra credits & lifetime perks',
@@ -1184,11 +1310,19 @@ footer{
       'tryit.title':'Try it on a <em>real</em> selfie.',
       'tryit.lede':'Pick a hairstyle. Press and hold the result to peek at the original. This is the core moment of Mademoiselle — you see yourself in the look before you ever sit in a chair.',
       'tryit.help':'Press & hold the photo',
+      'closet.eyebrow':'The Dress Room',
+      'closet.title':'Your closet, <em>tried on</em> before you wear it.',
+      'closet.lede':'Photograph the pieces you already own \u2014 once. Mademoiselle turns each one into a digital piece you can mix, match, and try on virtually. See the full outfit on you before you put a single thing on your body.',
+      'closet.l1':'<strong>Snap once, wear forever.</strong> Take a quick photo of every piece in your closet. We tag, categorize, and digitize them automatically.',
+      'closet.l2':'<strong>Mix &amp; match virtually.</strong> Try combinations on a styled silhouette before you ever pull anything off the hanger.',
+      'closet.l3':'<strong>Built for the moment.</strong> Casual, work, evening, wedding, travel \u2014 pick the occasion and let the AI suggest looks from what you actually own.',
+      'closet.l4':'<strong>Fill the gap, on your terms.</strong> Missing a piece? See it pulled from real rentals or shops, mixed straight into your outfit \u2014 no shopping rabbit hole.',
+      'closet.cta':'Get early access',
       'what.eyebrow':"What you'll be able to do",
       'what.title':'Three things, done <em>properly</em>.',
       'what.lede':'No demos pretending to be screenshots. Just the three capabilities Mademoiselle is being built around — the rest follows from these.',
       'what.c1Num':'01 / Hair Studio','what.c1Title':'Try any hairstyle on your selfie.','what.c1Body':'Upload a centred head selfie. Pick a look. Press and hold the result to peek at the original. The signature interaction of the app.',
-      'what.c2Num':'02 / Smart Closet','what.c2Title':'Your closet, private and intelligent.','what.c2Body':'Add pieces. Tag them once. Let the AI suggest today\u2019s outfit, flag what\u2019s missing, and remind you of what you already own before you buy it again.',
+      'what.c2Num':'02 / Smart Closet','what.c2Title':'Photograph it. Try it on. Then wear it.','what.c2Body':'Snap each piece you own \u2014 once. Mademoiselle digitizes them so you can mix, match, and try the full outfit on virtually before a single hanger moves. Style for the day before the day starts.',
       'what.c3Num':'03 / Real Booking','what.c3Title':'Book the look at a real salon.','what.c3Body':'From try-on to chair, in three taps. Real salons. Real availability. Real prices. We don\u2019t guess at hours; we read live calendars.',
       'common.coming':'Coming 2026',
       'promise.eyebrow':'The promise',
@@ -1215,7 +1349,7 @@ footer{
       'nav.studio':'الاستوديو','nav.closet':'الخزانة','nav.salons':'الصالونات','nav.plans':'الباقات','nav.journal':'المجلة','nav.cta':'الوصول المبكّر',
       'hero.eyebrow':'جمال · ذكاء · صُنع للمنطقة',
       'hero.title':'شوفي <em>نفسك</em> فيها قبل ما تقرّري.',
-      'hero.lede':'مادموزيل هي رفيقتك الذكية للجمال. جرّبي أي تسريحة على سيلفيك بثوانٍ، احتفظي بخزانة خاصة وذكية تتعلّم ذوقك، واحجزي الإطلالة في صالون حقيقي. قريباً 2026.',
+      'hero.lede':'مادموزيل هي رفيقتك الذكية للجمال. جرّبي أي تسريحة على سيلفيك بثوانٍ، صوّري قطع خزانتك ورتّبيها افتراضياً لتجرّبي الإطلالة كاملةً قبل أن ترتديها، واحجزي اللوك في صالون حقيقي. قريباً 2026.',
       'hero.ctaPrimary':'احصلي على الوصول المبكّر','hero.ctaSecondary':'شوفي ماذا تفعل',
       'hero.metaTries':'10 محاولات مجانية يومياً','hero.metaSalons':'صالونات حقيقية','hero.metaLangs':'عربي · إنجليزي',
       'hero.trust':'الأعضاء المؤسّسون يحصلون على رصيد إضافي ومزايا مدى الحياة',
@@ -1223,11 +1357,19 @@ footer{
       'tryit.title':'جرّبيها على سيلفي <em>حقيقي</em>.',
       'tryit.lede':'اختاري تسريحة. اضغطي مطوّلاً على النتيجة لرؤية الصورة الأصلية. هذه اللحظة الجوهرية في مادموزيل — ترين نفسك بالإطلالة قبل أن تجلسي على الكرسي.',
       'tryit.help':'اضغطي مطوّلاً على الصورة',
+      'closet.eyebrow':'غرفة الملابس',
+      'closet.title':'خزانتكِ، <em>مُجرَّبة</em> قبل أن ترتديها.',
+      'closet.lede':'صوّري كل قطعة تملكينها \u2014 مرّة واحدة. تحوّلها مادموزيل إلى قطعة رقمية تُنسّقينها وتُجرّبينها افتراضياً. شاهدي الإطلالة كاملةً عليكِ قبل أن تتحرّك علاقة واحدة من خزانتك.',
+      'closet.l1':'<strong>صوّري مرّة، ارتدي للأبد.</strong> التقطي صورة سريعة لكل قطعة في خزانتك. نُصنّفها ونُرقمنها تلقائياً.',
+      'closet.l2':'<strong>نسّقي وجرّبي افتراضياً.</strong> اختبري التركيبات على شكلٍ منسّق قبل أن تفتحي باب الخزانة.',
+      'closet.l3':'<strong>مصمّمة للمناسبة.</strong> يومي، عمل، سهرة، عُرس، سفر \u2014 اختاري المناسبة ودعي الذكاء الاصطناعي يقترح إطلالات مما تملكين فعلاً.',
+      'closet.l4':'<strong>القطعة الناقصة، حاضرة.</strong> ينقصكِ شيء؟ شاهديه مُستعاراً من إيجار حقيقي أو متجر، مدموجاً في إطلالتك مباشرةً \u2014 دون متاهة تسوّق.',
+      'closet.cta':'الوصول المبكّر',
       'what.eyebrow':'ما الذي ستستطيعين فعله',
       'what.title':'ثلاثة أشياء، مُنفّذة <em>بإتقان</em>.',
       'what.lede':'لا نماذج تتظاهر بأنها لقطات شاشة. فقط القدرات الثلاث التي تُبنى مادموزيل حولها — والباقي يتبع.',
       'what.c1Num':'01 / استوديو الشعر','what.c1Title':'جرّبي أي تسريحة على سيلفيك.','what.c1Body':'ارفعي سيلفي للوجه. اختاري إطلالة. اضغطي مطوّلاً على النتيجة لرؤية الأصل. التفاعل المميّز للتطبيق.',
-      'what.c2Num':'02 / خزانة ذكية','what.c2Title':'خزانتك، خاصة وذكية.','what.c2Body':'أضيفي القطع. صنّفيها مرّة. دعي الذكاء الاصطناعي يقترح إطلالة اليوم، يُنبّهك للمفقود، ويذكّرك بما تملكين قبل أن تشتري مثله مجدداً.',
+      'what.c2Num':'02 / خزانة ذكية','what.c2Title':'صوّريها. جرّبيها. ثم ارتديها.','what.c2Body':'صوّري كل قطعة تملكينها مرّةً واحدة. مادموزيل تحوّلها إلى قطع رقمية لتنسّقي وتجرّبي الإطلالة كاملةً افتراضياً قبل أن تتحرّك علاقة واحدة من خزانتك. نسّقي يومك قبل أن يبدأ.',
       'what.c3Num':'03 / حجز حقيقي','what.c3Title':'احجزي الإطلالة في صالون حقيقي.','what.c3Body':'من التجربة إلى الكرسي بثلاث نقرات. صالونات حقيقية. توفّر حقيقي. أسعار حقيقية. لا نخمّن المواعيد، نقرأ التقاويم مباشرة.',
       'common.coming':'قريباً 2026',
       'promise.eyebrow':'الوعد',
