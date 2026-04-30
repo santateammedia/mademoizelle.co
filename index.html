@@ -394,12 +394,15 @@ hr.line{ border:0; height:1px; background:var(--line); margin:0; }
   position:relative;
   align-self:end;
   width:100%; max-width:520px; margin-inline:auto;
-  aspect-ratio:4/5;
-  display:flex; align-items:center; justify-content:center;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:18px;
 }
 @media (min-width: 880px){
   .hero-figure{ margin-inline:0; margin-inline-start:auto; max-width:none; }
 }
+/* Hero tryon — interactive demo lives inside the hero figure */
+.hero-tryon .tryit-figure{ width:100%; max-width:440px; }
+.hero-tryon .tryit-chips{ margin-block-end:0; justify-content:center; position:relative; z-index:2; }
 
 /* Background orbs — depth + atmosphere */
 .hero-orb{
@@ -423,90 +426,8 @@ hr.line{ border:0; height:1px; background:var(--line); margin:0; }
   50%{ transform:translate(24px,-28px) scale(1.08); }
 }
 
-/* The card — vanity-mirror frame */
-.hero-card{
-  position:relative; z-index:2;
-  width:86%; aspect-ratio:4/5;
-  border-radius:28px;
-  background:
-    radial-gradient(ellipse at 30% 18%, rgba(247,79,125,.16) 0%, transparent 55%),
-    radial-gradient(ellipse at 80% 95%, rgba(247,79,125,.08) 0%, transparent 60%),
-    linear-gradient(160deg, var(--surface) 0%, var(--coral-soft) 50%, var(--surface) 100%);
-  box-shadow:
-    0 40px 90px -20px rgba(247,79,125,.28),
-    0 0 0 1px color-mix(in srgb, var(--section-ink) 8%, transparent) inset;
-  display:flex; flex-direction:column;
-  align-items:center; justify-content:space-between;
-  padding:10% 8%;
-  overflow:hidden;
-}
-.hero-card::after{
-  content:""; position:absolute; inset:0;
-  background-image:
-    repeating-linear-gradient(0deg, color-mix(in srgb, var(--section-ink) 2%, transparent) 0 1px, transparent 1px 3px);
-  pointer-events:none;
-}
-
-.hero-card-label{
-  font-size:10px; letter-spacing:.36em; text-transform:uppercase;
-  color:var(--section-ink-3);
-  position:relative; z-index:2;
-}
-
-/* The lens — animated AI eye */
-.hero-lens{
-  position:relative; width:62%; aspect-ratio:1;
-  border-radius:50%;
-  background:
-    radial-gradient(circle at 36% 28%, #FFE2EC 0%, #F74F7D 45%, #C42955 100%);
-  box-shadow:
-    0 30px 70px -10px rgba(247,79,125,.55),
-    inset 0 -40px 70px rgba(13,15,20,.22),
-    inset 0 24px 50px rgba(255,255,255,.35),
-    inset 0 0 0 8px rgba(255,255,255,.08);
-  z-index:2;
-}
-.hero-lens::before{
-  content:""; position:absolute; inset:18%;
-  border-radius:50%;
-  background:radial-gradient(circle at 38% 32%, rgba(13,15,20,.55) 0%, rgba(13,15,20,.85) 70%);
-  box-shadow:inset 0 0 30px rgba(0,0,0,.5);
-}
-.hero-lens::after{
-  content:""; position:absolute; top:18%; left:24%;
-  width:22%; height:22%; border-radius:50%;
-  background:radial-gradient(circle, rgba(255,255,255,.95) 0%, rgba(255,255,255,0) 70%);
-  filter:blur(2px);
-  animation:lensShine 3.6s var(--ease) infinite;
-}
-@keyframes lensShine{
-  0%,100%{ opacity:.6; transform:scale(1); }
-  50%{ opacity:1; transform:scale(1.15); }
-}
-
-.hero-card-meta{
-  font-size:14px; letter-spacing:.02em;
-  color:var(--section-ink-2); text-align:center;
-  position:relative; z-index:2;
-}
-.hero-card-meta .accent{ color:var(--coral); }
-
-/* Pulse dot — top-right corner */
-.hero-pulse{
-  position:absolute; top:18px; right:18px;
-  width:10px; height:10px; border-radius:50%;
-  background:var(--coral);
-  box-shadow:0 0 0 0 rgba(247,79,125,.6);
-  animation:dotPulse 2.4s var(--ease) infinite;
-  z-index:3;
-}
-@keyframes dotPulse{
-  0%,100%{ box-shadow:0 0 0 0 rgba(247,79,125,.55); }
-  50%{ box-shadow:0 0 0 12px rgba(247,79,125,0); }
-}
-
 @media (prefers-reduced-motion: reduce){
-  .hero-orb, .hero-lens::after, .hero-pulse{ animation:none; }
+  .hero-orb{ animation:none; }
 }
 
 /* Marquee strip below hero */
@@ -995,16 +916,37 @@ footer{
         <span class="trust-pill"><span class="trust-dot"></span> <span data-i18n="hero.trust">Founding members get extra credits &amp; lifetime perks</span></span>
       </div>
     </div>
-    <figure class="hero-figure" data-reveal aria-hidden="true">
+    <div class="hero-figure hero-tryon" data-reveal>
       <span class="hero-orb hero-orb-1"></span>
       <span class="hero-orb hero-orb-2"></span>
-      <div class="hero-card">
-        <span class="hero-pulse"></span>
-        <span class="hero-card-label">Studio &middot; Est. 2026</span>
-        <div class="hero-lens"></div>
-        <span class="hero-card-meta">the mirror, <span class="accent">intelligent</span>.</span>
+      <figure class="tryit-figure" id="tryitFigure" tabindex="0" role="img" aria-label="Hairstyle try-on demo. Press and hold to reveal the original photo.">
+        <img class="tryit-before" src="assets/tryon-original.webp" alt="Original selfie before AI hairstyle try-on" width="800" height="1000" loading="eager" decoding="async" fetchpriority="high">
+        <img class="tryit-after" id="tryitAfter" src="assets/tryon-short.webp" alt="AI try-on result with a pixie cut" width="800" height="1000" loading="eager" decoding="async">
+        <span class="tryit-tag tag-before">Before</span>
+        <span class="tryit-tag tag-after" id="tryitTagAfter">After &middot; Pixie</span>
+        <span class="tryit-hint">Hold to see original</span>
+        <div class="tryit-gesture" aria-hidden="true">
+          <div class="gesture-icon">
+            <div class="gesture-ripple"></div>
+            <div class="gesture-ripple"></div>
+            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16 6C14.9 6 14 6.9 14 8v8.5l-1.3-1.3a1.5 1.5 0 0 0-2.1 2.1l4.6 4.6A5 5 0 0 0 21 26h1a4 4 0 0 0 4-4v-5a1.5 1.5 0 0 0-3 0v-1.5a1.5 1.5 0 0 0-3 0V14a1.5 1.5 0 0 0-3 0V8c0-1.1-.9-2-1-2z" fill="#ffffff" fill-opacity=".95"/>
+            </svg>
+          </div>
+          <span class="gesture-label">Hold to reveal</span>
+        </div>
+      </figure>
+      <div class="tryit-chips" role="tablist" aria-label="Choose a hairstyle">
+        <button type="button" class="style-chip" data-style="short" data-active="true" role="tab" aria-selected="true">
+          <span class="swatch" aria-hidden="true"></span>
+          <span data-i18n="tryit.chipPixie">Pixie cut</span>
+        </button>
+        <button type="button" class="style-chip" data-style="gold" data-active="false" role="tab" aria-selected="false">
+          <span class="swatch" aria-hidden="true"></span>
+          <span data-i18n="tryit.chipBlonde">Blonde balayage</span>
+        </button>
       </div>
-    </figure>
+    </div>
   </div>
 </section>
 
@@ -1015,50 +957,6 @@ footer{
     <span>AI hairstyle try-on</span><span>private smart closet</span><span>real salon booking</span><span>built for MENA</span><span>arabic-first</span><span>your selfies stay yours</span>
   </div>
 </div>
-
-<!-- ========== Try it (real product demo) ========== -->
-<section class="tryit" id="tryit" aria-labelledby="tryit-h">
-  <div class="wrap tryit-grid">
-    <div class="tryit-copy" data-reveal>
-      <span class="eyebrow on-dark"><span class="dot"></span> <span data-i18n="tryit.eyebrow">The signature gesture</span></span>
-      <h2 id="tryit-h" data-i18n-html="tryit.title">Try it on a <em>real</em> selfie.</h2>
-      <p class="lede on-dark" data-i18n="tryit.lede">
-        Pick a hairstyle. Press and hold the result to peek at the original. This is the core moment of Mademoiselle &mdash; you see yourself in the look before you ever sit in a chair.
-      </p>
-      <span class="tryit-help" aria-hidden="true" data-i18n="tryit.help">Press &amp; hold the photo</span>
-      <div class="tryit-chips" role="tablist" aria-label="Choose a hairstyle">
-        <button type="button" class="style-chip" data-style="short" data-active="true" role="tab" aria-selected="true">
-          <span class="swatch" aria-hidden="true"></span>
-          <span>Pixie cut</span>
-        </button>
-        <button type="button" class="style-chip" data-style="gold" data-active="false" role="tab" aria-selected="false">
-          <span class="swatch" aria-hidden="true"></span>
-          <span>Blonde balayage</span>
-        </button>
-      </div>
-    </div>
-
-    <figure class="tryit-figure" id="tryitFigure" tabindex="0" role="img" aria-label="Hairstyle try-on demo. Press and hold to reveal the original photo.">
-      <img class="tryit-before" src="assets/tryon-original.webp" alt="Original selfie before AI hairstyle try-on" width="800" height="1000" loading="lazy" decoding="async">
-      <img class="tryit-after" id="tryitAfter" src="assets/tryon-short.webp" alt="AI try-on result with a pixie cut" width="800" height="1000" loading="lazy" decoding="async">
-      <span class="tryit-tag tag-before">Before</span>
-      <span class="tryit-tag tag-after" id="tryitTagAfter">After &middot; Pixie</span>
-      <span class="tryit-hint">Hold to see original</span>
-      <!-- Gesture teacher: animated finger + ripple rings -->
-      <div class="tryit-gesture" aria-hidden="true">
-        <div class="gesture-icon">
-          <div class="gesture-ripple"></div>
-          <div class="gesture-ripple"></div>
-          <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Finger / hand press icon -->
-            <path d="M16 6C14.9 6 14 6.9 14 8v8.5l-1.3-1.3a1.5 1.5 0 0 0-2.1 2.1l4.6 4.6A5 5 0 0 0 21 26h1a4 4 0 0 0 4-4v-5a1.5 1.5 0 0 0-3 0v-1.5a1.5 1.5 0 0 0-3 0V14a1.5 1.5 0 0 0-3 0V8c0-1.1-.9-2-1-2z" fill="#ffffff" fill-opacity=".95"/>
-          </svg>
-        </div>
-        <span class="gesture-label">Hold to reveal</span>
-      </div>
-    </figure>
-  </div>
-</section>
 
 <!-- ========== What it does ========== -->
 <section class="what" id="what">
