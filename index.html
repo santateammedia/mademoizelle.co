@@ -136,6 +136,18 @@ body{
   overflow-x:hidden;
 }
 :lang(ar){ font-family:var(--ar); direction:rtl; }
+/* Arabic typography refinement — Tajawal needs more vertical breathing room
+   and zero negative tracking; uppercase/letter-spacing breaks Arabic shaping */
+[dir="rtl"] body{ line-height:1.75; letter-spacing:0; }
+[dir="rtl"] h1,[dir="rtl"] h2,[dir="rtl"] h3{ letter-spacing:0; line-height:1.2; font-weight:500; }
+/* Arabic-reset on UI labels that are TRANSLATED (so glyphs are Arabic).
+   Marquee/tag-before/tag-after/gesture-label keep English styling because
+   their content stays in Latin script as a brand element. */
+[dir="rtl"] .eyebrow,[dir="rtl"] .cap-num,[dir="rtl"] .cap-tag,[dir="rtl"] .hero-meta,[dir="rtl"] .dressroom-tech,[dir="rtl"] .foot-mini,[dir="rtl"] .drawer-foot,[dir="rtl"] .tryit-help,[dir="rtl"] .privacy-num{
+  letter-spacing:0; text-transform:none;
+}
+[dir="rtl"] .lede{ line-height:1.85; }
+[dir="rtl"] .btn{ letter-spacing:.02em; }
 img,svg,picture{ display:block; max-width:100%; }
 a{ color:inherit; text-decoration:none; }
 button{ font:inherit; color:inherit; background:none; border:0; cursor:pointer; padding:0; }
@@ -696,17 +708,70 @@ hr.line{ border:0; height:1px; background:var(--line); margin:0; }
 .placeholder-hint{ font-size:12px; max-width:28ch; line-height:1.5; }
 
 .what{ background:var(--bg); }
-.what-head{ display:flex; flex-direction:column; gap:14px; margin-block-end:48px; max-width:64ch; }
+.what-head{ display:flex; flex-direction:column; gap:14px; margin-block-end:32px; max-width:64ch; }
 .what-head h2 em{ font-style:normal; color:var(--coral); }
 .what-grid{
   display:grid; grid-template-columns:1fr; gap:32px;
 }
 @media (min-width: 720px){ .what-grid{ grid-template-columns:repeat(3, 1fr); gap:24px; } }
+@media (min-width: 720px){ .what-grid--4{ grid-template-columns:repeat(2, 1fr); gap:28px 24px; } }
+@media (min-width: 1080px){ .what-grid--4{ grid-template-columns:repeat(4, 1fr); gap:24px; } }
+
+/* How it works — slim 3-step strip */
+.howit{
+  list-style:none; margin:0 0 48px 0; padding:20px 26px;
+  display:flex; flex-wrap:wrap; gap:18px 36px; align-items:center; justify-content:flex-start;
+  border:1px solid var(--line); border-radius:var(--r-12);
+  background:var(--surface);
+  font-size:14px; color:var(--ink-2);
+}
+@media (max-width: 720px){
+  .howit{ padding:18px 20px; gap:14px 20px; justify-content:center; }
+}
+.howit li{
+  display:inline-flex; align-items:center; gap:12px;
+  padding-inline-end:32px; position:relative;
+  white-space:nowrap;
+}
+.howit li:last-child{ padding-inline-end:0; }
+.howit li:not(:last-child)::after{
+  content:""; position:absolute; inset-inline-end:6px; top:50%;
+  width:18px; height:1px; background:var(--ink-3); opacity:.45;
+  transform:translateY(-50%);
+}
+@media (max-width: 720px){
+  .howit li{ padding-inline-end:0; }
+  .howit li:not(:last-child)::after{ display:none; }
+}
+.howit-n{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:28px; height:28px; border-radius:50%;
+  background:var(--coral); color:#fff;
+  font-size:11px; font-weight:600; letter-spacing:.05em;
+  flex-shrink:0;
+}
+[dir="rtl"] .howit-n{ letter-spacing:0; }
+.howit-t{ color:var(--ink); font-size:14.5px; letter-spacing:.005em; }
+
+/* Dress Room — small tech credit line */
+.dressroom-tech{
+  margin:-4px 0 24px 0;
+  font-size:12px; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--section-ink-3);
+}
+
+/* Cards — slightly more breathing room when 4-up */
+.what-grid--4 .cap{ padding-block-start:28px; }
+.what-grid--4 .cap h3{ font-size:clamp(20px, 2.2vw, 24px); }
+.what-grid--4 .cap p{ font-size:14.5px; }
 
 .cap{
   display:flex; flex-direction:column; gap:14px;
   padding-block-start:24px;
   border-block-start:1px solid var(--line);
+  transform-style:preserve-3d;
+  transition:transform .35s var(--ease);
+  will-change:transform;
 }
 .cap-num{
   font-size:11px; letter-spacing:.22em; text-transform:uppercase;
@@ -752,7 +817,7 @@ hr.line{ border:0; height:1px; background:var(--line); margin:0; }
 .promise-figure{
   position:relative;
   margin:0;
-  border-radius:var(--r-16);
+  border-radius:28px;
   overflow:hidden;
   background:linear-gradient(180deg, #fff5f1 0%, #ffe8df 100%);
   aspect-ratio: 4 / 5;
@@ -991,16 +1056,11 @@ footer{
       <span class="eyebrow on-dark"><span class="dot"></span> <span data-i18n="hero.eyebrow">Beauty &middot; Intelligence &middot; MENA-first</span></span>
       <h1 data-i18n-html="hero.title">See <em>yourself</em> in it before you commit.</h1>
       <p class="lede on-dark" data-i18n="hero.lede">
-        Mademoiselle is your AI beauty companion. Try any hairstyle on your selfie in seconds, photograph your closet to mix and try full outfits on virtually before you wear them, and book the look at real salons. Coming 2026.
+        Mademoiselle is your AI beauty companion. Try a hairstyle, makeup look, or full outfit on your selfie in seconds, build a smart closet from clothes you already own, and book the look across your local beauty network. Launching Spring 2026.
       </p>
       <div class="hero-ctas">
         <a class="btn btn--coral" href="#waitlist" data-i18n="hero.ctaPrimary">Get early access</a>
         <a class="btn btn--ghost-light" href="#what" data-i18n="hero.ctaSecondary">See what it does</a>
-      </div>
-      <div class="hero-meta">
-        <span data-i18n="hero.metaTries">10 free tries / day</span>
-        <span data-i18n="hero.metaSalons">Real salons</span>
-        <span data-i18n="hero.metaLangs">AR &middot; EN</span>
       </div>
       <div class="hero-trust">
         <span class="trust-pill"><span class="trust-dot"></span> <span data-i18n="hero.trust">Founding members get extra credits &amp; lifetime perks</span></span>
@@ -1042,9 +1102,9 @@ footer{
 
 <!-- ========== Marquee strip ========== -->
 <div class="marquee" aria-hidden="true">
-  <div class="marquee-track">
-    <span>AI hairstyle try-on</span><span>private smart closet</span><span>real salon booking</span><span>built for MENA</span><span>arabic-first</span><span>your selfies stay yours</span>
-    <span>AI hairstyle try-on</span><span>private smart closet</span><span>real salon booking</span><span>built for MENA</span><span>arabic-first</span><span>your selfies stay yours</span>
+  <div class="marquee-track" data-i18n-marq>
+    <span>Hair try-on</span><span>Makeup try-on</span><span>Smart closet</span><span>Personal recommendations</span><span>Hijab-aware</span><span>Modesty-respecting</span><span>Arabic-first</span><span>Privacy-first</span><span>Ramadan-ready</span><span>Beauty network</span><span>Powered by FASHN + FLUX</span>
+    <span>Hair try-on</span><span>Makeup try-on</span><span>Smart closet</span><span>Personal recommendations</span><span>Hijab-aware</span><span>Modesty-respecting</span><span>Arabic-first</span><span>Privacy-first</span><span>Ramadan-ready</span><span>Beauty network</span><span>Powered by FASHN + FLUX</span>
   </div>
 </div>
 
@@ -1063,9 +1123,10 @@ footer{
         <li data-i18n-html="closet.l3"><strong>Built for the moment.</strong> Casual, work, evening, wedding, travel &mdash; pick the occasion and let the AI suggest looks from what you actually own.</li>
         <li data-i18n-html="closet.l4"><strong>Fill the gap, on your terms.</strong> Missing a piece? See it pulled from real rentals or shops, mixed straight into your outfit &mdash; no shopping rabbit hole.</li>
       </ul>
+      <p class="dressroom-tech" data-i18n="closet.tech">Auto-cutout + AI fitting &middot; powered by FASHN &amp; FLUX</p>
       <div class="dressroom-ctas">
         <a class="btn btn--coral" href="#waitlist" data-i18n="closet.cta">Get early access</a>
-        <span class="cap-tag on-dark" data-i18n="common.coming">Coming 2026</span>
+        <span class="cap-tag on-dark" data-i18n="common.coming">Launching Spring 2026</span>
       </div>
     </div>
 
@@ -1083,30 +1144,43 @@ footer{
   <div class="wrap">
     <header class="what-head" data-reveal>
       <span class="eyebrow"><span class="dot"></span> <span data-i18n="what.eyebrow">What you'll be able to do</span></span>
-      <h2 data-i18n-html="what.title">Three things, done <em>properly</em>.</h2>
-      <p class="lede" data-i18n="what.lede">No demos pretending to be screenshots. Just the three capabilities Mademoiselle is being built around &mdash; the rest follows from these.</p>
+      <h2 data-i18n-html="what.title">Four capabilities, one <em>mirror</em>.</h2>
+      <p class="lede" data-i18n="what.lede">Three try-ons, one smart closet, and a real beauty network &mdash; all wired to a recommendation engine that learns your taste from a short style quiz.</p>
     </header>
 
-    <div class="what-grid">
+    <ol class="howit" aria-label="How it works" data-reveal>
+      <li><span class="howit-n">01</span><span class="howit-t" data-i18n="howit.s1">Take the style quiz</span></li>
+      <li><span class="howit-n">02</span><span class="howit-t" data-i18n="howit.s2">Try the look on you</span></li>
+      <li><span class="howit-n">03</span><span class="howit-t" data-i18n="howit.s3">Book or shop it</span></li>
+    </ol>
+
+    <div class="what-grid what-grid--4">
       <article class="cap" data-reveal>
-        <span class="cap-num" data-i18n="what.c1Num">01 / Hair Studio</span>
+        <span class="cap-num" data-i18n="what.c1Num">01 / Hair Try-On</span>
         <h3 data-i18n="what.c1Title">Try any hairstyle on your selfie.</h3>
-        <p data-i18n="what.c1Body">Upload a centred head selfie. Pick a look. Press and hold the result to peek at the original. The signature interaction of the app.</p>
-        <span class="cap-tag" data-i18n="common.coming">Coming 2026</span>
+        <p data-i18n="what.c1Body">Upload a centred selfie. Pick a look. Press and hold the result to peek at the original. The signature interaction of the app.</p>
+        <span class="cap-tag" data-i18n="what.c1Phase">Phase 1 &middot; Spring 2026</span>
       </article>
 
       <article class="cap" data-reveal>
-        <span class="cap-num" data-i18n="what.c2Num">02 / Smart Closet</span>
-        <h3 data-i18n="what.c2Title">Photograph it. Try it on. Then wear it.</h3>
-        <p data-i18n="what.c2Body">Snap each piece you own &mdash; once. Mademoiselle digitizes them so you can mix, match, and try the full outfit on virtually before a single hanger moves. Style for the day before the day starts.</p>
-        <span class="cap-tag" data-i18n="common.coming">Coming 2026</span>
+        <span class="cap-num" data-i18n="what.c2Num">02 / Makeup Try-On</span>
+        <h3 data-i18n="what.c2Title">See the makeup before the brush.</h3>
+        <p data-i18n="what.c2Body">Lipsticks, eyes, brows, full looks &mdash; rendered on your face by AI. Save the looks you love and take them to the chair, or shop the exact products.</p>
+        <span class="cap-tag" data-i18n="what.c2Phase">Phase 2 &middot; Q3 2026</span>
       </article>
 
       <article class="cap" data-reveal>
-        <span class="cap-num" data-i18n="what.c3Num">03 / Real Booking</span>
-        <h3 data-i18n="what.c3Title">Book the look at a real salon.</h3>
-        <p data-i18n="what.c3Body">From try-on to chair, in three taps. Real salons. Real availability. Real prices. We don&rsquo;t guess at hours; we read live calendars.</p>
-        <span class="cap-tag" data-i18n="common.coming">Coming 2026</span>
+        <span class="cap-num" data-i18n="what.c3Num">03 / Smart Closet</span>
+        <h3 data-i18n="what.c3Title">Photograph it. Try it on. Then wear it.</h3>
+        <p data-i18n="what.c3Body">Snap each piece you own &mdash; once. Mademoiselle digitizes them so you can mix, match, and try the outfit on virtually before a single hanger moves.</p>
+        <span class="cap-tag" data-i18n="what.c3Phase">Phase 3 &middot; Q4 2026</span>
+      </article>
+
+      <article class="cap" data-reveal>
+        <span class="cap-num" data-i18n="what.c4Num">04 / Beauty Network</span>
+        <h3 data-i18n="what.c4Title">Book it across your local network.</h3>
+        <p data-i18n="what.c4Body">Salons, studios, home pros, and shops &mdash; on one map, with live availability and real prices. From try-on to chair in three taps.</p>
+        <span class="cap-tag" data-i18n="what.c4Phase">Phase 1 &middot; Spring 2026</span>
       </article>
     </div>
   </div>
@@ -1302,9 +1376,9 @@ footer{
       'nav.studio':'Studio','nav.closet':'Closet','nav.salons':'Salons','nav.plans':'Plans','nav.journal':'Journal','nav.cta':'Get early access',
       'hero.eyebrow':'Beauty · Intelligence · MENA-first',
       'hero.title':'See <em>yourself</em> in it before you commit.',
-      'hero.lede':'Mademoiselle is your AI beauty companion. Try any hairstyle on your selfie in seconds, photograph your closet to mix and try full outfits on virtually before you wear them, and book the look at real salons. Coming 2026.',
+      'hero.lede':'Mademoiselle is your AI beauty companion. Try a hairstyle, makeup look, or full outfit on your selfie in seconds, build a smart closet from clothes you already own, and book the look across your local beauty network. Launching Spring 2026.',
       'hero.ctaPrimary':'Get early access','hero.ctaSecondary':'See what it does',
-      'hero.metaTries':'10 free tries / day','hero.metaSalons':'Real salons','hero.metaLangs':'AR · EN',
+      'hero.metaHijab':'Hijab-aware','hero.metaModesty':'Modesty-respecting','hero.metaArabic':'Arabic-first','hero.metaPrivacy':'Privacy-first',
       'hero.trust':'Founding members get extra credits & lifetime perks',
       'tryit.eyebrow':'The signature gesture',
       'tryit.title':'Try it on a <em>real</em> selfie.',
@@ -1317,14 +1391,17 @@ footer{
       'closet.l2':'<strong>Mix &amp; match virtually.</strong> Try combinations on a styled silhouette before you ever pull anything off the hanger.',
       'closet.l3':'<strong>Built for the moment.</strong> Casual, work, evening, wedding, travel \u2014 pick the occasion and let the AI suggest looks from what you actually own.',
       'closet.l4':'<strong>Fill the gap, on your terms.</strong> Missing a piece? See it pulled from real rentals or shops, mixed straight into your outfit \u2014 no shopping rabbit hole.',
+      'closet.tech':'Auto-cutout + AI fitting · powered by FASHN & FLUX',
       'closet.cta':'Get early access',
+      'howit.s1':'Take the style quiz','howit.s2':'Try the look on you','howit.s3':'Book or shop it',
       'what.eyebrow':"What you'll be able to do",
-      'what.title':'Three things, done <em>properly</em>.',
-      'what.lede':'No demos pretending to be screenshots. Just the three capabilities Mademoiselle is being built around — the rest follows from these.',
-      'what.c1Num':'01 / Hair Studio','what.c1Title':'Try any hairstyle on your selfie.','what.c1Body':'Upload a centred head selfie. Pick a look. Press and hold the result to peek at the original. The signature interaction of the app.',
-      'what.c2Num':'02 / Smart Closet','what.c2Title':'Photograph it. Try it on. Then wear it.','what.c2Body':'Snap each piece you own \u2014 once. Mademoiselle digitizes them so you can mix, match, and try the full outfit on virtually before a single hanger moves. Style for the day before the day starts.',
-      'what.c3Num':'03 / Real Booking','what.c3Title':'Book the look at a real salon.','what.c3Body':'From try-on to chair, in three taps. Real salons. Real availability. Real prices. We don\u2019t guess at hours; we read live calendars.',
-      'common.coming':'Coming 2026',
+      'what.title':'Four capabilities, one <em>mirror</em>.',
+      'what.lede':'Three try-ons, one smart closet, and a real beauty network — all wired to a recommendation engine that learns your taste from a short style quiz.',
+      'what.c1Num':'01 / Hair Try-On','what.c1Title':'Try any hairstyle on your selfie.','what.c1Body':'Upload a centred selfie. Pick a look. Press and hold the result to peek at the original. The signature interaction of the app.','what.c1Phase':'Phase 1 · Spring 2026',
+      'what.c2Num':'02 / Makeup Try-On','what.c2Title':'See the makeup before the brush.','what.c2Body':'Lipsticks, eyes, brows, full looks — rendered on your face by AI. Save the looks you love and take them to the chair, or shop the exact products.','what.c2Phase':'Phase 2 · Q3 2026',
+      'what.c3Num':'03 / Smart Closet','what.c3Title':'Photograph it. Try it on. Then wear it.','what.c3Body':'Snap each piece you own — once. Mademoiselle digitizes them so you can mix, match, and try the outfit on virtually before a single hanger moves.','what.c3Phase':'Phase 3 · Q4 2026',
+      'what.c4Num':'04 / Beauty Network','what.c4Title':'Book it across your local network.','what.c4Body':'Salons, studios, home pros, and shops — on one map, with live availability and real prices. From try-on to chair in three taps.','what.c4Phase':'Phase 1 · Spring 2026',
+      'common.coming':'Launching Spring 2026',
       'promise.eyebrow':'The promise',
       'promise.title':'We don\u2019t sell beauty. We help you decide what beauty looks like on <em>you</em>.',
       'promise.small':'A studio for the way you actually decide.',
@@ -1347,50 +1424,53 @@ footer{
     },
     ar: {
       'nav.studio':'الاستوديو','nav.closet':'الخزانة','nav.salons':'الصالونات','nav.plans':'الباقات','nav.journal':'المجلة','nav.cta':'الوصول المبكّر',
-      'hero.eyebrow':'جمال · ذكاء · صُنع للمنطقة',
-      'hero.title':'شوفي <em>نفسك</em> فيها قبل ما تقرّري.',
-      'hero.lede':'مادموزيل هي رفيقتك الذكية للجمال. جرّبي أي تسريحة على سيلفيك بثوانٍ، صوّري قطع خزانتك ورتّبيها افتراضياً لتجرّبي الإطلالة كاملةً قبل أن ترتديها، واحجزي اللوك في صالون حقيقي. قريباً 2026.',
-      'hero.ctaPrimary':'احصلي على الوصول المبكّر','hero.ctaSecondary':'شوفي ماذا تفعل',
-      'hero.metaTries':'10 محاولات مجانية يومياً','hero.metaSalons':'صالونات حقيقية','hero.metaLangs':'عربي · إنجليزي',
-      'hero.trust':'الأعضاء المؤسّسون يحصلون على رصيد إضافي ومزايا مدى الحياة',
+      'hero.eyebrow':'جمال · ذكاء · للمنطقة أوّلاً',
+      'hero.title':'شاهدي <em>نفسكِ</em> بالإطلالة قبل أن تقرّري.',
+      'hero.lede':'مادموزيل هي رفيقتكِ الذكيّة للجمال. جرّبي تسريحةً، أو مكياجاً، أو إطلالةً كاملةً على صورتكِ في ثوانٍ، وأنشئي خزانةً ذكيّةً من ملابسكِ الحاليّة، واحجزي إطلالتكِ عبر شبكة الجمال المحلّيّة. الإطلاق في ربيع 2026.',
+      'hero.ctaPrimary':'احصلي على الوصول المبكّر','hero.ctaSecondary':'اكتشفي ما تفعله',
+      'hero.metaHijab':'تراعي الحجاب','hero.metaModesty':'تحترم الاحتشام','hero.metaArabic':'العربية أولاً','hero.metaPrivacy':'الخصوصية أولاً',
+      'hero.trust':'العضوات المؤسّسات يحصلن على رصيدٍ إضافيٍّ ومزايا مدى الحياة',
       'tryit.eyebrow':'اللمسة المميّزة',
-      'tryit.title':'جرّبيها على سيلفي <em>حقيقي</em>.',
-      'tryit.lede':'اختاري تسريحة. اضغطي مطوّلاً على النتيجة لرؤية الصورة الأصلية. هذه اللحظة الجوهرية في مادموزيل — ترين نفسك بالإطلالة قبل أن تجلسي على الكرسي.',
+      'tryit.title':'جرّبيها على صورةٍ <em>حقيقيّة</em>.',
+      'tryit.lede':'اختاري تسريحةً. اضغطي مطوّلاً على النتيجة لرؤية الصورة الأصلية. هذه اللحظة الجوهرية في مادموزيل — ترَين نفسكِ بالإطلالة قبل أن تجلسي على الكرسي.',
       'tryit.help':'اضغطي مطوّلاً على الصورة',
       'closet.eyebrow':'غرفة الملابس',
       'closet.title':'خزانتكِ، <em>مُجرَّبة</em> قبل أن ترتديها.',
-      'closet.lede':'صوّري كل قطعة تملكينها \u2014 مرّة واحدة. تحوّلها مادموزيل إلى قطعة رقمية تُنسّقينها وتُجرّبينها افتراضياً. شاهدي الإطلالة كاملةً عليكِ قبل أن تتحرّك علاقة واحدة من خزانتك.',
-      'closet.l1':'<strong>صوّري مرّة، ارتدي للأبد.</strong> التقطي صورة سريعة لكل قطعة في خزانتك. نُصنّفها ونُرقمنها تلقائياً.',
-      'closet.l2':'<strong>نسّقي وجرّبي افتراضياً.</strong> اختبري التركيبات على شكلٍ منسّق قبل أن تفتحي باب الخزانة.',
-      'closet.l3':'<strong>مصمّمة للمناسبة.</strong> يومي، عمل، سهرة، عُرس، سفر \u2014 اختاري المناسبة ودعي الذكاء الاصطناعي يقترح إطلالات مما تملكين فعلاً.',
-      'closet.l4':'<strong>القطعة الناقصة، حاضرة.</strong> ينقصكِ شيء؟ شاهديه مُستعاراً من إيجار حقيقي أو متجر، مدموجاً في إطلالتك مباشرةً \u2014 دون متاهة تسوّق.',
+      'closet.lede':'صوّري كل قطعةٍ تملكينها \u2014 مرّةً واحدة. تحوّلها مادموزيل إلى قطعةٍ رقميّةٍ تُنسّقينها وتُجرّبينها افتراضياً. شاهدي الإطلالة كاملةً عليكِ قبل أن تتحرّك علاقةٌ واحدةٌ من خزانتكِ.',
+      'closet.l1':'<strong>صوّري مرّةً، وارتدي للأبد.</strong> التقطي صورةً سريعةً لكلّ قطعةٍ في خزانتكِ. نُصنّفها ونُرقمنها تلقائياً.',
+      'closet.l2':'<strong>نسّقي وجرّبي افتراضياً.</strong> اختبري التركيبات على نموذجٍ منسّقٍ قبل أن تفتحي باب الخزانة.',
+      'closet.l3':'<strong>مصمَّمةٌ للمناسبة.</strong> للعمل، للسهرة، للعُرس، للسفر، أو ليوميّاتكِ \u2014 اختاري المناسبة، ودعي الذكاء الاصطناعيّ يقترح إطلالاتٍ ممّا تملكين فعلاً.',
+      'closet.l4':'<strong>القطعة الناقصة، حاضرة.</strong> أتنقصكِ قطعةٌ؟ شاهديها مُستأجَرةً من خدمات إيجارٍ حقيقيّة أو متجر، مدموجةً في إطلالتكِ مباشرةً \u2014 دون متاهة تسوّق.',
+      'closet.tech':'قصٌّ تلقائيّ + ملاءمةٌ بالذكاء الاصطناعي · بدعم FASHN و FLUX',
       'closet.cta':'الوصول المبكّر',
+      'howit.s1':'أجيبي على اختبار الذوق','howit.s2':'جرّبي الإطلالة على نفسكِ','howit.s3':'احجزي أو تسوّقي',
       'what.eyebrow':'ما الذي ستستطيعين فعله',
-      'what.title':'ثلاثة أشياء، مُنفّذة <em>بإتقان</em>.',
-      'what.lede':'لا نماذج تتظاهر بأنها لقطات شاشة. فقط القدرات الثلاث التي تُبنى مادموزيل حولها — والباقي يتبع.',
-      'what.c1Num':'01 / استوديو الشعر','what.c1Title':'جرّبي أي تسريحة على سيلفيك.','what.c1Body':'ارفعي سيلفي للوجه. اختاري إطلالة. اضغطي مطوّلاً على النتيجة لرؤية الأصل. التفاعل المميّز للتطبيق.',
-      'what.c2Num':'02 / خزانة ذكية','what.c2Title':'صوّريها. جرّبيها. ثم ارتديها.','what.c2Body':'صوّري كل قطعة تملكينها مرّةً واحدة. مادموزيل تحوّلها إلى قطع رقمية لتنسّقي وتجرّبي الإطلالة كاملةً افتراضياً قبل أن تتحرّك علاقة واحدة من خزانتك. نسّقي يومك قبل أن يبدأ.',
-      'what.c3Num':'03 / حجز حقيقي','what.c3Title':'احجزي الإطلالة في صالون حقيقي.','what.c3Body':'من التجربة إلى الكرسي بثلاث نقرات. صالونات حقيقية. توفّر حقيقي. أسعار حقيقية. لا نخمّن المواعيد، نقرأ التقاويم مباشرة.',
-      'common.coming':'قريباً 2026',
+      'what.title':'أربع قدرات، <em>مرآة</em> واحدة.',
+      'what.lede':'ثلاث تجارب افتراضيّة، وخزانة ذكيّة، وشبكة جمالٍ حقيقيّة \u2014 وكلُّها مربوطةٌ بمحرّك توصياتٍ يتعلّم ذوقكِ من اختبارٍ قصير.',
+      'what.c1Num':'01 / تجربة الشعر','what.c1Title':'جرّبي أيّ تسريحةٍ على صورتكِ.','what.c1Body':'ارفعي صورةً واضحةً للوجه. اختاري إطلالةً. اضغطي مطوّلاً على النتيجة لرؤية الأصل. هذا هو التفاعل المميّز للتطبيق.','what.c1Phase':'المرحلة 1 · ربيع 2026',
+      'what.c2Num':'02 / تجربة المكياج','what.c2Title':'شاهدي المكياج قبل الفرشاة.','what.c2Body':'أحمر شفاه، ومكياج عيون، وحواجب، وإطلالاتٌ كاملة \u2014 يرسمها الذكاء الاصطناعيّ على وجهكِ. احفظي ما يعجبكِ وخذيه إلى الكرسيّ، أو تسوّقي المنتجات نفسها.','what.c2Phase':'المرحلة 2 · الربع الثالث 2026',
+      'what.c3Num':'03 / خزانة ذكيّة','what.c3Title':'صوّريها. جرّبيها. ثمّ ارتديها.','what.c3Body':'صوّري كلّ قطعةٍ من ملابسكِ مرّةً واحدة. تحوّلها مادموزيل إلى نسختها الرقميّة لتُنسّقي وتُجرّبي الإطلالة كاملةً افتراضياً قبل أن تتحرّك علاقةٌ واحدةٌ من خزانتكِ.','what.c3Phase':'المرحلة 3 · الربع الرابع 2026',
+      'what.c4Num':'04 / شبكة الجمال','what.c4Title':'احجزيها عبر شبكتكِ المحلّيّة.','what.c4Body':'صالونات، واستوديوهات، وخبيرات منزليّات، ومتاجر \u2014 على خريطةٍ واحدة، بتوفّرٍ مباشر، وأسعارٍ حقيقيّة. من التجربة إلى الكرسيّ في ثلاث نقرات.','what.c4Phase':'المرحلة 1 · ربيع 2026',
+      'common.coming':'الإطلاق ربيع 2026',
       'promise.eyebrow':'الوعد',
-      'promise.title':'نحن لا نبيع الجمال. نساعدك على تقرير شكل الجمال <em>عليكِ أنتِ</em>.',
-      'promise.small':'استوديو يفهم طريقتك الحقيقية في الاختيار.',
+      'promise.title':'نحن لا نبيع الجمال. نساعدكِ على اكتشاف شكل الجمال كما يبدو عليكِ <em>أنتِ</em>.',
+      'promise.small':'استوديو يفهم طريقتكِ الحقيقيّة في الاختيار.',
       'plans.eyebrow':'الباقات',
-      'plans.title':'ابدئي <em>مجاناً</em>. ترقّي فقط عندما يكون له معنى.',
-      'plans.lede':'العدّاد اليومي يبدأ مع أول استخدام للذكاء الاصطناعي، لا عند التسجيل. نريدك أن تجرّبي فعلاً قبل أن يحدّ شيء.',
-      'privacy.eyebrow':'الخصوصية بالتصميم',
-      'privacy.title':'سيلفياتك تبقى <em>لكِ</em>.',
-      'privacy.p1Title':'لا تدريب على صورك.','privacy.p1Body':'نحن لا نستخدم سيلفياتك أو صور خزانتك لتدريب النماذج. النتيجة لكِ، لا لقاعدة بيانات.',
-      'privacy.p2Title':'تشفير شامل حيث يجب.','privacy.p2Body':'خزانتك وسيلفياتك مشفّرة في التخزين. نرى فقط ما يلزم لإنتاج اللحظة، لا أكثر.',
-      'privacy.p3Title':'الحذف يعني الحذف فعلاً.','privacy.p3Body':'لمسة واحدة. حذف متسلسل حقيقي. لا نسخ شبحية في نسخ احتياطية «نسيناها». يوم رحيلك هو يوم نسياننا لكِ.',
+      'plans.title':'ابدئي <em>مجاناً</em>. وترقّي فقط حين يكون لذلك معنى.',
+      'plans.lede':'العدّاد اليوميّ يبدأ مع أوّل استخدامٍ للذكاء الاصطناعيّ، لا عند التسجيل. نريدكِ أن تُجرّبي فعلاً قبل أن تظهر أيّ قيود.',
+      'privacy.eyebrow':'الخصوصيّة بالتصميم',
+      'privacy.title':'صوركِ تبقى <em>لكِ</em>.',
+      'privacy.p1Title':'لا تدريبَ على صوركِ.','privacy.p1Body':'نحن لا نستخدم صوركِ الذاتيّة أو صور خزانتكِ لتدريب النماذج. النتيجة لكِ، لا لقاعدة بياناتٍ ما.',
+      'privacy.p2Title':'تشفيرٌ شاملٌ حيث يجب.','privacy.p2Body':'خزانتكِ وصوركِ مشفّرةٌ في التخزين. نرى فقط ما يلزم لإنتاج اللحظة، لا أكثر.',
+      'privacy.p3Title':'الحذف يعني الحذف فعلاً.','privacy.p3Body':'لمسةٌ واحدة. حذفٌ متسلسلٌ حقيقيّ. لا نسخ خفيّةً في نسخٍ احتياطيّةٍ «نسيناها». يوم رحيلكِ هو يوم نسياننا لكِ.',
       'waitlist.eyebrow':'الوصول المبكّر',
-      'waitlist.title':'الاستوديو يفتح <em>قريباً</em>.',
-      'waitlist.lede':'اتركي بريدك. سنرسل رسالة واحدة عند فتح الأبواب — رسالة واحدة فقط. لا سبام، لا «نشرة»، ولا قوائم تُباع.',
-      'waitlist.placeholder':'you@beautiful.com','waitlist.submit':'انضمّي لقائمة الانتظار',
-      'waitlist.fine':'لا بطاقة، لا سبام، رسالة واحدة عند الإطلاق. الأعضاء المؤسّسون يحصلون على رصيد إضافي.',
-      'waitlist.thanks':'شكراً لكِ. أنتِ على القائمة — سنكتب عندما يكون هناك ما يستحقّ المشاركة.',
-      'waitlist.errEmpty':'الرجاء إدخال البريد الإلكتروني.','waitlist.errInvalid':'البريد يبدو غير صحيح — تحقّقي وأعيدي المحاولة.','waitlist.errFail':'حدث خطأ. الرجاء المحاولة مجدداً.','waitlist.sending':'جارٍ الإرسال...',
-      'footer.tagline':'مادموزيل — رفيقة الجمال الذكية.','footer.early':'الوصول المبكّر','footer.made':'مادموزيل · صُنعت في المنطقة العربية'
+      'waitlist.title':'الاستوديو يفتح أبوابه <em>قريباً</em>.',
+      'waitlist.lede':'اكتبي بريدكِ، وسنرسل إليكِ رسالةً واحدةً عند فتح الأبواب — رسالةً واحدةً فقط. لا رسائل مزعجة، ولا «نشرات»، ولا قوائم تُباع.',
+      'waitlist.placeholder':'you@beautiful.com','waitlist.submit':'انضمّي إلى قائمة الانتظار',
+      'waitlist.fine':'لا بطاقة، ولا رسائل مزعجة، ورسالةٌ واحدةٌ عند الإطلاق. العضوات المؤسّسات يحصلن على رصيدٍ إضافيّ.',
+      'waitlist.thanks':'شكراً لكِ. أنتِ على القائمة — سنكتب إليكِ حين يكون هناك ما يستحقّ العرض.',
+      'waitlist.errEmpty':'الرجاء إدخال البريد الإلكتروني.','waitlist.errInvalid':'البريد يبدو غير صحيح — تحقّقي وأعيدي المحاولة.','waitlist.errFail':'حدث خطأ. الرجاء المحاولة مجدّداً.','waitlist.sending':'جارٍ الإرسال...',
+      'footer.tagline':'مادموزيل — رفيقة الجمال الذكيّة.','footer.early':'الوصول المبكّر','footer.made':'مادموزيل · صُنعت في الشرق الأوسط وشمال أفريقيا'
     }
   };
   function t(key, lang){ return (I18N[lang] && I18N[lang][key]) || I18N.en[key] || key; }
@@ -1462,7 +1542,7 @@ footer{
   var yr = document.getElementById('yr');
   if (yr) yr.textContent = String(new Date().getFullYear());
 
-  // --- Try-on demo: chip switch + press-and-hold reveal ---
+  // --- Try-on demo: chip switch + press-and-hold reveal + auto-cycle ---
   var fig = document.getElementById('tryitFigure');
   var afterImg = document.getElementById('tryitAfter');
   var afterTag = document.getElementById('tryitTagAfter');
@@ -1470,21 +1550,29 @@ footer{
     short: { src: 'assets/tryon-short.webp', label: 'Pixie',  alt: 'AI try-on result with a pixie cut' },
     gold:  { src: 'assets/tryon-gold.webp',  label: 'Blonde', alt: 'AI try-on result with a blonde balayage' }
   };
+  var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (fig && afterImg){
+    function selectStyle(key){
+      var s = STYLES[key]; if (!s) return;
+      document.querySelectorAll('.style-chip').forEach(function(c){
+        var active = c.getAttribute('data-style') === key;
+        c.setAttribute('data-active', String(active));
+        c.setAttribute('aria-selected', String(active));
+      });
+      // Smooth crossfade: dim, swap src, raise
+      afterImg.style.opacity = '0';
+      setTimeout(function(){
+        afterImg.src = s.src;
+        afterImg.alt = s.alt;
+        afterImg.style.opacity = '';
+      }, 220);
+      if (afterTag) afterTag.textContent = 'After · ' + s.label;
+    }
     // chip switching
     document.querySelectorAll('.style-chip').forEach(function(chip){
       chip.addEventListener('click', function(){
-        var key = chip.getAttribute('data-style');
-        var s = STYLES[key];
-        if (!s) return;
-        document.querySelectorAll('.style-chip').forEach(function(c){
-          var active = c === chip;
-          c.setAttribute('data-active', String(active));
-          c.setAttribute('aria-selected', String(active));
-        });
-        afterImg.src = s.src;
-        afterImg.alt = s.alt;
-        if (afterTag) afterTag.textContent = 'After · ' + s.label;
+        userInteracted = true; stopCycle();
+        selectStyle(chip.getAttribute('data-style'));
       });
     });
     // press + hold to reveal
@@ -1496,6 +1584,51 @@ footer{
     // keyboard: space/enter holds
     fig.addEventListener('keydown', function(e){ if (e.key === ' ' || e.key === 'Enter'){ e.preventDefault(); reveal(true); } });
     fig.addEventListener('keyup',   function(e){ if (e.key === ' ' || e.key === 'Enter'){ reveal(false); } });
+
+    // Auto-cycle: gentle proof-of-product. Pauses on hover/focus/press.
+    var styleKeys = ['short', 'gold'];
+    var cycleIdx = 0;
+    var userInteracted = false;
+    var cyclePaused = false;
+    var cycleTimer = null;
+    function shouldSkip(){
+      return cyclePaused || userInteracted ||
+             document.hidden ||
+             fig.getAttribute('data-revealing') === 'true';
+    }
+    function cycleTick(){
+      if (shouldSkip()) return;
+      cycleIdx = (cycleIdx + 1) % styleKeys.length;
+      selectStyle(styleKeys[cycleIdx]);
+    }
+    function startCycle(){
+      if (prefersReducedMotion || userInteracted || cycleTimer) return;
+      cycleTimer = setInterval(cycleTick, 4500);
+    }
+    function stopCycle(){ if (cycleTimer){ clearInterval(cycleTimer); cycleTimer = null; } }
+    fig.addEventListener('mouseenter', function(){ cyclePaused = true; });
+    fig.addEventListener('mouseleave', function(){ cyclePaused = false; });
+    fig.addEventListener('focusin',    function(){ cyclePaused = true; });
+    fig.addEventListener('focusout',   function(){ cyclePaused = false; });
+    document.addEventListener('visibilitychange', function(){
+      if (document.hidden) stopCycle(); else startCycle();
+    });
+    startCycle();
+  }
+
+  // --- 3D tilt on capability cards (pointer-only, hover-capable devices) ---
+  if (!prefersReducedMotion && window.matchMedia('(hover: hover)').matches){
+    document.querySelectorAll('.cap').forEach(function(card){
+      card.addEventListener('pointermove', function(e){
+        var r = card.getBoundingClientRect();
+        var x = (e.clientX - r.left) / r.width;
+        var y = (e.clientY - r.top) / r.height;
+        var rx = (0.5 - y) * 5;
+        var ry = (x - 0.5) * 5;
+        card.style.transform = 'perspective(900px) rotateX(' + rx.toFixed(2) + 'deg) rotateY(' + ry.toFixed(2) + 'deg)';
+      });
+      card.addEventListener('pointerleave', function(){ card.style.transform = ''; });
+    });
   }
 
   // --- Waitlist (POSTs to data-endpoint when present; localStorage fallback) ---
