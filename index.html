@@ -116,7 +116,7 @@
 
 /* --- Skip link --- */
 .skip-link{
-  position:absolute; top:8px; left:8px; z-index:100;
+  position:absolute; top:8px; inset-inline-start:8px; z-index:100;
   padding:10px 16px; border-radius:var(--r-pill);
   background:var(--ink); color:var(--bg);
   font-size:13px;
@@ -448,6 +448,8 @@ hr.line{ border:0; height:1px; background:var(--line); margin:0; }
   content:""; width:4px; height:4px; border-radius:50%; background:var(--coral); display:inline-block;
 }
 @keyframes marq{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+@keyframes marq-rtl{ from{ transform:translateX(-50%); } to{ transform:translateX(0); } }
+[dir="rtl"] .marquee-track{ animation-name:marq-rtl; }
 @media (prefers-reduced-motion: reduce){
   .marquee-track{ animation:none; }
 }
@@ -552,8 +554,8 @@ hr.line{ border:0; height:1px; background:var(--line); margin:0; }
   pointer-events:none;
   transition:opacity var(--d) var(--ease), background var(--d) var(--ease), color var(--d) var(--ease);
 }
-.tryit-tag.tag-before{ left:14px; opacity:0; }
-.tryit-tag.tag-after{ right:14px; background:var(--coral); }
+.tryit-tag.tag-before{ inset-inline-start:14px; opacity:0; }
+.tryit-tag.tag-after{ inset-inline-end:14px; background:var(--coral); }
 .tryit-figure[data-revealing="true"] .tag-before{ opacity:1; }
 .tryit-figure[data-revealing="true"] .tag-after{ opacity:0; }
 .tryit-hint{
@@ -656,7 +658,6 @@ hr.line{ border:0; height:1px; background:var(--line); margin:0; }
   content:""; position:absolute; inset-inline-start:0; top:.65em;
   width:6px; height:6px; border-radius:50%; background:var(--coral);
 }
-[dir="rtl"] .dressroom-list li{ padding-inline-start:0; padding-inline-end:22px; }
 .dressroom-list strong{ color:var(--section-ink); font-weight:500; }
 .dressroom-ctas{ display:flex; gap:14px; align-items:center; flex-wrap:wrap; }
 
@@ -762,7 +763,6 @@ hr.line{ border:0; height:1px; background:var(--line); margin:0; }
   object-fit:cover; object-position:center;
   display:block;
 }
-[dir="rtl"] .promise-grid{ direction:rtl; }
 
 /* --- Plans --- */
 .plans h2 em{ font-style:normal; color:var(--coral); }
