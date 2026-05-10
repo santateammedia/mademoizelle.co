@@ -584,15 +584,20 @@ function hreflangLinksHtml(translations, currentLocale, currentSlug) {
   return lines.join('\n');
 }
 
+// Pill-style language switcher matching the homepage `.lang-switch` design.
+// Renders <a class="lang-btn" aria-pressed="true|false"> for the three locales.
+// EN/AR/FR is the canonical order. Pill labels: EN, عربي, FR (mirrors homepage).
+const LANG_PILL_LABEL = { en: 'EN', ar: 'عربي', fr: 'FR' };
+
 function languageSwitcherHtml(translations, currentLocale) {
   const items = LOCALES.map((loc) => {
     const tp = translations[loc];
     const href = tp ? postUrl(loc, tp.slug) : `${SITE_URL}${localePathPrefix(loc)}/blog/`;
-    const active = loc === currentLocale ? ' aria-current="true"' : '';
-    const label = I18N[currentLocale].languageNames[loc];
-    return `<a class="lang-link" href="${href}" hreflang="${BCP47[loc]}"${active}>${escapeHtml(label)}</a>`;
-  }).join('<span class="lang-sep" aria-hidden="true">·</span>');
-  return `<div class="lang-switch" aria-label="${escapeAttr(I18N[currentLocale].languageSwitcher)}">${items}</div>`;
+    const pressed = loc === currentLocale ? 'true' : 'false';
+    const label = LANG_PILL_LABEL[loc] || I18N[currentLocale].languageNames[loc];
+    return `<a class="lang-btn" href="${href}" hreflang="${BCP47[loc]}" data-lang="${loc}" aria-pressed="${pressed}">${escapeHtml(label)}</a>`;
+  }).join('');
+  return `<div class="lang-switch" role="group" aria-label="${escapeAttr(I18N[currentLocale].languageSwitcher)}">${items}</div>`;
 }
 
 // Template substitution -----------------------------------------------------
@@ -708,7 +713,12 @@ function buildPostVars(post, allInLocale, translationGraph) {
     iExplore: t.explore, iCompany: t.company, iAllRights: t.allRights, iMadeFor: t.madeFor,
     iLanguageSwitcher: t.languageSwitcher,
     indexHref: blogIndexUrl(locale).replace(SITE_URL, ''),
-    homeHref: `${localePathPrefix(locale)}/`,
+    // Homepage handles its own EN/AR toggle via localStorage. There is no
+    // standalone /ar/ or /fr/ homepage page, so keep all "Home" links pointing
+    // at the canonical site root.
+    homeHref: '/',
+    plansHref: '/#plans',
+    downloadHref: '/#download',
   };
 }
 
@@ -775,11 +785,11 @@ function indexHreflangLinks(locale) {
 function indexLanguageSwitcher(locale) {
   const items = LOCALES.map((loc) => {
     const href = blogIndexUrl(loc);
-    const active = loc === locale ? ' aria-current="true"' : '';
-    const label = I18N[locale].languageNames[loc];
-    return `<a class="lang-link" href="${href}" hreflang="${BCP47[loc]}"${active}>${escapeHtml(label)}</a>`;
-  }).join('<span class="lang-sep" aria-hidden="true">·</span>');
-  return `<div class="lang-switch" aria-label="${escapeAttr(I18N[locale].languageSwitcher)}">${items}</div>`;
+    const pressed = loc === locale ? 'true' : 'false';
+    const label = LANG_PILL_LABEL[loc] || I18N[locale].languageNames[loc];
+    return `<a class="lang-btn" href="${href}" hreflang="${BCP47[loc]}" data-lang="${loc}" aria-pressed="${pressed}">${escapeHtml(label)}</a>`;
+  }).join('');
+  return `<div class="lang-switch" role="group" aria-label="${escapeAttr(I18N[locale].languageSwitcher)}">${items}</div>`;
 }
 
 function renderIndex(posts, locale, indexTemplate) {
@@ -804,7 +814,9 @@ function renderIndex(posts, locale, indexTemplate) {
     totalPostCount: posts.length,
     jsonLd: blogLd,
     feedHref: `${localePathPrefix(locale)}/feed.xml`,
-    homeHref: `${localePathPrefix(locale)}/`,
+    homeHref: '/',
+    plansHref: '/#plans',
+    downloadHref: '/#download',
     indexHref: blogIndexUrl(locale).replace(SITE_URL, ''),
     iHome: t.home, iJournal: t.journal, iPlans: t.plans, iCta: t.cta,
     iExplore: t.explore, iCompany: t.company, iAllRights: t.allRights, iMadeFor: t.madeFor,

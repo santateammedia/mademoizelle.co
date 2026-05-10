@@ -1294,13 +1294,16 @@ footer{
       <span class="eyebrow"><span class="dot"></span> <span data-i18n="waitlist.eyebrow">Get early access</span></span>
       <h2 style="margin-block-start:14px;" data-i18n-html="waitlist.title">The studio opens <em>soon</em>.</h2>
       <p class="lede" data-i18n="waitlist.lede">Drop your email. We&rsquo;ll send one note when the doors open and one note only. No marketing spam, no &ldquo;newsletter,&rdquo; no resold lists.</p>
-      <!-- TODO: Replace data-endpoint with a real form service URL.
-           Examples that work without code change:
-             - Formspree:  https://formspree.io/f/YOUR_ID
-             - Buttondown: https://buttondown.email/api/emails/embed-subscribe/YOUR_LIST
-             - Web3Forms:  https://api.web3forms.com/submit  (and add hidden input access_key)
-           If left empty, the form falls back to localStorage only (dev mode). -->
-      <form class="waitlist-form" id="waitlistForm" data-endpoint="" novalidate>
+      <!-- Wired to public.waitlist on Supabase project nhjbkraiibycszdcyozi.
+           anon-INSERT-only via RLS; the publishable key is safe to ship client-side
+           (it can only do what RLS allows: insert a new row, no reads).
+           Dedupe is server-side via UNIQUE(lower(email)) + Prefer: resolution=ignore-duplicates,
+           so resubmitting the same email returns 201 silently and doesn't reveal membership. -->
+      <form class="waitlist-form" id="waitlistForm"
+            data-endpoint="https://nhjbkraiibycszdcyozi.supabase.co/rest/v1/waitlist"
+            data-apikey="sb_publishable_hYQjAp926EpHNwSh6yMg6g_keNg1SD3"
+            data-source="home_waitlist"
+            novalidate>
         <input id="waitlistEmail" type="email" name="email" required placeholder="you@beautiful.com" autocomplete="email" aria-label="Email address" aria-describedby="waitlistError" data-i18n-attr="placeholder:waitlist.placeholder">
         <button class="btn btn--coral" type="submit" id="waitlistSubmit" data-i18n="waitlist.submit">Join the waitlist</button>
       </form>
@@ -1657,6 +1660,8 @@ footer{
         return showError(t('waitlist.errInvalid', lang));
       }
       var endpoint = form.getAttribute('data-endpoint') || '';
+      var apikey   = form.getAttribute('data-apikey') || '';
+      var source   = form.getAttribute('data-source') || 'home_waitlist';
       function accept(){
         try{
           var list = JSON.parse(localStorage.getItem('mdm-waitlist') || '[]');
@@ -1668,11 +1673,27 @@ footer{
       if (!endpoint){ accept(); return; }
       submit && (submit.disabled = true);
       submit && (submit.textContent = t('waitlist.sending', lang));
-      var data = new FormData(form);
-      fetch(endpoint, { method:'POST', body:data, headers:{ 'Accept':'application/json' } })
+      // Supabase REST insert: anon key in apikey + Authorization, JSON body, Prefer
+      // header dedupes silently on the unique-email index.
+      var headers = { 'Content-Type': 'application/json', 'Accept': 'application/json' };
+      if (apikey){
+        headers['apikey'] = apikey;
+        headers['Authorization'] = 'Bearer ' + apikey;
+        headers['Prefer'] = 'resolution=ignore-duplicates,return=minimal';
+      }
+      var body = JSON.stringify({
+        email: email,
+        locale: (lang === 'ar' || lang === 'fr') ? lang : 'en',
+        source: source,
+        referrer: (document.referrer || '').slice(0, 512) || null
+      });
+      fetch(endpoint, { method:'POST', headers: headers, body: body })
         .then(function(r){
-          if (!r.ok) throw new Error('bad status');
-          accept();
+          // 200/201 = inserted. 409 (without Prefer) would mean duplicate — also a
+          // successful "you are on the list" outcome. Anything else is a real failure.
+          if (r.status >= 200 && r.status < 300) return accept();
+          if (r.status === 409) return accept();
+          throw new Error('bad status ' + r.status);
         })
         .catch(function(){ showError(t('waitlist.errFail', lang)); })
         .finally(function(){
