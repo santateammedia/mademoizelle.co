@@ -1,8 +1,75 @@
+# Mademoiselle — robots.txt
+# Allow all reputable crawlers, including AI search bots that drive
+# Generative AI Overviews / answer-engine traffic.
+
 User-agent: *
 Allow: /
 Allow: /blog/
+Allow: /ar/
+Allow: /fr/
 Disallow: /api/
 Disallow: /_*
 
+# Major search crawlers
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+# AI / answer-engine crawlers
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+# Sitemaps
 Sitemap: https://mademoizelle.co/sitemap.xml
-Sitemap: https://www.mademoizelle.co/sitemap.xml
+
+Host: https://mademoizelle.co

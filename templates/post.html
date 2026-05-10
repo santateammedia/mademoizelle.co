@@ -1,37 +1,34 @@
 <!doctype html>
 <!--
-  Mademoiselle — single-post template.
+  Mademoiselle — single-post template (trilingual: en / ar / fr).
   Rendered at build time by scripts/build-blog.mjs. Tokens:
     {{name}}    HTML-escaped string substitution
     {{{name}}}  raw HTML substitution (already-rendered fragments)
 
-  Build agent contract:
-    - Provide JSON-string-escaped values (including surrounding quotes) for:
-        {{titleJson}}, {{descriptionJson}}, {{authorJson}}, {{shareUrlJson}},
-        {{publishedAtIsoJson}}, {{categoryLabelJson}}
-      These are inserted into the JSON-LD block raw; they MUST already be
-      valid JSON literals like  "Some \"quoted\" headline"  including quotes.
-    - All other {{...}} are HTML-escaped strings; {{{...}}} are raw HTML.
-    - {{categoryTone}} is one of: warm | rose | sage | cream | dusk | plum.
+  i18n: {{lang}} is BCP47 (en/ar/fr); {{dir}} is ltr/rtl.
+  {{{jsonLd}}} renders three blocks: BlogPosting + FAQPage + BreadcrumbList.
+  {{{hreflangLinks}}} renders <link rel="alternate" hreflang> per locale + x-default.
+  {{categoryTone}} is one of: warm | rose | sage | cream | dusk | plum.
 -->
-<html lang="en" dir="ltr">
+<html lang="{{lang}}" dir="{{dir}}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>{{title}} &mdash; Mademoiselle Journal</title>
+<title>{{title}} &mdash; {{siteName}} {{journalTitle}}</title>
 <meta name="description" content="{{description}}">
-<link rel="canonical" href="https://mademoizelle.co/blog/{{slug}}/">
+<link rel="canonical" href="{{canonical}}">
+{{{hreflangLinks}}}
 <meta name="theme-color" content="#FAF7F2" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1A1712" media="(prefers-color-scheme: dark)">
 <meta name="color-scheme" content="light dark">
 
 <meta property="og:type" content="article">
-<meta property="og:site_name" content="Mademoiselle">
+<meta property="og:site_name" content="{{siteName}}">
+<meta property="og:locale" content="{{lang}}">
 <meta property="og:title" content="{{title}}">
 <meta property="og:description" content="{{description}}">
 <meta property="og:url" content="{{shareUrl}}">
-<meta property="og:image" content="https://mademoizelle.co/assets/og.svg">
-<meta property="og:image:type" content="image/svg+xml">
+<meta property="og:image" content="{{ogImage}}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="article:published_time" content="{{publishedAtIso}}">
@@ -40,35 +37,20 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{{title}}">
 <meta name="twitter:description" content="{{description}}">
-<meta name="twitter:image" content="https://mademoizelle.co/assets/og.svg">
+<meta name="twitter:image" content="{{ogImage}}">
 
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.svg">
 <link rel="manifest" href="/manifest.webmanifest">
+<link rel="alternate" type="application/rss+xml" title="{{siteName}} {{journalTitle}}" href="/feed.xml">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,400;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,400;1,500&family=Inter:wght@400;500;600&family=Noto+Naskh+Arabic:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,400;1,500&family=Inter:wght@400;500;600&family=Noto+Naskh+Arabic:wght@400;500;600&display=swap" media="print" onload="this.media='all';this.onload=null;">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,400;1,500&family=Inter:wght@400;500;600&family=Noto+Naskh+Arabic:wght@400;500;600&display=swap"></noscript>
 
-<!-- JSON-LD: build script must json-escape title/description/author/shareUrl/publishedAtIso/categoryLabel here. The *Json placeholders MUST include their surrounding quotes. -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": {{titleJson}},
-  "description": {{descriptionJson}},
-  "datePublished": {{publishedAtIsoJson}},
-  "author": { "@type": "Person", "name": {{authorJson}} },
-  "publisher": {
-    "@type": "Organization",
-    "name": "Mademoiselle",
-    "logo": { "@type": "ImageObject", "url": "https://mademoizelle.co/assets/logo-mark.svg" }
-  },
-  "image": "https://mademoizelle.co/assets/og.svg",
-  "articleSection": {{categoryLabelJson}},
-  "mainEntityOfPage": {{shareUrlJson}}
-}
-</script>
+{{{jsonLd}}}
 
 <style>
 /* === Tokens ============================================================ */
@@ -804,6 +786,49 @@ button{ font:inherit; color:inherit; background:none; border:0; cursor:pointer; 
   font-size:12px; color:var(--ink-4);
 }
 
+/* === Language switcher ============================================== */
+.lang-switch{
+  display:inline-flex; align-items:center; gap:6px;
+  font:500 12px/1 var(--ui);
+  color:var(--ink-3); letter-spacing:.04em;
+}
+.lang-switch .lang-link{
+  color:var(--ink-3); padding:4px 6px; border-radius:var(--r4);
+  transition:color var(--dur-fast) var(--ease);
+}
+.lang-switch .lang-link:hover{ color:var(--ink); }
+.lang-switch .lang-link[aria-current="true"]{ color:var(--ink); font-weight:600; }
+.lang-switch .lang-sep{ color:var(--ink-4); }
+@media (max-width: 540px){
+  .nav .lang-switch{ display:none; }
+}
+
+/* === RTL adjustments ================================================= */
+[dir="rtl"] body{
+  font-family:"Noto Naskh Arabic", var(--ui);
+  font-size:17px;
+}
+[dir="rtl"] .post-title,
+[dir="rtl"] .related-title,
+[dir="rtl"] .closing-cta h2,
+[dir="rtl"] .post-faq h2,
+[dir="rtl"] .pager-title,
+[dir="rtl"] .post-author-name,
+[dir="rtl"] .footer-brand{
+  font-family:"Cormorant Garamond","Noto Naskh Arabic",serif;
+}
+[dir="rtl"] .prose{
+  font-family:"Noto Naskh Arabic", var(--ui);
+  font-size:18.5px; line-height:1.85;
+}
+/* Drop-cap doesn't transfer to Arabic — disable it cleanly. */
+[dir="rtl"] .prose > p:first-of-type::first-letter{
+  font-family:inherit; float:none; font-size:inherit;
+  padding:0; line-height:inherit; color:inherit;
+}
+/* Anchor `#` glyph after the text in LTR; mirror logically in RTL. */
+[dir="rtl"] .post-anchor{ margin-inline-start:0; margin-inline-end:8px; }
+
 /* === Reduce motion ==================================================== */
 @media (prefers-reduced-motion: reduce){
   *, *::before, *::after{
@@ -819,12 +844,13 @@ button{ font:inherit; color:inherit; background:none; border:0; cursor:pointer; 
 <div class="read-progress" role="presentation" aria-hidden="true"></div>
 
 <header class="nav" id="site-nav" role="banner">
-  <a class="nav-logo" href="/" aria-label="Mademoiselle home">Mademoiselle</a>
+  <a class="nav-logo" href="{{homeHref}}" aria-label="{{siteName}}">{{siteName}}</a>
   <nav class="nav-links" aria-label="Primary">
-    <a href="/">Home</a>
-    <a href="/journal/" aria-current="page">Journal</a>
-    <a class="nav-link-plans" href="/#plans">Plans</a>
-    <a class="nav-cta" href="/#download">Get the App</a>
+    <a href="{{homeHref}}">{{iHome}}</a>
+    <a href="{{indexHref}}" aria-current="page">{{iJournal}}</a>
+    <a class="nav-link-plans" href="{{homeHref}}#plans">{{iPlans}}</a>
+    {{{languageSwitcherHtml}}}
+    <a class="nav-cta" href="{{homeHref}}#download">{{iCta}}</a>
     <button class="theme-toggle" type="button" aria-label="Toggle theme" id="theme-toggle">
       <svg class="icon-moon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
       <svg class="icon-sun" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path></svg>
@@ -836,9 +862,9 @@ button{ font:inherit; color:inherit; background:none; border:0; cursor:pointer; 
 
   <header class="post-hero page" data-tone="{{categoryTone}}">
     <nav class="breadcrumb" aria-label="Breadcrumb">
-      <a href="/">Home</a>
+      <a href="{{homeHref}}">{{iBreadcrumbHome}}</a>
       <span aria-hidden="true">&rsaquo;</span>
-      <a href="/journal/">Journal</a>
+      <a href="{{indexHref}}">{{iBreadcrumbJournal}}</a>
       <span aria-hidden="true">&rsaquo;</span>
       <span class="current">{{categoryLabel}}</span>
     </nav>
@@ -898,9 +924,9 @@ button{ font:inherit; color:inherit; background:none; border:0; cursor:pointer; 
       <section class="post-author" aria-label="About the author">
         <span class="byline-avatar" aria-hidden="true">{{author}}</span>
         <div class="post-author-meta">
-          <span class="post-author-prefix">Written by</span>
+          <span class="post-author-prefix">{{iWrittenBy}}</span>
           <span class="post-author-name">{{author}}</span>
-          <span class="post-author-bio">Writing for the Mademoiselle Journal &mdash; beauty intelligence, MENA-first, with care.</span>
+          <span class="post-author-bio">{{iAboutAuthor}}</span>
         </div>
       </section>
 
@@ -934,8 +960,8 @@ button{ font:inherit; color:inherit; background:none; border:0; cursor:pointer; 
   <section class="related-band" aria-labelledby="related-title">
     <div class="page">
       <div class="related-head">
-        <span class="related-eyebrow">More from the Journal</span>
-        <h2 class="related-title" id="related-title"><em>Keep reading</em></h2>
+        <span class="related-eyebrow">{{iRelatedEyebrow}}</span>
+        <h2 class="related-title" id="related-title"><em>{{iRelatedHeading}}</em></h2>
       </div>
       <div class="related-grid">
         {{{relatedHtml}}}
@@ -943,10 +969,10 @@ button{ font:inherit; color:inherit; background:none; border:0; cursor:pointer; 
     </div>
   </section>
 
-  <section class="closing-cta page" aria-label="Try Mademoiselle">
-    <p class="eyebrow">Try it yourself</p>
-    <h2><em>Now go see yourself in something new.</em></h2>
-    <a class="btn" href="/">Open Mademoiselle</a>
+  <section class="closing-cta page" aria-label="{{iClosingEyebrow}}">
+    <p class="eyebrow">{{iClosingEyebrow}}</p>
+    <h2><em>{{iClosingTitle}}</em></h2>
+    <a class="btn" href="{{homeHref}}">{{iClosingCta}}</a>
   </section>
 
 </main>
@@ -954,20 +980,21 @@ button{ font:inherit; color:inherit; background:none; border:0; cursor:pointer; 
 <footer class="footer" role="contentinfo">
   <div class="page footer-grid">
     <div>
-      <div class="footer-brand">Mademoiselle</div>
-      <p class="footer-tag">See yourself in it before you commit. Virtual try-on, smart closet, real salon booking &mdash; Arabic-first, beautifully feminine.</p>
+      <div class="footer-brand">{{siteName}}</div>
+      <p class="footer-tag">{{siteTagline}}</p>
+      <div style="margin-block-start:var(--s4);">{{{languageSwitcherHtml}}}</div>
     </div>
     <div>
-      <h4>Explore</h4>
+      <h4>{{iExplore}}</h4>
       <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/journal/">Journal</a></li>
-        <li><a href="/#plans">Plans</a></li>
-        <li><a href="/#download">Get the app</a></li>
+        <li><a href="{{homeHref}}">{{iHome}}</a></li>
+        <li><a href="{{indexHref}}">{{iJournal}}</a></li>
+        <li><a href="{{homeHref}}#plans">{{iPlans}}</a></li>
+        <li><a href="{{homeHref}}#download">{{iCta}}</a></li>
       </ul>
     </div>
     <div>
-      <h4>Company</h4>
+      <h4>{{iCompany}}</h4>
       <ul>
         <li><a href="/about/">About</a></li>
         <li><a href="/contact/">Contact</a></li>
@@ -977,8 +1004,8 @@ button{ font:inherit; color:inherit; background:none; border:0; cursor:pointer; 
     </div>
   </div>
   <div class="page footer-bottom">
-    <span>&copy; <span id="footer-year"></span> Mademoiselle. All rights reserved.</span>
-    <span>Made with care for MENA.</span>
+    <span>&copy; <span id="footer-year"></span> {{siteName}}. {{iAllRights}}</span>
+    <span>{{iMadeFor}}</span>
   </div>
 </footer>
 
